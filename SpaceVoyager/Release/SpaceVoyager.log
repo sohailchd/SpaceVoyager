@@ -1,0 +1,30 @@
+﻿Build started 12/20/2014 10:56:24 AM.
+     1>Project "F:\WorkSpace\tempSaves\SpaceVoyager\SpaceVoyager\SpaceVoyager.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp GameScreen.cpp GameStateManager.cpp IEntityManager.cpp ISceneNode.cpp levelOne.cpp levelTwo.cpp Main.cpp MenuScreen.cpp Render.cpp Screens.cpp SplashScreen.cpp
+         Game.cpp
+     1>f:\workspace\tempsaves\spacevoyager\spacevoyager\MasterHeader.h(8): fatal error C1083: Cannot open include file: 'freeglut.h': No such file or directory
+         GameScreen.cpp
+     1>f:\workspace\tempsaves\spacevoyager\spacevoyager\MasterHeader.h(8): fatal error C1083: Cannot open include file: 'freeglut.h': No such file or directory
+         GameStateManager.cpp
+         IEntityManager.cpp
+     1>f:\workspace\tempsaves\spacevoyager\spacevoyager\MasterHeader.h(8): fatal error C1083: Cannot open include file: 'freeglut.h': No such file or directory
+         ISceneNode.cpp
+         levelOne.cpp
+         levelTwo.cpp
+     1>f:\workspace\tempsaves\spacevoyager\spacevoyager\MasterHeader.h(8): fatal error C1083: Cannot open include file: 'freeglut.h': No such file or directory
+         Main.cpp
+     1>f:\workspace\tempsaves\spacevoyager\spacevoyager\MasterHeader.h(8): fatal error C1083: Cannot open include file: 'freeglut.h': No such file or directory
+         MenuScreen.cpp
+     1>f:\workspace\tempsaves\spacevoyager\spacevoyager\MasterHeader.h(8): fatal error C1083: Cannot open include file: 'freeglut.h': No such file or directory
+         Render.cpp
+     1>f:\workspace\tempsaves\spacevoyager\spacevoyager\MasterHeader.h(8): fatal error C1083: Cannot open include file: 'freeglut.h': No such file or directory
+         Screens.cpp
+     1>f:\workspace\tempsaves\spacevoyager\spacevoyager\MasterHeader.h(8): fatal error C1083: Cannot open include file: 'freeglut.h': No such file or directory
+         SplashScreen.cpp
+     1>f:\workspace\tempsaves\spacevoyager\spacevoyager\MasterHeader.h(8): fatal error C1083: Cannot open include file: 'freeglut.h': No such file or directory
+     1>Done Building Project "F:\WorkSpace\tempSaves\SpaceVoyager\SpaceVoyager\SpaceVoyager.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:08.61
