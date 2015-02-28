@@ -9,8 +9,8 @@
 #include "MasterHeader.h"
 
 #define MAX_MISSILE 15
-#define MAX_DIS_MISSILE 50000
-#define MAX_DIS_MISSILE2 90000
+#define MAX_DIS_MISSILE 100000
+#define MAX_DIS_MISSILE2 1500000
 
 class missile
 {

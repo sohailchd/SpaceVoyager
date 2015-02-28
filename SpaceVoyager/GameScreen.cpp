@@ -3,12 +3,13 @@
 #include "GameScreen.h"
 #include "levelTwo.h"
 #include "levelOne.h"
-
+#include "FightScav.h"
 
 
 
 ISceneNode* lone = new levelTwo();
-ISceneNode* ltwo = new levelOne();
+ISceneNode* ltwo = new fightScav();
+ISceneNode* fightScav_level = new fightScav();
 
 
 GameScreen::GameScreen()
@@ -56,7 +57,6 @@ void  GameScreen::display_screen()
 void GameScreen::idle_screen()
 {
    lone->idle_fn_game();
-   glutPostRedisplay();
  
    	switch (GameStateManager::_currentSequence)
 	{
@@ -157,11 +157,14 @@ void GameScreen::keyboard_screen_sp(int& key , int& x, int& y)
 
 void GameScreen::reshape(int& w , int& h)
 {
-  /*glViewport(0, 0, w, h);
+  	int w1 = glutGet(GLUT_WINDOW_WIDTH);
+	int h1 = glutGet(GLUT_WINDOW_HEIGHT);
+
+  glViewport(0, 0, w1, h1);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(60.0, (GLfloat)w*0.8 / (GLfloat)h, 1.0, FAR_SIGHT);
-  glMatrixMode(GL_MODELVIEW);*/
+  gluPerspective(60.0, (GLfloat)w1*0.8 / (GLfloat)h1, 1.0, FAR_SIGHT);
+  glMatrixMode(GL_MODELVIEW);
   
 }
 

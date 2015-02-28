@@ -4,23 +4,23 @@
 #include "MasterHeader.h"
 #include "Game.h"
 #include "GameStateManager.h"
-
+#include "TextureLoader.h"
 
 #include <thread>
 
 
-#ifdef _DEBUG   
-#ifndef DBG_NEW      
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )     
-#define new DBG_NEW   
-#endif
-#endif
+//#ifdef _DEBUG   
+//#ifndef DBG_NEW      
+//#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )     
+//#define new DBG_NEW   
+//#endif
+//#endif
 
 
 
 
 const unsigned int FPS = 60;
-
+TextureLoader* parallelLoader_texture = new TextureLoader();
 
 
 
@@ -51,6 +51,7 @@ void special_cb(int key,int x , int y)
 void idle_cb()
 {
      Game::getInstance()->idle_fn_game();
+	 glutPostRedisplay();
 }
 
 
@@ -66,7 +67,7 @@ void joystick_fn(unsigned int buttons , int xaxis , int yaxis , int zaxis)
 void timer_cb(int t)
 {
         Game::getInstance()->timer_fn_game(t);
-       // glutPostRedisplay();
+        glutPostRedisplay();
        
 		GameStateManager::timeSinceStart = (float) glutGet(GLUT_ELAPSED_TIME);
         GameStateManager::deltaTime = GameStateManager::timeSinceStart - GameStateManager::timeSinceLast;
@@ -78,7 +79,7 @@ void timer_cb(int t)
 		{
 			//exit(1);
 		}
-		glutPostRedisplay();
+
         glutTimerFunc(1000/FPS,timer_cb,0);
 		
 
@@ -88,6 +89,7 @@ void timer_cb(int t)
 
 void reshape(int w, int h)
 {
+
 
 	Game::getInstance()->reshape(w,h);
 
@@ -103,13 +105,30 @@ void jsInfo()
 }
 
 
+void eTest(int t){ ; }
 
+void call_from_thread()
+{
+	  cout<<"This is from the thread\n";
+	  eTest(12);
+}
+
+
+void parallelTextureLoader()
+{
+	std::cout<<"Magic_initiated.\n";
+	
+	GameStateManager::addToTheTextureList_parallelMode(space_bg,parallelLoader_texture->getTextureId(space_bg));
+	GameStateManager::addToTheTextureList_parallelMode(cyrus,parallelLoader_texture->getTextureId(cyrus));
+
+}
 
 int main(int argv , char* args[]){
 
-	  _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-      _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
+	  //_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+   //   _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
 
+	  
 
       glutInit(&argv,args);
 	  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA);
@@ -120,20 +139,21 @@ int main(int argv , char* args[]){
 	  glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
   
-
-	   
+	 
+	    
 
 	  //glutFullScreen();
       glutDisplayFunc(display_cb);
       glutSpecialFunc(special_cb);
-      glutIdleFunc(idle_cb);
+      //glutIdleFunc(idle_cb);
       glutKeyboardFunc(keyboard_cb);
       //glutJoystickFunc(joystick_fn,200);
       glutReshapeFunc(reshape);
       glutTimerFunc(1000/FPS,timer_cb,0);
-      
-      jsInfo();
-	  glutMainLoop();
 
+	  
+
+      glutMainLoop();
+	
 	return 0;
 }

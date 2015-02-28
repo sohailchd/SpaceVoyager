@@ -13,10 +13,13 @@
 #include "Exterminatore.h"
 #include "CollisionManager.h"
 #include "SoundManager.h"
+#include <vector>
 
 #ifndef _IEntityManager_
 #include "IEntityManager.h"
 #endif
+
+using namespace std;
 
 class levelTwo : public ISceneNode
 {
@@ -40,12 +43,13 @@ class levelTwo : public ISceneNode
 	     virtual void timer_fn_game(int t);
 
 		 CollisionManager* collisionManager;
-		 SManager* soundManager_ltwo;
+	
 private:
           Ship*      _ship;
 		  ExterminatoreNet* exterMin;
 		  Quad* planet_quad ; 
 		  bool ifInit ;
+		  vector<Quad*> _unityCollision_list; 
 };
 
 #endif

@@ -50,7 +50,7 @@
     	glColor3f(color[0],color[1],color[2]);
         double t_dis = 0.2;
         for( int i= 0;i<len;i++){
-           t_dis += 0.04;
+           t_dis += 0.02;
            glRasterPos3f(pos.x+t_dis,pos.y,pos.z);
            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,text[i]);
          }

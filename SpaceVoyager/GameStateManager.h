@@ -6,7 +6,8 @@
 
 #include "ISceneNode.h"
 #include <vector>
-
+#include <map>
+#include "MasterHeader.h"
 
 class GameStateManager
 {
@@ -29,7 +30,7 @@ class GameStateManager
           static  float timeSinceStart;
           static  float timeSinceLast;
           static  float deltaTime;
-          static void setState(GameStateManager::GameStates  gs);
+          static  void  setState(GameStateManager::GameStates  gs);
 
 
     /* Sequence Manager */
@@ -50,10 +51,14 @@ class GameStateManager
 	static std::vector<ISceneNode*> _sequenceList;
 	static char* currentObjective_text;
 
+	static std::map<char*,GLuint> _tTextureLoader;
+	static GLUquadric* quadMaster;
+
     static void addToSequenceList(ISceneNode* node);
 	static void setSequence(GameStateManager::SequenceStates st);
-
-    void managerEngine();
+	static void addToTheTextureList_parallelMode(char* fileNameConstant, GLuint id);
+    
+	void managerEngine();
       
 };
 

@@ -22,6 +22,8 @@ Usage: Every entity will created at the opengl context origin.
 
 #include "MasterHeader.h"
 #include "Render.h"
+#include "TextureLoader.h"
+
 #define MAX_NO_TEXTURE 20
 
 
@@ -43,27 +45,25 @@ public:
 	void create_Sat_B();
 	void create_Sat_C();
 
-	void create_Dock_A();
-	void create_Dock_B();
-	void create_Energizer();
-	void draw_plane(GLdouble w , GLdouble h , int tex);
 	
+	void draw_plane(GLdouble w , GLdouble h , int tex);
 	void create_planet();
 	void draw_sphere(int r , int tex);
 
 	void create_genesis(Point* at);
 	void draw_scavs(Point& p , GLfloat d);
 
-	void draw_colony_debris();
+	void draw_colony_debris( GLfloat d );
 	void call_draw_colony_debris();
 
 	void draw_colony_boot();
 	void draw_FusionShip();
 	void draw_nalanda();
-	
 	void draw_cube(GLdouble w, GLdouble h, GLdouble l, int tex_index);
+    void draw_dockStation();
+	void draw_sphere_parallel(int r, char* fileNameConstant);
 
-	void draw_dockStation();
+	
 	GLuint gen_list;
 
 	// Singleton instance creator

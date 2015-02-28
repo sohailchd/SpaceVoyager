@@ -3,17 +3,13 @@
 #include "FightScav.h"
 #include "MasterHeader.h"
 #include "Render.h"
-#include "Exterminatore.h"
 
 
 
 
 
-
-
-
-
-
+GLfloat fogColor_fs[] = {0.8,0.8,0.8,0.1};
+GLfloat fogDensity_fs = 0.000001f;
 
 
 void fightScav::initScene()
@@ -31,10 +27,10 @@ void fightScav::initScene()
 
 
 
-
-  GLfloat black[] = { 0.0, 0.0, 0.0, 1.0};
-  GLfloat dark[] = { 0.2, 0.15, 0.2, 1.0};
-  GLfloat white[] = { 0.7 , 0.7, 0.7, 1.0};
+   
+  GLfloat black[] =     { 0.0, 0.0, 0.0, 1.0};
+  GLfloat dark[] =      { 0.2, 0.15, 0.2, 1.0};
+  GLfloat white[] =     { 0.7 , 0.7, 0.7, 1.0};
   GLfloat direction[] = { 0.2, 0.0, 10.5,0.0};
 
   glMaterialfv(GL_FRONT, GL_SPECULAR, white);
@@ -49,9 +45,16 @@ void fightScav::initScene()
   glEnable(GL_LIGHT0);
   glEnable(GL_LIGHT1);
 
+  //fog
+  glEnable(GL_FOG);
+  glFogi(GL_FOG_MODE,GL_EXP2);
+  glFogfv(GL_FOG_COLOR,fogColor_fs);
+  glFogf(GL_FOG_DENSITY,fogDensity_fs);
+  glFogf(GL_FOG_START,900000.0f);
+  glHint(GL_FOG_HINT,GL_NICEST);
+
+
   _ship->init_ship();
-  soundManager_ltwo->playSound2d(AMBIANCE_SND,true);
-  soundManager_ltwo->playMusic2d(DIALOGUE_ONE,true);
 
   ifInit = true;
   
@@ -59,17 +62,16 @@ void fightScav::initScene()
 
 fightScav::fightScav()
 {
-	_ship = new Ship(Point(0,0,2000000));
-			   exterMin = new ExterminatoreNet(); 
-			   planet_quad = new Quad(Point(-660000,-10000,-100000),445000,445000,445000);
+	           _ship = new Ship(Point(0,0,2000000));
+	           
 			   collisionManager = new CollisionManager();
-			   soundManager_ltwo = new SManager();
+		
 			   ifInit = false;
 }
 
 fightScav::~fightScav()
 {
-	soundManager_ltwo->dropSoundEngine();
+	
 }
 
 
@@ -82,67 +84,7 @@ void fightScav::display_fn_game()
     }
      
 
-
-     glPushMatrix();
-	 glDisable(GL_LIGHTING);
-	 glDisable(GL_LIGHT0);
-     glTranslatef( _ship->getPositon().x+5000 , _ship->getPositon().y-5000 , _ship->getPositon().z -50000 );
-	 IEntityManager::getInstance()->create_Sat_A();
-     glEnable(GL_LIGHTING);
-	 glEnable(GL_LIGHT0);
-     glPopMatrix();
-
-
-
-	
-	 glPushMatrix();
-	 glScalef(10,10,10);
-	  glTranslatef(-60000,-1000,-10000);
-      IEntityManager::getInstance()->create_planet();
-	   glTranslatef(60000,1000,10000);
-	 glPopMatrix();
-
-
-
-	
-	glPushMatrix();
-	glTranslatef(0,0,0);
-	IEntityManager::getInstance()->draw_dockStation();
-	glScalef(10,10,10);
-	IEntityManager::getInstance()->draw_scavs(Point(0,0,0),0.0f);
-	glTranslatef(0,0,0);
-	glScalef(1,1,1);
-	glPopMatrix();
-    
-	
-
-    glPushMatrix();
-	  glTranslatef(0,100,200);
-	  IEntityManager::getInstance()->draw_colony_debris();
-    glPopMatrix();
-
-	
-    
-
-	glPushMatrix();
-	  glTranslatef(0,0,2000000-1000);
-	  IEntityManager::getInstance()->draw_nalanda();
-	glPopMatrix();
-
-
-
-	exterMin->drawExterminatore();
-
 	_ship->shipDraw();
-
-	
-
-
-
-	glPushMatrix();
-	glTranslatef(0.0,0.0,0.0);
-	glutSolidCube(50000);
-	glPopMatrix();
 
 }
 
@@ -167,7 +109,7 @@ void fightScav::keyboard_fn_game(unsigned char& key,int& x, int& y)
           case 'r': _ship->teleport(Point(0,0,50000));               break;
 		  case 27:  exit(0);  delete[] IEntityManager::getInstance();                                     break;      
 		  case 'f': _ship->msys->createMissileAt(_ship->getPositon(),_ship->getForward() ,_ship->getSpeed());break;
-		  case 'u': exterMin->createExterminatore(_ship->getPositon());
+		  case 'u':  break;
          default:                                                   break;
 
 
@@ -224,7 +166,7 @@ void fightScav::timer_fn_game(int t)
        Vector up(_ship->getVertical());
 
 	
-	   exterMin->updateExterminatore();	
+	 
 
 
 

@@ -6,9 +6,31 @@
 #include "GameStateManager.h"
 
 
+
 bool pause_toggle = false;
 Game* Game::gameInstance = NULL;
 
+
+Game::Game()
+{
+		    _splashScreen = new SplashScreen();
+            _menuScreen   = new MenuScreen();
+            _inGameScreen = new GameScreen();
+
+    	    screenList.push_back(_splashScreen);
+            screenList.push_back(_menuScreen);
+            screenList.push_back(_inGameScreen);
+
+			//std::thread t1(parallelTextureLoader);
+
+}
+
+Game::~Game()
+{
+	delete _splashScreen;
+	delete _menuScreen;
+	delete _inGameScreen;
+}
 
 Game* Game::getInstance()
 {

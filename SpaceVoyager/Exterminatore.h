@@ -21,6 +21,17 @@ public:
 	
 	}
 	
+	void setDir()
+	{
+
+	}
+
+	void AI_engine()
+	{
+
+	}
+
+
 
 	void drawExterminatore()
 	{
@@ -38,6 +49,8 @@ public:
 	void updateExterminatore()
 	{
 	}
+
+
 
 };
 

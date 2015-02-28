@@ -33,7 +33,7 @@ void XInputHandler::updateX()
 		{
 			controller[i]._notLast = true;
 			controller[i]._lastState = controller[i]._controllerState;
-			printf("Controller State updated. \n");
+			//printf("Controller State updated. \n");
 		}else { controller[i]._notLast = false; }
 	}
 	

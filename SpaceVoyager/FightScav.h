@@ -31,14 +31,13 @@ class fightScav : public ISceneNode
 	     virtual void timer_fn_game(int t);
 		 
 		 CollisionManager* collisionManager;
-		 SManager* soundManager_ltwo;
+
 
 	private:
           Ship*      _ship;
-		  ExterminatoreNet* exterMin;
-		  Quad* planet_quad ; 
-		  bool ifInit;
 
+		  bool ifInit;
+		
 };
 
 #endif

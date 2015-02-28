@@ -27,7 +27,8 @@ double d = 0;
 			glRotatef(rotate_x,1,0,1);
 			glRotatef(rotate_y,0,1,0);
 			glRotatef(rotate_z,0,1,0);
-			glutSolidCube(0.1);
+			//IEntityManager::getInstance()->draw_scavs(Point(0,0,0),0);
+		    glutSolidCube(0.1);
 			glColor3f(1.0,1.0,1.0);   //
 			glutWireCube(0.2);
 			glPopMatrix();
@@ -56,8 +57,8 @@ double d = 0;
 
 			glPushMatrix(); 
 			glLoadIdentity();
-			Render::getRenderInstance()->drawHudText(Point(0.2,-0.3,0.0)," OpenGL-Cube",c_sc);
-			Render::getRenderInstance()->drawHudText(Point(0.3,-0.4,0.0),"Presents",c_sc);
+			Render::getRenderInstance()->drawHudText(Point(0.2,-0.3,0.0),"Anonymous Studio",c_sc);
+			Render::getRenderInstance()->drawHudText(Point(0.2,-0.4,0.0),"Presents",c_sc);
 			glPopMatrix();
 
 

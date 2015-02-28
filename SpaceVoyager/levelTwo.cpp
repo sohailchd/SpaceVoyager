@@ -8,6 +8,11 @@
 
 
 
+
+GLfloat fogDensity = 0.000001f;
+GLfloat fogColor[4]   = {0.8,0.8,0.8,0.0};
+
+
 void levelTwo::initScene()
 {
 	int w = glutGet(GLUT_WINDOW_WIDTH);
@@ -41,6 +46,16 @@ void levelTwo::initScene()
   glEnable(GL_LIGHT0);
   glEnable(GL_LIGHT1);
 
+
+  //fog
+ // glEnable(GL_FOG);
+  glFogi(GL_FOG_MODE,GL_EXP2);
+  glFogfv(GL_FOG_COLOR,fogColor);
+  glFogf(GL_FOG_DENSITY,fogDensity);
+  glFogf(GL_FOG_START,1000000.0f);
+  glHint(GL_FOG_HINT,GL_NICEST);
+
+
   _ship->init_ship();
 
   ifInit = true;
@@ -51,16 +66,18 @@ levelTwo::levelTwo()
 {
 	_ship = new Ship(Point(0,0,2000000));
 			   exterMin = new ExterminatoreNet(); 
-			   planet_quad = new Quad(Point(-660000,-10000,-100000),445000,445000,445000);
+			   planet_quad = new Quad(Point(-660000,-10000,-100000),757000,757000,757000);
 			   collisionManager = new CollisionManager();
-			   soundManager_ltwo = new SManager();
-			  // initScene();
+
+			   _unityCollision_list.push_back(new Quad(Point(90000,3000,200),1000,1000,1000));
+			  
+			   // initScene();
 			   ifInit = false;
 }
 
 levelTwo::~levelTwo()
 {
-	soundManager_ltwo->dropSoundEngine();
+
 }
 
 
@@ -88,7 +105,7 @@ void levelTwo::display_fn_game()
 	 //Planet - CIRYUS
 	 glPushMatrix();
 	 //glScalef(15,15,15);
-	  glTranslatef(-60000,-1000,-10000);
+	  glTranslatef(-660000,-10000,-100000);
       IEntityManager::getInstance()->create_planet();
 	   glTranslatef(60000,1000,10000);
 	 glPopMatrix();
@@ -108,8 +125,8 @@ void levelTwo::display_fn_game()
 	
 	//Space Station - UNITY
     glPushMatrix();
-	  glTranslatef(0,100,200);
-	  IEntityManager::getInstance()->draw_colony_debris();
+	  glTranslatef(90000,3000,200);
+	  IEntityManager::getInstance()->draw_colony_debris(1.0f);
     glPopMatrix();
     // End unity
 	
@@ -117,24 +134,31 @@ void levelTwo::display_fn_game()
 	//Nalanda
 	glPushMatrix();
 	  glTranslatef(0,0,2000000-1000);
-	  IEntityManager::getInstance()->draw_nalanda();
+	  //IEntityManager::getInstance()->draw_nalanda();
+	glPopMatrix();
+	///////////////////////
+
+	//test Code
+
+
+	glPushMatrix();
+	glTranslatef(-660000,-10000,-100000);
+	glutSolidCube(757000);
 	glPopMatrix();
 
+	glPushMatrix();
+	glTranslatef(90000,3000,200);
+	glutSolidCube(1000);
+	glPopMatrix();
 
+	///////////////////
 	//Exter
 	exterMin->drawExterminatore();
 	//Exter end
 	_ship->shipDraw();
 
 	
-	//test Code
-
-
-	glPushMatrix();
-	glTranslatef(0.0,0.0,0.0);
-	glutSolidCube(50000);
-	glPopMatrix();
-
+	
 }
 
 void levelTwo::idle_fn_game()
@@ -201,6 +225,8 @@ void levelTwo::special_fn_game(int& key , int& x, int& y)
     //printf("%f\n", pos_dummy.x);
     glutPostRedisplay();
 }
+
+
 
 void levelTwo::timer_fn_game(int t)
 {

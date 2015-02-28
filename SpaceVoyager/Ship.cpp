@@ -91,7 +91,7 @@ void Ship::init_ship()
 	 msys->drawList_missile();
 
 	 //Draw thw target
-	 draw_target_hud();
+	// draw_target_hud();
  }
 
  void Ship::ship_handleXInput()
@@ -177,7 +177,11 @@ void Ship::init_ship()
 	{
 	    yaw(angle*5);
 	}
-
+	//Shoot with a
+	if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('A'))
+	{
+		msys->createMissileAt(position,forward ,speed);
+	}
 
     }//// End if
 }

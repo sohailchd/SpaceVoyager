@@ -7,6 +7,8 @@
 class Genesis : public ISceneNode
 {
 
+	Genesis();
+	~Genesis();
 
 public:
 	     virtual void initScene();

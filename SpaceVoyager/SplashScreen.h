@@ -14,9 +14,8 @@ class SplashScreen : public Screens
 {
       
       public:
-		  SplashScreen()
-		  { 
-			smngr = new SManager();
+		  SplashScreen(){
+			  smngr = new SoundManager();
 		  };
       	~SplashScreen(){};
 
@@ -30,7 +29,7 @@ class SplashScreen : public Screens
         virtual void loadObjects(); 
 
 private:
-	SManager* smngr;
+	SoundManager* smngr;
 		 
 };
 

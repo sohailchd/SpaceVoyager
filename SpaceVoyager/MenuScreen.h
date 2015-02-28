@@ -13,12 +13,8 @@ class MenuScreen : public Screens
 {
       
       public:
-      	MenuScreen(){
-      		_menu_current_state = _start;
-			
-      	};
-      	~MenuScreen(){};
-
+      	MenuScreen();
+		~MenuScreen();
 
 
         virtual void display_screen();
@@ -27,12 +23,14 @@ class MenuScreen : public Screens
         virtual void idle_screen();
         virtual void loadObjects(); 
         virtual void reshape(int& w , int& h);
-
+		virtual void keyboard_screen_sp(int& key,int& x,int& y);
         
         enum MenuStates { _start , _exit , _about };
         MenuStates _menu_current_state;
-
-		
+		bool isLoading;
+		void draw_light_shade();
+		//bool setState;
+		float loadTimer;
 };
 
 

@@ -31,7 +31,7 @@ void  IEntityManager::init_IEntityManager()
 	glGenTextures(MAX_NO_TEXTURE, texture_ids);
 	for (GLuint i = 0; i<MAX_NO_TEXTURE; i++)
 	{
-		sprintf(sname, "x_%d.jpg", i + 1);
+		sprintf(sname, "../images/x_%d.jpg", i + 1);
 
 		texture_ids[i] = SOIL_load_OGL_texture(
 			sname,
@@ -120,20 +120,7 @@ void IEntityManager::create_Sat_C()
 
 }
 
-void IEntityManager::create_Dock_A()
-{
 
-}
-
-void IEntityManager::create_Dock_B()
-{
-
-}
-
-void IEntityManager::create_Energizer()
-{
-
-}
 
 
 
@@ -154,10 +141,31 @@ void IEntityManager::draw_sphere(int r, int tex)
 		gluQuadricTexture(quad_iem, 1);
 		gluSphere(quad_iem,1,36,36);
 	    glDisable(GL_TEXTURE_2D);
-		glScaled(1,1,1);
-	glPopMatrix();
+    glPopMatrix();
 
+   glScaled(1,1,1);
 
+}
+
+void IEntityManager::draw_sphere_parallel(int r,  char* fileNameConstant)
+{	
+
+	glPushMatrix();
+	glScaled(r,r,r);
+	glRotatef(90, 1.0f, 0.0f, 0.0f);
+	glRotatef(90, 0.0f, 0.0f, 1.0f);
+	//glRotatef(rot_x/10.0,0.0,0.0,1.0);
+	//glColor3f(0.8, 0.4, 0.2);
+	    glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, GameStateManager::_tTextureLoader[fileNameConstant]);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		gluQuadricTexture(GameStateManager::quadMaster, 1);
+		gluSphere(quad_iem,1,36,36);
+	    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
+
+   glScaled(1,1,1);
 
 }
 
@@ -165,7 +173,11 @@ void IEntityManager::draw_sphere(int r, int tex)
 void IEntityManager::create_planet()
 {
 	glScalef(4,4,4);
+    glScalef(15,15,15);
 	draw_sphere(10000, 7);
+	/*if(GameStateManager::_tTextureLoader[cyrus]!=NULL){
+	draw_sphere_parallel(10000,cyrus);
+	}*/
 	glScaled(1,1,1);
 }
 void IEntityManager::draw_plane(GLdouble w, GLdouble h, int tex)
@@ -373,7 +385,7 @@ void IEntityManager::draw_scavs(Point& p , GLfloat d)
 
 
 // UNITY - DOCK
-void IEntityManager::draw_colony_debris()
+void IEntityManager::draw_colony_debris(GLfloat d)
 {
 	GLfloat seg_sat = 6.0f;
 	GLfloat inc = 2 * 3.14256 / seg_sat;
@@ -401,9 +413,9 @@ void IEntityManager::draw_colony_debris()
     glPushMatrix();
 	glTranslatef(-1,-1,z);
 	glScaled(0.1,0.1,0.05);
-	draw_scavs(Point(0,0,0),0);
+	draw_scavs(Point(0,0,0),d);
 	glTranslatef(-60,-1,0);
-	draw_scavs(Point(0,0,0),0);
+	draw_scavs(Point(0,0,0),d);
 	glPopMatrix();
 	}
 	//glTranslatef(0,0,-50);
@@ -443,7 +455,7 @@ void IEntityManager::draw_colony_debris()
 	glTranslatef(-1,z,-1);
 	//glRotatef(rotor_val,0,0,1);
 	glScaled(0.1,0.1,0.05);
-	draw_scavs(Point(0,0,0),0);
+	draw_scavs(Point(0,0,0),d);
 	glPopMatrix();	
 	}
 	//glTranslatef(0,0,+15);
@@ -457,7 +469,7 @@ void IEntityManager::draw_colony_debris()
 	glTranslatef(-1,z, 16);
 	glRotatef(rotor_val,0,0,1);
 	glScaled(0.1,0.1,0.05);
-	draw_scavs(Point(0,0,0),0);
+	draw_scavs(Point(0,0,0),d);
 	glPopMatrix();	
 	}
 	//glTranslatef(0,0,-50);
@@ -562,9 +574,9 @@ void IEntityManager::draw_colony_debris()
     glPushMatrix();
 	glTranslatef(-1,-1,z);
 	glScaled(0.1,0.1,0.05);
-	draw_scavs(Point(0,0,0),0);
+	draw_scavs(Point(0,0,0),d);
 	glTranslatef(60,-1,0);
-	draw_scavs(Point(0,0,0),0);
+	draw_scavs(Point(0,0,0),d);
 	
 	glPopMatrix();
 	}
@@ -612,7 +624,7 @@ void IEntityManager::draw_colony_debris()
 	glTranslatef(1,z,-26);
 	glRotatef(rotor_val,0,0,1);
 	glScaled(0.1,0.1,0.05);
-	draw_scavs(Point(0,0,0),0);
+	draw_scavs(Point(0,0,0),d);
 	glPopMatrix();	
 	}
 	//glTranslatef(0,0,-50);
@@ -627,7 +639,7 @@ void IEntityManager::draw_colony_debris()
 	glTranslatef(1,z,-18);
 	glRotatef(rotor_val,0,0,1);
 	glScaled(0.1,0.1,0.05);
-	draw_scavs(Point(0,0,0),0);
+	draw_scavs(Point(0,0,0),d);
 	glPopMatrix();	
 	}
 	glPopMatrix();
@@ -687,12 +699,14 @@ void IEntityManager::draw_nalanda()
 
 	glPushMatrix();
 	{
-		glScalef(1000,1000,1000);
+	
+	glScalef(1000,1000,1000);
 
 
     glPushMatrix();
 	glTranslatef(0,0,15);
-    for(GLdouble z=-10.5;z>=-68.5;z-=4.5){
+    for(GLdouble z=-10.5;z>=-68.5;z-=4.5)
+	{
 		{
 			glPushMatrix();
 			glTranslatef(-1,-1,z);
@@ -701,6 +715,8 @@ void IEntityManager::draw_nalanda()
 			draw_scavs(Point(0,0,0),0);
 			glPopMatrix(); 
 
+			glutSolidSphere(5.0,50,50);
+
 			glPushMatrix();
 			glTranslatef(z,-1,0);
 			glScaled(0.1,0.1,0.05);
@@ -708,11 +724,102 @@ void IEntityManager::draw_nalanda()
 			draw_scavs(Point(0,0,0),0);
 			glPopMatrix(); 
 
+			glPushMatrix();
+			glTranslatef(1,1,-z);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
+			glPushMatrix();
+			glTranslatef(-z,1,0);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
+			glPushMatrix();
+			glTranslatef(1.0,-z,0);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
+			glPushMatrix();
+			glTranslatef(1.0,z,0);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
 		}
 
-	}
+	} //for_end
 	glPopMatrix();
+
+	glTranslatef(0,0,-15);
+
+	glutSolidCube(8.0);
+
+	//second
+	glPushMatrix();
+	glTranslatef(0,0,-35);
+    for(GLdouble z=-10.5;z>=-68.5;z-=4.5)
+	{
+		{
+			glPushMatrix();
+			glTranslatef(-1,-1,z);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
+			glutSolidSphere(5.0,50,50);
+
+			glPushMatrix();
+			glTranslatef(z,-1,0);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
+			glPushMatrix();
+			glTranslatef(1,1,-z);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
+			glPushMatrix();
+			glTranslatef(-z,1,0);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
+			glPushMatrix();
+			glTranslatef(1.0,-z,0);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
+			glPushMatrix();
+			glTranslatef(1.0,z,0);
+			glScaled(0.1,0.1,0.05);
+			draw_scavs(Point(0,0,0),0);
+			draw_scavs(Point(0,0,0),0);
+			glPopMatrix(); 
+
+		}
+
+	} //for_end
+	glPopMatrix();
+
+
 	}
+
+
 	glPopMatrix();
 	glScaled(1,1,1);
 

@@ -1,12 +1,26 @@
 
 #include "GameStateManager.h"
-#include "MasterHeader.h"
+
 
 GameStateManager::GameStates GameStateManager::_activeState = _splash;;
 GameStateManager::GameStates GameStateManager::_lastState = GameStateManager::_activeState;
 GameStateManager::SequenceStates GameStateManager::_currentSequence = GameStateManager::_inPrologue_SQ;
 GameStateManager::SequenceStates GameStateManager::_lastSequence = GameStateManager::_lastSequence;
 std::vector<ISceneNode*> GameStateManager::_sequenceList ;
+std::map<char*,GLuint> GameStateManager::_tTextureLoader;
+GLUquadric* GameStateManager::quadMaster ;// = 	gluNewQuadric();;
+
+void GameStateManager::addToTheTextureList_parallelMode(char* fileNameConstant , GLuint id)
+{
+	if(_tTextureLoader[fileNameConstant]==NULL)
+	 {
+		 _tTextureLoader[fileNameConstant]=id;
+	 }
+	else
+	{
+
+	}
+}
 
 float GameStateManager::timeSinceStart  = 0;
 float GameStateManager::timeSinceLast   = 0;

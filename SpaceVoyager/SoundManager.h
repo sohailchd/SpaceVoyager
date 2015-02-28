@@ -1,60 +1,39 @@
 
-
 #ifndef _soundManager_
 #define _soundManager_
 
-#include <irrKlang.h>
-#include <stdio.h>
-#include <string>
 
-#define SPLASH_SND "../audio/Splash.mp3"
-#define AMBIANCE_SND "../audio/craft/ambiance.wav"
-#define DIALOGUE_ONE "../audio/craft/dialogue1.mp3"
-
-using namespace irrklang;
-using namespace std;
+#include "SoundData.h"
 
 
-
-
-
-class SManager
+class SoundManager
 {
 
+
 private:
-	ISoundEngine* soundEngine;
-	ISoundEngine* musicEngine;
+	std::vector<SoundData*> _trackList;
+	ISoundEngine* engine2D;
+
 public:
-	SManager()
-	{
-		soundEngine = createIrrKlangDevice();
-		musicEngine = createIrrKlangDevice();
+	SoundManager();
+	~SoundManager();
 
-		if(!soundEngine || !musicEngine){ printf("Enable to create sound engine."); }
-	}
+	int findBySoundConst(soundConstant sc);
+	
+	void addCurrentPlayList(const char* name , bool l , soundConstant sc);
 
-	~SManager()
-	{
-	}
+	void startPlayList();
 
 
-	void playSound2d(char* fileName , bool looped)
-	{
-		soundEngine->play2D(fileName , looped);
-	}
+	void resumeFromPlayList(soundConstant sc);
 
-	void playMusic2d(char* filename,bool loop)
-	{
-		musicEngine->play2D(filename,loop);
-	}
+	void removeFromPlayList(soundConstant sc);
+	void pauseFromPlayList(soundConstant sc);
 
+	void setVolFromPlayList(soundConstant sc , int vol);
 
-	void dropSoundEngine()
-	{
-		soundEngine->drop();
-	}
+	void dropAll();
 
 };
-
 
 #endif

@@ -101,10 +101,15 @@
     <ClInclude Include="PrologueSQ.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Screens.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="SoundData.h" />
+    <ClInclude Include="SoundList.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="SplashScreen.h" />
+    <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="WarmHole.h" />
     <ClInclude Include="XInputHandler.h" />
   </ItemGroup>
   <ItemGroup>
@@ -114,19 +119,25 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="GenesisSequence.cpp" />
     <ClCompile Include="IEntityManager.cpp" />
     <ClCompile Include="ISceneNode.cpp" />
     <ClCompile Include="levelOne.cpp" />
     <ClCompile Include="levelTwo.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainDebuger.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="PauseScreen.cpp" />
     <ClCompile Include="Prologue.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Screens.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="SoundData.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
+    <ClCompile Include="TextureLoader.cpp" />
+    <ClCompile Include="WarmHole.cpp" />
     <ClCompile Include="XInputHandler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

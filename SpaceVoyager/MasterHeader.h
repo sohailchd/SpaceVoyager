@@ -23,4 +23,13 @@
 #define ENTITY_CYRUS     4
 #define ENTITY_HABITAT   5
 
+#define space_bg  "../images/space_bg.jpg"
+#define cyrus     "../images/cryrus.jpg"
+#define voyager   "../images/voyager.jpg"
+
+#define MAX_NO_TEXTURE 3
+
+
+
+
 #endif

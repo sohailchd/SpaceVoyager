@@ -30,7 +30,7 @@ public:
     	static GameStates _activeState;
         
 
-    	~Game(){};
+    	~Game();
     	
 
 
@@ -50,22 +50,7 @@ public:
         std::vector<Screens*> screenList;
 
 protected:
-	Game()
-	{
-			
-	        _splashScreen = new SplashScreen();
-            _menuScreen   = new MenuScreen();
-            _inGameScreen = new GameScreen();
-
-    	    screenList.push_back(_splashScreen);
-            screenList.push_back(_menuScreen);
-            screenList.push_back(_inGameScreen);
-
-		
-
-            printf("initFunc:: called.\n");
-	
-	}
+	Game();
 
 };
 
