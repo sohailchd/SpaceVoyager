@@ -18,7 +18,7 @@ public:
 	{
 		initPos = at;
 		position = at;
-	
+		speed = 5000.0f;
 	}
 	
 	void setDir()
@@ -28,7 +28,18 @@ public:
 
 	void AI_engine()
 	{
+		position += speed*Vector(0,0,1);
 
+		if(position.z > 1000000.0)
+		{
+			position = initPos;
+		}
+		if(position.z > -30000 && position.z < 10000)
+		{
+			//msys->createMissileAt(position,Vector(0,0,-1),100);
+		}
+
+		//cout<<"position: "<< position<<endl;
 	}
 
 
@@ -37,7 +48,7 @@ public:
 	{
 		glPushMatrix();
 		    glTranslatef(position.x,position.y,position.z);
-			glutSolidCube(100.0);
+			glutSolidCube(500.0);
     	glPopMatrix();
 
 		msys->drawList_missile();
@@ -48,6 +59,7 @@ public:
 
 	void updateExterminatore()
 	{
+		AI_engine();
 	}
 
 
@@ -62,6 +74,7 @@ private:
 	vector<Exterminatore*>	_listExterMinator;
 
 public:
+	
 	void createExterminatore(Point at)
 	{
 		_listExterMinator.push_back(new Exterminatore(at));

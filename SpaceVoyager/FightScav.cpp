@@ -9,13 +9,16 @@
 
 
 GLfloat fogColor_fs[] = {0.8,0.8,0.8,0.1};
-GLfloat fogDensity_fs = 0.000001f;
+GLfloat fogDensity_fs = 0.00001f;
 
 
 void fightScav::initScene()
 {
+#pragma region sceneSetup  lighting  aspect  fog
+
 	int w = glutGet(GLUT_WINDOW_WIDTH);
 	int h = glutGet(GLUT_WINDOW_HEIGHT);
+
 
 
   glViewport(0, 0, w, h);
@@ -30,7 +33,7 @@ void fightScav::initScene()
    
   GLfloat black[] =     { 0.0, 0.0, 0.0, 1.0};
   GLfloat dark[] =      { 0.2, 0.15, 0.2, 1.0};
-  GLfloat white[] =     { 0.7 , 0.7, 0.7, 1.0};
+  GLfloat white[] =     { 0.2 , 0.4, 0.6, 1.0};
   GLfloat direction[] = { 0.2, 0.0, 10.5,0.0};
 
   glMaterialfv(GL_FRONT, GL_SPECULAR, white);
@@ -46,15 +49,16 @@ void fightScav::initScene()
   glEnable(GL_LIGHT1);
 
   //fog
-  glEnable(GL_FOG);
+   glEnable(GL_FOG);
   glFogi(GL_FOG_MODE,GL_EXP2);
   glFogfv(GL_FOG_COLOR,fogColor_fs);
   glFogf(GL_FOG_DENSITY,fogDensity_fs);
   glFogf(GL_FOG_START,900000.0f);
   glHint(GL_FOG_HINT,GL_NICEST);
 
-
   _ship->init_ship();
+
+#pragma endregion
 
   ifInit = true;
   
@@ -62,10 +66,13 @@ void fightScav::initScene()
 
 fightScav::fightScav()
 {
-	           _ship = new Ship(Point(0,0,2000000));
-	           
-			   collisionManager = new CollisionManager();
-		
+	           _ship = new Ship(Point(-16000,10000,30000));
+	           _ship->dockStation = new Quad(Point(90000,49000,-10500),1400,1400,1400);
+			  
+			   TunnelObject_list.push_back(new TunnelObject(Point(0,-12000,0)));
+			   TunnelObject_list.push_back(new TunnelObject(Point(0,12000,0)));
+               
+
 			   ifInit = false;
 }
 
@@ -83,7 +90,25 @@ void fightScav::display_fn_game()
         initScene();
     }
      
+	//SKY BOX
+   /*  glPushMatrix();
+	 glDisable(GL_LIGHTING);
+	 glDisable(GL_LIGHT0);
+     glTranslatef( _ship->getPositon().x+5000 , _ship->getPositon().y-5000 , _ship->getPositon().z -50000 );
+	 glRotated(GameStateManager::timeSinceStart/2000.0,0.2,0.5,1);
+	 IEntityManager::getInstance()->create_Sat_A();
+     glEnable(GL_LIGHTING);
+	 glEnable(GL_LIGHT0);
+     glPopMatrix();*/
+	 //end of SKY-BOX
 
+	 
+	 glPushMatrix();
+	 glTranslated(9000,3000,200);
+	 IEntityManager::getInstance()->draw_tunnelBoundary();
+	 glPopMatrix();
+
+     
 	_ship->shipDraw();
 
 }
@@ -159,18 +184,18 @@ void fightScav::timer_fn_game(int t)
 
 	   _ship->shipUpdate();
 
-	   collisionManager->runCollisionEngine();
+	/*   glTranslatef(9000,3000,200);
+	    for(int i=0;i<TunnelObject_list.size();i++)
+	{
+		TunnelObject_list[i]->update();
+	}*/
 
        Point eye(_ship->getPositon());
        Point at(_ship->getPositon() + _ship->getDirection());
        Vector up(_ship->getVertical());
 
 	
-	 
-
-
-
-
+	
       glLoadIdentity();
       gluLookAt(eye.x,eye.y,eye.z,
                 at.x,at.y,at.z,

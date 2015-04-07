@@ -43,13 +43,26 @@ class levelTwo : public ISceneNode
 	     virtual void timer_fn_game(int t);
 
 		 CollisionManager* collisionManager;
-	
+	     void atmosphereEntryProtocol();
 private:
-          Ship*      _ship;
-		  ExterminatoreNet* exterMin;
-		  Quad* planet_quad ; 
+          Ship  *_ship;
+		  ExterminatoreNet  *exterMin;
+		  Quad *planet_quad ; 
+		  Quad *unity_collider_a ; 
+	      Quad *unity_collider_b ; 
+		  Quad *unity_collider_c ;
+		  Quad *unity_collider_d ;
+		  Quad *unity_dock_collider;
+		  Quad *unity_dock2_collider;
+		  Quad *unity_dock3_collider;
+		  Quad *unity_collider_e;
+      
+
+
 		  bool ifInit ;
 		  vector<Quad*> _unityCollision_list; 
+		/*  Quad* docking_pad_a ,docking_pad_b  , docking_pad_c ;*/
+	
 };
 
 #endif

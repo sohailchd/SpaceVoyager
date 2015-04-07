@@ -15,7 +15,7 @@
 class missile
 {
 	
-private:
+public:
 	Point pos;
 	Quad* cb_cube;
 	Point origin;
@@ -30,8 +30,8 @@ public:
 	missile(Point org ,Vector fwd , double speed):origin(org)
 	{
 		forward = fwd;
-		dir = speed/abs(speed);
-		missileSpeed = speed>0?(speed+400.0):(-speed-400);
+		dir = speed/speed;
+		missileSpeed = speed>=0?(speed+400.0):(speed+400);
 
 		cb_cube = new Quad(pos,0.5,0.5,0.5);
 		pos = origin;
@@ -92,9 +92,7 @@ public:
 class missileSystem 
 {
 
-	
-private:
-	vector<missile*>  _listMissile;
+
 
 public:
 	missileSystem()
@@ -103,7 +101,7 @@ public:
 	~missileSystem(){};
 
 	
- 
+    vector<missile*>  _listMissile;
 	void createMissileAt(Point point , Vector forward , double speed)
 	{
 		_listMissile.push_back(new missile(point,forward , speed));

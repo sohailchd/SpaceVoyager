@@ -8,6 +8,7 @@ XInputHandler::XInputHandler(){}
 XInputHandler::~XInputHandler(){}
 
 XInputHandler* XInputHandler::instanceXinput = 0;
+BOOL XInputHandler::isConnected = false;
 
 XInputHandler* XInputHandler::getInstance()
 {
@@ -19,6 +20,7 @@ XInputHandler* XInputHandler::getInstance()
 	return instanceXinput;
 }
 
+/* Called every frame to update the current state of the controller is updated */
 void XInputHandler::updateX()
 {
 	
@@ -29,6 +31,7 @@ void XInputHandler::updateX()
 		DWORD result =  XInputGetState(i,&controller[i]._controllerState);
 		//Set the isConnected 
 		controller[i].isConnected = (result == ERROR_SUCCESS);
+		XInputHandler::isConnected = controller[i].isConnected?TRUE:FALSE;
 		if(controller[i]._controllerState.dwPacketNumber != controller[i]._lastState.dwPacketNumber)
 		{
 			controller[i]._notLast = true;
@@ -39,7 +42,11 @@ void XInputHandler::updateX()
 	
 }
 
+/* Called when discrete press is required to be register */
 
+/****************
+     Mapping by Xbox 360
+****************/
 bool XInputHandler::isDigitalButtonPressedOnce(char key)
 {
 	bool ret = false;;
@@ -161,7 +168,13 @@ bool XInputHandler::getShoulderButton(char key)
 
 
 
-
+/* Registering the sticks  
+   Mapping : 
+   R - Right
+   L - Left
+   X - X axis
+   Y - Y axis
+*/
 int XInputHandler::getThumbVal(char index , char axis)
 {
 

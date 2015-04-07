@@ -13,10 +13,12 @@ class SoundManager
 private:
 	std::vector<SoundData*> _trackList;
 	ISoundEngine* engine2D;
-
-public:
+	static SoundManager* smInstance;
 	SoundManager();
 	~SoundManager();
+
+public:
+
 
 	int findBySoundConst(soundConstant sc);
 	
@@ -34,6 +36,7 @@ public:
 
 	void dropAll();
 
+	static SoundManager* getInstance();
 };
 
 #endif

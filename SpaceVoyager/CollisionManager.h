@@ -6,6 +6,15 @@
 #include "MasterHeader.h"
 #include <vector>
 
+/**********************************
+    _targetList    : Main objects
+	_collisionList : RigidBodies
+
+	collision is registered as
+	if {Main --->>>> RigidBodies}
+
+***********************************/
+
 class CollisionManager
 {
 

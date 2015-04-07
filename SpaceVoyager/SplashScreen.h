@@ -15,7 +15,7 @@ class SplashScreen : public Screens
       
       public:
 		  SplashScreen(){
-			  smngr = new SoundManager();
+			  SoundManager::getInstance()->addCurrentPlayList(SPLASH_THEME_1,true,SPLASH_THEME_1_C);
 		  };
       	~SplashScreen(){};
 

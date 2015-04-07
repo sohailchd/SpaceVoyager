@@ -318,7 +318,6 @@ void IEntityManager::create_genesis(Point* at)
 
 
 Point missile_pos ;
-
 void IEntityManager::draw_scavs(Point& p , GLfloat d)
 {
 
@@ -392,7 +391,7 @@ void IEntityManager::draw_colony_debris(GLfloat d)
 	double theta = 0.0;
 	rotor_val+= 0.1f;
 
-	glRotatef(-45,1,1,1);
+	glRotatef(0,1,1,1);
 
 
 	glPushMatrix();
@@ -691,6 +690,74 @@ void IEntityManager::draw_FusionShip()
 }
 
 
+void IEntityManager::draw_tunnelBoundary()
+{
+
+	glRotatef(0,1,1,1);
+
+
+	glPushMatrix();
+	glScaled(1000,1000,1000);
+
+
+	
+	////*************************** 1 - ONE - A ****************************
+	//glPushMatrix();
+	//glTranslatef(0,0,15);
+
+	//for(GLdouble z=-1.5;z>=-128.5;z-=4.5){
+ //   glPushMatrix();
+	//glTranslatef(-1,-1,z*25);
+	////glScaled(0.1,0.1,0.05);
+	//draw_scavs(Point(0,0,0),0);
+	//glTranslatef(-70,-1,0);
+	//draw_scavs(Point(0,0,0),0);
+	//glPopMatrix();
+	//}
+	//glPopMatrix();
+	////************************************** END 1 - ONE - A ********************
+
+#pragma top
+	glPushMatrix();
+	for(GLdouble z=-37.5;z>=-3212.5;z-=40.5){
+    glPushMatrix();
+	glTranslatef(-1,-1,z);
+	//glScaled(0.1,0.1,0.05);
+	draw_scavs(Point(0,0,0),0);
+	glTranslatef(-80,-1,0);
+	draw_scavs(Point(0,0,0),0);
+	glPopMatrix();
+	}
+	glPopMatrix();
+#pragma endregion
+
+	glTranslatef(-40,43,0);
+
+#pragma top down
+	glPushMatrix();
+	for(GLdouble z=-37.5;z>=-3212.5;z-=40.5){
+    glPushMatrix();
+	glTranslatef(-1,-1,z);
+	//glScaled(0.1,0.1,0.05);
+	draw_scavs(Point(0,0,0),0);
+	glTranslatef(0,-85,0);
+	draw_scavs(Point(0,0,0),0);
+	glPopMatrix();
+	}
+	glPopMatrix();
+
+#pragma endregion
+
+
+
+
+	//LAST POP
+	glPopMatrix();
+
+
+	glScaled(1,1,1);
+
+}
 
 
 void IEntityManager::draw_nalanda()

@@ -73,6 +73,9 @@ class Point
         Point operator +(Vector v) { return Point(x+v.i,y+v.j,z+v.k);}
         Point operator -(Vector v){ return Point(x-v.i,y-v.j,z-v.k); }
         Point operator +=(Vector v) { return Point( x+=v.i , y+=v.j , z+=v.k ); }
+		Point(const Point &obj){ x=obj.x;y=obj.y;z=obj.z; }
+		bool operator==(const Point& p){ if(p.x==x&&p.y==y&&p.z==z){ return true; } return false; }
+		friend ostream& operator<<(ostream &os , const Point& p){ os<<endl<< p.x <<" : "<<p.y<<" : "<<p.z; return os; }
 };
 
 class PointXY
@@ -92,6 +95,7 @@ private:
 		 bool isVisible;
 		 bool isColliding;
 public:
+	   
          Quad(Point& v,double w,double h,double d)
          {
               position = v;
@@ -102,7 +106,8 @@ public:
 			  isVisible = true;
 			  isColliding = false;
          }
-         bool Intersects(Quad* qd);
+		
+         bool Intersects(Quad& qd);
 		 void setPosition(Point& point){ this->position =  point;}
          Point getPosition(){ return position; }
 		 bool IntersectsSphere(Point position , double rad);
@@ -110,19 +115,21 @@ public:
 		 void setCollision(bool param){ isColliding = param; }
 		 bool getVisibility(){ return isVisible; }
 		 bool getIsColliding() { return isColliding;}
-
-
+		 Quad operator<<(const Quad* q){cout<<"w:"<<width<<" h"<<height<<" d: "<<depth<<endl;}
+		 Quad(const Quad& obj){ width = obj.width; height=obj.height;depth=obj.depth;isVisible=true;isColliding=false; }
+		 
+		 
 };
 
-inline bool Quad::Intersects(Quad* qd)
+inline bool Quad::Intersects(Quad& qd)
 {
-	if(qd!=NULL)
+	if(&qd!=NULL)
 	{
-               if(abs(position.x - qd->position.x) < abs(width + qd->width))
+               if(abs(position.x - qd.position.x) < abs(width + qd.width))
                {
-                   if(abs(position.y - qd->position.y) < abs(height + qd->height))
-                   {
-                        if(abs(position.z - qd->position.z) < abs(depth+10 + qd->depth))
+                   if(abs(position.y - qd.position.y) < abs(height + qd.height))
+				   {
+                        if(abs(position.z - qd.position.z) < abs(depth+10 + qd.depth))
                         { 
                               return true;
                         }

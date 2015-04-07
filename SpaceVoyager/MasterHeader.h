@@ -13,6 +13,10 @@
 #include <map>
 #include <irrKlang.h>
 
+//assimp
+#include <Importer.hpp>      // C++ importer interface
+#include <scene.h>           // Output data structure
+#include <postprocess.h> 
 
 #define FAR_SIGHT 10000000.0
 
@@ -26,6 +30,9 @@
 #define space_bg  "../images/space_bg.jpg"
 #define cyrus     "../images/cryrus.jpg"
 #define voyager   "../images/voyager.jpg"
+#define crash     "../images/crash.jpg"
+
+
 
 #define MAX_NO_TEXTURE 3
 

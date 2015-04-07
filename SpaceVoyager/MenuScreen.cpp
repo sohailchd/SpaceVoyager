@@ -4,12 +4,19 @@
 
 #include "MenuScreen.h"
 #include "GameStateManager.h"
+#include "XInputHandler.h"
 
 double r_menu_cursor_x = 0.0;
 double r_menu_cursor_y = 0.0;
 double pos_menu_cursor_y = 0.119;
 double cursor_shift = 0.000;
 unsigned int cursor_on = 0;
+
+
+void handleGpad()
+{
+
+}
 
 MenuScreen::MenuScreen()
 	{
@@ -53,7 +60,7 @@ void MenuScreen::draw_light_shade()
 		
 
 	glScaled(1,1,1);
-	Render::getRenderInstance()->drawHudText(Point(-0.42,0.6,0.0),"  V O Y A G E R ",c_white);
+	Render::getRenderInstance()->drawHudText(Point(-0.42,0.62,0.0),"  V O Y A G E R ",c_white);
 	Render::getRenderInstance()->drawSegment3d(Point(-0.55,0.55,0),Point(-0.1,0.55,0));
 	Render::getRenderInstance()->drawSegment3d(Point(0.45,0.55,0),Point( 0.0,0.55,0));
 	Render::getRenderInstance()->drawHudText(Point(-0.52,0.45,0.0),"    no man's space ",c_azure);
@@ -139,14 +146,14 @@ void MenuScreen::draw_light_shade()
             glLoadIdentity();
 
     glScaled(1,1,1);
-	Render::getRenderInstance()->drawHudText(Point(-0.42,0.6,0.0),"  V O Y A G E R ",c_white);
+	Render::getRenderInstance()->drawHudText(Point(-0.42,0.62,0.0),"  V O Y A G E R ",c_white);
 	Render::getRenderInstance()->drawSegment3d(Point(-0.55,0.55,0),Point(-0.1,0.55,0));
 	Render::getRenderInstance()->drawSegment3d(Point(0.45,0.55,0),Point( 0.0,0.55,0));
 	Render::getRenderInstance()->drawHudText(Point(-0.52,0.45,0.0),"    no man's space ",c_azure);
-    
-		//Under voyager
+   
+	//under voyager
 	glPushMatrix();//
-    glTranslatef(-0.05f,0.55f,0.0f);
+    glTranslatef(-0.05f, 0.55f+0.5f,0.0f);
     glColor3f(0.2,0.4,0.8);
     glRotatef(r_menu_cursor_x,1,0,0);
     glRotatef(45,0,1,0);
@@ -202,7 +209,7 @@ void MenuScreen::keyboard_screen_sp(int& key,int& x,int& y)
     {
         case _start:
            {
-			   if(key== GLUT_KEY_DOWN){
+			   if(key== GLUT_KEY_DOWN ){
                  printf("%d",key);
                  cursor_shift = 0.100; 
                  _menu_current_state = _exit;
@@ -333,7 +340,58 @@ void MenuScreen::timer_screen(int t)
 		GameStateManager::setState(GameStateManager::_inGame);
 	}
 
-     glutPostRedisplay();
+
+	 //Handle GPAd
+	 switch(_menu_current_state)
+    {
+        case _start:
+           {
+			   if( XInputHandler::getInstance()->isDigitalButtonPressedOnce('D') ){
+                 
+                 cursor_shift = 0.100; 
+                 _menu_current_state = _exit;
+              }
+			   if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('A'))
+              { 
+				    isLoading=true;
+				    //display_screen();
+				
+				  //GameStateManager::setState(GameStateManager::_inGame);
+					loadTimer = GameStateManager::timeSinceStart;
+              }
+              break;
+           }
+        case _exit:
+           {
+			   if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('D')){
+                 cursor_shift = 0.200; 
+                 _menu_current_state = _about;
+              }
+			   if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('U')){
+                 cursor_shift = 0.000; 
+                 _menu_current_state = _start;
+              }
+			  if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('A'))
+			  {
+				  exit(0);
+			  }
+              break;
+           }
+        case _about:
+           {
+			   if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('U')){
+                 cursor_shift = 0.100; 
+                 _menu_current_state = _exit;
+              }
+              break;
+           }
+        default:
+           break;   
+    }
+	 // end the Gpadhandler
+     glutPostRedisplay();  
+
+
 }
 
 

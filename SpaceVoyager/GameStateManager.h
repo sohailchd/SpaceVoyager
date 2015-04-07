@@ -51,8 +51,10 @@ class GameStateManager
 	static std::vector<ISceneNode*> _sequenceList;
 	static char* currentObjective_text;
 
+	// for parallel loading of the textures
 	static std::map<char*,GLuint> _tTextureLoader;
 	static GLUquadric* quadMaster;
+	//
 
     static void addToSequenceList(ISceneNode* node);
 	static void setSequence(GameStateManager::SequenceStates st);

@@ -57,7 +57,7 @@ double d = 0;
 
 			glPushMatrix(); 
 			glLoadIdentity();
-			Render::getRenderInstance()->drawHudText(Point(0.2,-0.3,0.0),"Anonymous Studio",c_sc);
+			Render::getRenderInstance()->drawHudText(Point(0.2,-0.3,0.0),"#INCLUDE <studio>",c_sc);
 			Render::getRenderInstance()->drawHudText(Point(0.2,-0.4,0.0),"Presents",c_sc);
 			glPopMatrix();
 
@@ -68,7 +68,7 @@ double d = 0;
 		glPushMatrix();
 		glLoadIdentity();
 		glScaled(1,2,1);
-		Render::getRenderInstance()->drawHudText(Point(-0.5,0.0,0.0),"V   O   Y   A   G   E   R",c_sc);
+		Render::getRenderInstance()->drawHudText(Point(-0.5,0.,0.0),"V   O   Y   A   G   E   R",c_sc);
 		glPopMatrix();
 	}
 
@@ -110,12 +110,12 @@ void SplashScreen::loadObjects()
 void SplashScreen::timer_screen(int t)
 {
 
-     if(GameStateManager::timeSinceStart/1000 > 25)
+     if(GameStateManager::timeSinceStart/1000 > 5)
      {
             GameStateManager::_activeState = GameStateManager::_menu;
 			GameStateManager::setState(GameStateManager::_menu);
      }
-	 if(GameStateManager::timeSinceStart/1000 > 15)
+	 if(GameStateManager::timeSinceStart/1000 > 2)
 	 {
 		 logo_done = true;
 	 }

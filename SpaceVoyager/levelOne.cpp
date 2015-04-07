@@ -11,7 +11,7 @@
 
 
 bool initlevelone = false;
-
+GLdouble night_sky_rot = 0.0f;
 
 
 
@@ -20,10 +20,14 @@ bool initlevelone = false;
 void levelOne::initScene()
 {  
 	
-  glViewport(0, 0, 800, 600);
+    int w = glutGet(GLUT_WINDOW_WIDTH);
+	int h = glutGet(GLUT_WINDOW_HEIGHT);
+
+
+  glViewport(0, 0, w, h);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(60.0, (GLfloat)800*0.8 / (GLfloat)600, 1.0, 100000.0);
+  gluPerspective(45.0, (GLfloat)w*1 / (GLfloat)h, 1.0,FAR_SIGHT);
   glMatrixMode(GL_MODELVIEW);
   
 
@@ -47,7 +51,7 @@ void levelOne::initScene()
 
  
   _ship->init_ship();
-
+  _ship->setSpeed(0);
    initlevelone = true;
 }
 
@@ -71,7 +75,29 @@ void levelOne::display_fn_game()
 	}
 
 
+	//SKY BOX
+     glPushMatrix();
+	 glDisable(GL_LIGHTING);
+	 glDisable(GL_LIGHT0);
+     glTranslatef( _ship->getPositon().x+5000 , _ship->getPositon().y-5000 , _ship->getPositon().z -50000 );
+	 glRotated(GameStateManager::timeSinceStart/1000.0,0.2,0.5,1);
+	 IEntityManager::getInstance()->create_Sat_A();
+     glEnable(GL_LIGHTING);
+	 glEnable(GL_LIGHT0);
+     glPopMatrix();
+	 //end of SKY-BOX
 
+	//Planet - CIRYUS
+	 glPushMatrix();
+	 //glScalef(15,15,15);
+	  glTranslatef(-660000,-10000,-100000);
+	   glRotated(GameStateManager::timeSinceStart*2/1000.0,0.2,0.5,1);
+      IEntityManager::getInstance()->create_planet();
+	   glTranslatef(60000,1000,10000);
+	 glPopMatrix();
+	//Planet - end
+
+	_ship->shipDraw();
 }
 
 void levelOne::idle_fn_game()
@@ -81,10 +107,10 @@ void levelOne::idle_fn_game()
 
 void levelOne::keyboard_fn_game(unsigned char& key,int& x, int& y)
 { 
-    const double deltaSpeed = 0.1;
+    const double deltaSpeed = 10.0;
     const double angle      = 0.02;
-    char  speed_str[5];
-    switch(key)
+   
+  /*  switch(key)
     {
           case 'w': _ship->setSpeed(_ship->getSpeed() + deltaSpeed);  break;
           case 's': _ship->setSpeed(_ship->getSpeed() - deltaSpeed);  break;
@@ -94,12 +120,17 @@ void levelOne::keyboard_fn_game(unsigned char& key,int& x, int& y)
           case 'n': _ship->slide(-1);                                break;
           case 'r': _ship->teleport(Point(0,0,10000));               break;
           case 27: exit(0);                                         break;      
-         default:                                                   break;
+         default: 
+			 break;
 
-       
+    }*/
 
 
-    }
+	if(key=='w'){ _ship->setSpeed(_ship->getSpeed()+deltaSpeed);	}
+	if(key=='s'){ _ship->setSpeed(_ship->getSpeed()-deltaSpeed);	}
+    if(key=='a'){ _ship->roll(angle);	}
+	if(key=='d'){ _ship->roll(-angle);	}
+	
 
      glutPostRedisplay();
 }

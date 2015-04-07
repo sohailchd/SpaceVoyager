@@ -30,6 +30,8 @@ Game::~Game()
 	delete _splashScreen;
 	delete _menuScreen;
 	delete _inGameScreen;
+	delete IEntityManager::getInstance();
+	SoundManager::getInstance()->dropAll();
 }
 
 Game* Game::getInstance()
@@ -63,7 +65,7 @@ void Game::display_fn_game()
                 screenList[2]->display_screen();
                 break; 
             case GameStateManager::_pause:
-                printf("Game is PAUSED.\n");
+                //printf("Game is PAUSED.\n");
                 break;    
             case GameStateManager::_isExiting:
                 printf("Game is EXITING.\n");

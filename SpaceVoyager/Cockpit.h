@@ -8,13 +8,15 @@
 #include "Render.h"
 #include <cmath>
 
+
+
 class Cockpit
 {
 
-
-
-
-
+private:
+	bool alert;
+	Vector sForward , sUp , sRight;
+	
 public:
 
     Cockpit();
@@ -23,19 +25,19 @@ public:
 
     void create();
     void draw();
-
-	enum cockpit_state
-	{
-        _inActive,
-		_onThrusters,
-		_docking,
-		_rollAnimation,
-		_forceStop,
-		_stuttering
-	};
+    void getMechanicsOnScreen();
+	void shipDataUpdate(GLfloat f , GLfloat u , GLfloat r , GLfloat  h , GLfloat spd);
+	void drawObjective();
 	
 	
-
+	bool isDocked;
+	int dock_reading;
+	Point position;
+	GLfloat health;
+	GLfloat speed;
+	bool isLocked;
+ 
+	 
 };
 
 

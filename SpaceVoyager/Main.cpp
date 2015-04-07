@@ -5,21 +5,16 @@
 #include "Game.h"
 #include "GameStateManager.h"
 #include "TextureLoader.h"
+#include "XInputHandler.h"
 
 #include <thread>
 
 
-//#ifdef _DEBUG   
-//#ifndef DBG_NEW      
-//#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )     
-//#define new DBG_NEW   
-//#endif
-//#endif
 
 
 
 
-const unsigned int FPS = 60;
+const unsigned int FPS = 70;
 TextureLoader* parallelLoader_texture = new TextureLoader();
 
 
@@ -66,6 +61,9 @@ void joystick_fn(unsigned int buttons , int xaxis , int yaxis , int zaxis)
 }
 void timer_cb(int t)
 {
+
+	    XInputHandler::getInstance()->updateX();
+
         Game::getInstance()->timer_fn_game(t);
         glutPostRedisplay();
        
@@ -73,7 +71,10 @@ void timer_cb(int t)
         GameStateManager::deltaTime = GameStateManager::timeSinceStart - GameStateManager::timeSinceLast;
         GameStateManager::timeSinceLast = GameStateManager::timeSinceStart;
        
-		printf("----FPS : %f \n",1000/GameStateManager::deltaTime);
+		SoundManager::getInstance()->startPlayList();
+
+		//printf("----FPS : %f \n",1000/GameStateManager::deltaTime);
+		//printf("GPAD : %d\n",XInputHandler::isConnected);
         
 		if(1.0f*1000/GameStateManager::deltaTime > 30)
 		{
@@ -140,8 +141,6 @@ int main(int argv , char* args[]){
 
   
 	 
-	    
-
 	  //glutFullScreen();
       glutDisplayFunc(display_cb);
       glutSpecialFunc(special_cb);

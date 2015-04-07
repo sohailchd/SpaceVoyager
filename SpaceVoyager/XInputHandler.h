@@ -32,10 +32,10 @@ private:
 protected:
 
 	XInputHandler();
-	
+
 public:
 	~XInputHandler();
-	
+	 static BOOL isConnected;
      struct CONTROLLER_INFO controller[MAX_CONTROLLER];
      void updateX();
      bool isDigitalButtonPressedOnce(char key);

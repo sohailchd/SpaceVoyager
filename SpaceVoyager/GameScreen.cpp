@@ -8,8 +8,8 @@
 
 
 ISceneNode* lone = new levelTwo();
-ISceneNode* ltwo = new fightScav();
-ISceneNode* fightScav_level = new fightScav();
+//ISceneNode* ltwo = new fightScav();
+//ISceneNode* fightScav_level = new fightScav();
 
 
 GameScreen::GameScreen()
@@ -163,7 +163,7 @@ void GameScreen::reshape(int& w , int& h)
   glViewport(0, 0, w1, h1);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(60.0, (GLfloat)w1*0.8 / (GLfloat)h1, 1.0, FAR_SIGHT);
+  gluPerspective(60.0, (GLfloat)w1*1.0 / (GLfloat)h1, 1.0, FAR_SIGHT);
   glMatrixMode(GL_MODELVIEW);
   
 }

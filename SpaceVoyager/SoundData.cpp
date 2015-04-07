@@ -12,6 +12,7 @@ SoundData::SoundData(const char* fileName,bool l , ISoundEngine* eng , soundCons
 		vol = DEFAULT_VOLUME;
 		constId = sc;
 		instance = NULL;
+		isPlaying = false;
 		source = engine->addSoundSourceFromFile(fileName);
 	}
 
@@ -28,6 +29,7 @@ void SoundData::loadSound()
 
 void SoundData::play()
 {
+
 	
 	if(instance)
 	   {
@@ -36,7 +38,11 @@ void SoundData::play()
 	   }
 	else
 	{
+		if(!isPlaying){
 		instance = engine->play2D(name,loop,false,true);
+		isPlaying = true;
+		}
+		
 	}
 }
 

@@ -26,6 +26,7 @@ private:
 	ISoundEngine* engine;
 	soundConstant constId;
 	ISoundSource* source;
+	bool isPlaying;
 
 public:
 	SoundData(const char* fileName,bool l , ISoundEngine* eng , soundConstant sc );
@@ -38,7 +39,7 @@ public:
 	void pause();
 	void resume(); 
 	void setVol(float v);
-
+	bool getIsplaying(){ return isPlaying; }
 	
 	const char* getName();
 	int getVol();

@@ -62,7 +62,7 @@ public:
 	void draw_cube(GLdouble w, GLdouble h, GLdouble l, int tex_index);
     void draw_dockStation();
 	void draw_sphere_parallel(int r, char* fileNameConstant);
-
+	void draw_tunnelBoundary();
 	
 	GLuint gen_list;
 
