@@ -24,7 +24,7 @@ Usage: Every entity will created at the opengl context origin.
 #include "Render.h"
 #include "TextureLoader.h"
 
-#define MAX_NO_TEXTURE 20
+
 
 
 
@@ -77,6 +77,22 @@ protected:
 		init_IEntityManager();
 	}
 
+
+};
+
+
+
+class MainCamera
+{
+private:
+	static MainCamera* instance;
+	MainCamera();
+
+public:
+	static MainCamera* getInsatance();
+	~MainCamera();
+	void setCamera2d();
+	void setCamera3d();
 
 };
 

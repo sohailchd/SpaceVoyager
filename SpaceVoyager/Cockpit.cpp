@@ -5,9 +5,10 @@
 
 double col_h[] = { 1.0, 1.0, 1.0 };
 double col_hb[] = { 0.2, 0.4, 0.7 };
-char locationTxt[255];
-char timeElapsedStart[255];
-char speedTxt[255];
+char locationTxt[100];
+char timeElapsedStart[50];
+char speedTxt[50];
+char fps[50];
 GLuint cockpitId;
 
 
@@ -58,31 +59,35 @@ void Cockpit::create()
 
 	glPushMatrix();
 	glRotated(sForward.i,1,1,1);
-	Render::getRenderInstance()->drawHudText(Point(-0.55, 0.03, 0), "<",col_h);
-    glTranslatef(-0.5,0.05,0.0);
-    glColor4f(0.2,0.8,0.2,0.2);
+	//Render::getRenderInstance()->drawHudText(Point(-0.55, 0.03, 0), "<",col_h);
+    glTranslatef(-0.5f,0.05f,0.0f);
+    glColor4f(0.2f,0.8f,0.2f,0.2f);
 	glutSolidCube(0.05);
-    glPopMatrix();
+	glTranslatef(0.0f,-0.10f,0.0f);
+	glutSolidCube(0.05);
+	glPopMatrix();
 
 	glPushMatrix();
-	Render::getRenderInstance()->drawHudText(Point(0.45, 0.03, 0), ">", col_h);
+	//Render::getRenderInstance()->drawHudText(Point(0.45, 0.03, 0), ">", col_h);
     glTranslatef(0.5,0.05,0.0);
-	glColor4f(0.2,0.8,0.2,0.2);
-	 glutSolidCube(0.05);
-    glPopMatrix();
+	glColor4f(0.2f,0.8f,0.2f,0.2f);
+	glutSolidCube(0.05);
+	glTranslatef(0.0f,-0.10f,0.0f);
+	glutSolidCube(0.05);
+	glPopMatrix();
     
 
 	glPushMatrix();
-	Render::getRenderInstance()->drawHudText(Point(-0.05, 0.45, 0), "^", col_h);
+	//Render::getRenderInstance()->drawHudText(Point(-0.05, 0.45, 0), "^", col_h);
     glTranslatef(0,0.3,0.0);
-	glColor4f(0.2,0.8,0.2,0.2);
+	glColor4f(0.4f,0.8f,0.6f,0.2f);
 	glutSolidCube(0.05);
     glPopMatrix();
     
 	glPushMatrix();
 	Render::getRenderInstance()->drawHudText(Point(-0.05, -0.45, 0), "v", col_h);
     glTranslatef(0,-0.3,0.0);
-	glColor4f(0.2,0.8,0.2,0.2);
+	glColor4f(0.4f,0.8f,0.6f,0.6f);
 	glutSolidCube(0.05);
     glPopMatrix();
     
@@ -159,7 +164,7 @@ void Cockpit::getMechanicsOnScreen()
 
 	glPushMatrix();
     //Render::getRenderInstance()->drawHudText10(Point(0.6, -0.70, 0.195),"HEALTH:[                           ]",col_hb)
-	Render::getRenderInstance()->drawHudText10(Point(0.6, -0.620, 0.195),  "HEALTH:[ | | | | | | | | | | | | | ]",col_hb);;
+	Render::getRenderInstance()->drawHudText10(Point(0.6, -0.620, 0.195),  "HEALTH:[ | | | | | | | | | | | | | ]",col_h);;
 	glTranslatef(0.82, -0.615, 0.2);
 	glScalef(health,1.0f,1.0f);
 	glutSolidCube(0.025);
@@ -191,9 +196,11 @@ void Cockpit::drawObjective()
 	sprintf(locationTxt,"LOCATION: \n[X:%8.2f]\n[Y:%8.2f]\n[Z:%8.2f] ",position.x,position.y,position.z);
 	Render::getRenderInstance()->drawHudText12(Point(-1.1, -0.90, 0.2),locationTxt,col_h);
 	sprintf(timeElapsedStart,"Server Uptime: %3.0fmin %2.3fsec",GameStateManager::timeSinceStart*0.00001666666f,(GameStateManager::timeSinceStart*0.001)-((int)(GameStateManager::timeSinceStart*0.00001666666))*60);
-	Render::getRenderInstance()->drawHudText12(Point(-1.0, 0.85, 0.2),timeElapsedStart,col_h);
+	Render::getRenderInstance()->drawHudText12(Point(-1.05, 0.85, 0.2),timeElapsedStart,col_h);
 	sprintf(speedTxt,"SPEED: %5.2f",speed);
-	Render::getRenderInstance()->drawHudText18(Point(-0.2, -0.71, 0.2), speedTxt, col_h);
+	Render::getRenderInstance()->drawHudText18(Point(-0.3, -0.71, 0.2), speedTxt, col_h);
+	sprintf(fps,"Engine: %3.3f",1000.0f/GameStateManager::deltaTime);
+	Render::getRenderInstance()->drawHudText10(Point(-0.9, -0.60, 0.2),fps,col_h);
 #pragma endregion
 
    #pragma region LOC_OBJ  
@@ -201,25 +208,8 @@ void Cockpit::drawObjective()
 	Render::getRenderInstance()->drawHudText12(Point(0.3,-0.32,0.2),"VOYAGER",col_h);
 	Render::getRenderInstance()->drawHudText10(Point(0.7,-0.2,0.2),"DATE: 25-OCT-2154",col_h);
 
-	switch (GameStateManager::_currentSequence)
-	{
-	case GameStateManager::_inPrologue_SQ:
-		{
-			Render::getRenderInstance()->drawHudText12(Point(0.3,-0.40,0.2),"PROLOGUE",col_h);
-		}
-		break;
-	case GameStateManager::_inSequenceLoad_SQ:
-		break;
-	case GameStateManager::_inWormHole_SQ:
-		break;
-	case GameStateManager::_inDropGenesis_SQ:
-		break;
-    case GameStateManager::_inEpilogue_SQ:
-		break;
-	default:
-		break;
-	}
-    #pragma endregion LOC_OBJ
+
+ #pragma endregion LOC_OBJ
 
 #pragma region _dockStatus
 	if(!isDocked)
@@ -258,7 +248,7 @@ void Cockpit::drawObjective()
 	glScalef(1.0f,1.0f,1.0f);
 	glEnable(GL_BLEND);
 	   glTranslatef(0.73,-0.4,0.2);
-	     glColor4f(0.1,0.1,0.1,0.4);
+	     glColor4f(0.2f,0.2f,0.2f,0.4f);
 	     glutSolidCube(0.5);
 	   glTranslatef(-0.73,-0.4,-0.2);
 	   glDisable(GL_BLEND);
@@ -288,7 +278,8 @@ void Cockpit::draw()
 
 	//glTranslated(sin(2.0*3.14526*GameStateManager::timeSinceLast),cos(2.0*314526*GameStateManager::timeSinceStart),0); /* Vibrator */
     glCallList(cockpitId);
-    glPopMatrix();
+    
+	glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);

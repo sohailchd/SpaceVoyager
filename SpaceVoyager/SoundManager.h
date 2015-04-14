@@ -37,6 +37,12 @@ public:
 	void dropAll();
 
 	static SoundManager* getInstance();
+
+	//-----------------
+	void playDirectFromEngine(char* fileName, bool isLoop);
+	
+	
+
 };
 
 #endif

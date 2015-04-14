@@ -7,17 +7,17 @@ Ship::Ship(Point initialPosition):
        forward(0,0,-1),
        up(0,1,0),
        right(1,0,0),
-	   speed(1.5)
+	   speed(0.0f)
 {
 	msys = new missileSystem();
-	collisionBox_ship = new Quad(position,50,50,50);
+	collisionBox_ship = new Quad(position,100,100,100);
 	_cockpit = new Cockpit();
 	next_targetLocation = Point(0,0,0);
 	health = 10;
 	isDocking = false;
 	dock_reading = 0;
 	shipActionDiabled = false;
-	c_state = _crash;
+	c_state = _normal;
 }
 
 
@@ -61,13 +61,7 @@ void Ship::fly()
 	}
 	else
 	{
-		setHealth(-1);
-		SoundManager::getInstance()->addCurrentPlayList(ALARM,false,ALARM_C);
-		setSpeed(0.00001);
-		position += -200.0f*forward;
-		collisionBox_ship->setPosition(position);
-		collisionBox_ship->setCollision(false);
-		
+		onCollision();
 	}
 		
     //cout<<"Ship.h : position"<<position<<endl;
@@ -127,7 +121,12 @@ void Ship::init_ship()
 
  void Ship::onCollision()
  {
-	 health -= 1;
+	setHealth(-1);
+	SoundManager::getInstance()->playDirectFromEngine(ALARM,false);
+		setSpeed(0.0001);
+		position += -2000.0f*forward;
+		collisionBox_ship->setPosition(position);
+		collisionBox_ship->setCollision(false);
  }
 
  	
@@ -250,9 +249,7 @@ void Ship::init_ship()
     }//// End if
 #pragma endregion 
 	}
-	else
-	{
-	}
+	
 
 }
 
@@ -311,7 +308,7 @@ void Ship::init_ship()
 	
 		if(dock_reading==10)
 		{
-			SoundManager::getInstance()->addCurrentPlayList(DECOMPRESS,false,DECOMPRESS_C);
+			if(!shipActionDiabled){ SoundManager::getInstance()->playDirectFromEngine(DECOMPRESS,false); }
 			shipActionDiabled = true;
 		}
 		if(dock_reading==0)
@@ -319,7 +316,7 @@ void Ship::init_ship()
 			shipActionDiabled = false;
 		}
 	    
-		cout<<"Dockreading: "<<dock_reading<<endl;
+		
 	}
 #pragma endregion dock_region_end
 

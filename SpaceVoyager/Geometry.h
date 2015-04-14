@@ -123,24 +123,58 @@ public:
 
 inline bool Quad::Intersects(Quad& qd)
 {
+	bool ret = false;
+
 	if(&qd!=NULL)
 	{
-               if(abs(position.x - qd.position.x) < abs(width + qd.width))
+		/*if( 
+			 ( (abs(position.x) < abs(qd.position.x)) &&  ( abs(position.x)+width > abs(qd.position.x) ) )
+			 ||
+			 ( ( abs(position.x) < abs(qd.position.x)+qd.width ) && ( abs(position.x)+width > abs(qd.position.x)+width  ) )
+		  )
+		 {
+            
+
+			 if(
+				 ( (abs(position.y) < abs(qd.position.y)) &&  ( abs(position.y)+height > abs(qd.position.y) ) )
+			     ||
+			     ( ( abs(position.y) < abs(qd.position.y)+qd.height ) && ( abs(position.y)+height > abs(qd.position.y)+height  ) )
+				 
+				)
+			 {
+
+
+				 if(
+					 ( (abs(position.z) < abs(qd.position.z)) &&  ( abs(position.z)+depth > abs(qd.position.z) ) )
+			         ||
+					 ( ( abs(position.z) < abs(qd.position.z)+qd.depth ) && ( abs(position.z)+depth > abs(qd.position.z)+depth  ) )
+
+					 )
+				 {
+					 ret = true;
+				 }
+
+
+			 }
+
+		 }*/
+
+
+		
+               if(abs(position.x - qd.position.x) < (width + qd.width))
                {
-                   if(abs(position.y - qd.position.y) < abs(height + qd.height))
+                   if(abs(position.y - qd.position.y) < (height + qd.height))
 				   {
-                        if(abs(position.z - qd.position.z) < abs(depth+10 + qd.depth))
+                        if(abs(position.z - qd.position.z) < (depth + qd.depth))
                         { 
-                              return true;
+                              ret =  true;
                         }
                    }
                }
-               else{
-                return false;
-              }
+               
 	}
 
-	return 0;
+	return ret;
 
 }
 

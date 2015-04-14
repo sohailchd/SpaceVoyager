@@ -101,6 +101,7 @@
     <ClInclude Include="PauseScreen.h" />
     <ClInclude Include="PrologueSQ.h" />
     <ClInclude Include="Render.h" />
+    <ClInclude Include="RetryScreen.h" />
     <ClInclude Include="Screens.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Ship.h" />
@@ -132,6 +133,7 @@
     <ClCompile Include="PauseScreen.cpp" />
     <ClCompile Include="Prologue.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="RetryScreen.cpp" />
     <ClCompile Include="Screens.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Ship.cpp" />

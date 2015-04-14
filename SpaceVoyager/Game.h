@@ -5,13 +5,7 @@
 
 #pragma once
 
-#include "MasterHeader.h"
-#include "Screens.h"
-#include "SplashScreen.h"
-#include "GameScreen.h"
-#include "MenuScreen.h"
-#include <thread>
-#include "IEntityManager.h"
+#include "GameStateManager.h"
 
 class Game{
     
@@ -25,11 +19,10 @@ public:
     	_menu ,
     	_inGame ,
     	_pause ,
-    	_isExiting
+    	_isExiting,
+		_retry
     	};
-    	static GameStates _activeState;
-        
-
+    	
     	~Game();
     	
 
@@ -47,7 +40,16 @@ public:
         Screens* _splashScreen;
         Screens* _menuScreen;
         Screens* _inGameScreen;
+		Screens* _retryScreen;
+
         std::vector<Screens*> screenList;
+		template<class fwdIter , class T> void replace(fwdIter fs , fwdIter lst , const T& old , const T& newV)		{
+			while(fs!=lst)
+			{
+				if(*fs==old){ *old = newV ;}
+				++fs;
+			}
+		}
 
 protected:
 	Game();

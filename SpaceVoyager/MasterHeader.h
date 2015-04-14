@@ -2,6 +2,8 @@
 #ifndef _MasterHeader_
 #define _MasterHeader_
 
+#pragma once
+
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
@@ -34,7 +36,7 @@
 
 
 
-#define MAX_NO_TEXTURE 3
+#define MAX_NO_TEXTURE 20
 
 
 

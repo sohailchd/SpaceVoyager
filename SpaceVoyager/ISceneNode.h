@@ -4,6 +4,11 @@
 #ifndef _ISceneNode_
 #define _ISceneNode_
 
+enum ISceneNodeStates
+{
+	active,
+	inactive
+};
 
 class ISceneNode
 {

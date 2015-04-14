@@ -4,6 +4,7 @@ GLfloat origin[3] = {100.0,100.0,100.0};
 GLfloat rot_x = 0.0f;
 
 	
+
 IEntityManager* IEntityManager::entityManagerInstance = NULL;
 
 IEntityManager* IEntityManager::getInstance()
@@ -150,22 +151,22 @@ void IEntityManager::draw_sphere(int r, int tex)
 void IEntityManager::draw_sphere_parallel(int r,  char* fileNameConstant)
 {	
 
-	glPushMatrix();
-	glScaled(r,r,r);
-	glRotatef(90, 1.0f, 0.0f, 0.0f);
-	glRotatef(90, 0.0f, 0.0f, 1.0f);
-	//glRotatef(rot_x/10.0,0.0,0.0,1.0);
-	//glColor3f(0.8, 0.4, 0.2);
-	    glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, GameStateManager::_tTextureLoader[fileNameConstant]);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		gluQuadricTexture(GameStateManager::quadMaster, 1);
-		gluSphere(quad_iem,1,36,36);
-	    glDisable(GL_TEXTURE_2D);
-    glPopMatrix();
+	//glPushMatrix();
+	//glScaled(r,r,r);
+	//glRotatef(90, 1.0f, 0.0f, 0.0f);
+	//glRotatef(90, 0.0f, 0.0f, 1.0f);
+	////glRotatef(rot_x/10.0,0.0,0.0,1.0);
+	////glColor3f(0.8, 0.4, 0.2);
+	//    glEnable(GL_TEXTURE_2D);
+	//	glBindTexture(GL_TEXTURE_2D, GameStateManager::_tTextureLoader[fileNameConstant]);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	//	gluQuadricTexture(GameStateManager::quadMaster, 1);
+	//	gluSphere(quad_iem,1,36,36);
+	//    glDisable(GL_TEXTURE_2D);
+ //   glPopMatrix();
 
-   glScaled(1,1,1);
+ //  glScaled(1,1,1);
 
 }
 
@@ -719,7 +720,7 @@ void IEntityManager::draw_tunnelBoundary()
 
 #pragma top
 	glPushMatrix();
-	for(GLdouble z=-37.5;z>=-3212.5;z-=40.5){
+	for(GLdouble z=-37.5;z>=-1212.5;z-=40.5){
     glPushMatrix();
 	glTranslatef(-1,-1,z);
 	//glScaled(0.1,0.1,0.05);
@@ -915,3 +916,86 @@ void IEntityManager::draw_dockStation()
 
 	glScaled(1,1,1);
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#pragma region camera
+
+MainCamera* MainCamera::instance = NULL;
+
+
+
+
+MainCamera* MainCamera::getInsatance()
+{
+	if(instance==NULL)
+	{
+		instance = new MainCamera();
+	}
+
+	return instance;
+}
+
+
+MainCamera::MainCamera()
+{}
+
+
+MainCamera::~MainCamera()
+{
+}
+
+void MainCamera::setCamera2d()
+{
+	int w = glutGet(GLUT_WINDOW_WIDTH);
+	int h = glutGet(GLUT_WINDOW_HEIGHT);
+
+	  if(h==0){ h=1; }
+        GLfloat aspect = (GLfloat)w / (GLfloat)h;
+        
+        glViewport(0,0,w,h);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        if(w>=h){ gluOrtho2D(-1.0*aspect , 1.0*aspect , -1.0 , 1.0); }
+        else { gluOrtho2D(-1.0 , 1.0 , -1.0 / aspect , 1.0 / aspect); }
+}
+
+void MainCamera::setCamera3d()
+{
+	int w = glutGet(GLUT_WINDOW_WIDTH);
+	int h = glutGet(GLUT_WINDOW_HEIGHT);
+
+
+  glViewport(0, 0, w, h);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective(45.0, (GLfloat)w*1.0 / (GLfloat)h, 1.0,FAR_SIGHT);
+  glMatrixMode(GL_MODELVIEW);
+  
+
+
+
+   //LIGHTING
+  GLfloat black[] = { 0.0, 0.0, 0.0, 1.0};
+  GLfloat dark[] = { 0.2, 0.15, 0.2, 1.0};
+  GLfloat white[] = { 0.7 , 0.7, 0.7, 1.0};
+  GLfloat direction[] = { 0.2, 0.0, 10.5,0.0};
+
+  //glMaterialfv(GL_FRONT, GL_SPECULAR, white);
+ // glMaterialf(GL_FRONT, GL_SHININESS, 30);
+  glLightfv(GL_LIGHT0, GL_AMBIENT , white);
+  glLightfv(GL_LIGHT0, GL_DIFFUSE , white);
+ // glLightfv(GL_LIGHT0, GL_SPECULAR , white);
+  glLightfv(GL_LIGHT0, GL_POSITION , direction);
+
+  // Keep the lightingt ON as default setting for this sequence
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+  glEnable(GL_LIGHT1);
+}
+
+
+#pragma endregion

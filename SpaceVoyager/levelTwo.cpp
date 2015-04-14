@@ -5,18 +5,23 @@
 #include "Render.h"
 #include "levelTwoScavengers.h"
 #include "Exterminatore.h"
+#include "Game.h"
+
+#include <algorithm>
 
 
+		  GLfloat fogDensity        = 0.0000000001f;
+          GLfloat fogColor[4]       = {0.8,0.8,0.8,0.0};
+          GLfloat unity_debrispara  = 0.0f;
+          double white_l2[]         = { 0.1,0.1,0.1 };
 
-
-GLfloat fogDensity = 0.000001f;
-GLfloat fogColor[4]   = {0.8,0.8,0.8,0.0};
-GLfloat unity_debrispara = 0.0f;
 
 void levelTwo::initScene()
 {
+	
 	int w = glutGet(GLUT_WINDOW_WIDTH);
 	int h = glutGet(GLUT_WINDOW_HEIGHT);
+    
 
 
   glViewport(0, 0, w, h);
@@ -35,16 +40,16 @@ void levelTwo::initScene()
   GLfloat direction[] = { 0.2, 0.0, 10.5,0.0};
 
   //glMaterialfv(GL_FRONT, GL_SPECULAR, white);
- // glMaterialf(GL_FRONT, GL_SHININESS, 30);
+  //glMaterialf(GL_FRONT, GL_SHININESS, 8);
   glLightfv(GL_LIGHT0, GL_AMBIENT , white);
   glLightfv(GL_LIGHT0, GL_DIFFUSE , white);
- // glLightfv(GL_LIGHT0, GL_SPECULAR , white);
+  glLightfv(GL_LIGHT0, GL_SPECULAR , white);
   glLightfv(GL_LIGHT0, GL_POSITION , direction);
 
   // Keep the lightingt ON as default setting for this sequence
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
-  glEnable(GL_LIGHT1);
+  //glEnable(GL_LIGHT1);
 
 
   //fog
@@ -55,7 +60,7 @@ void levelTwo::initScene()
   glFogf(GL_FOG_START,1000000.0f);
   glHint(GL_FOG_HINT,GL_NICEST);
 
-
+  level2_currentState = _reachUnity;
   _ship->init_ship();
   srand(GameStateManager::timeSinceStart/1000);
   ifInit = true;
@@ -64,7 +69,7 @@ void levelTwo::initScene()
 
 levelTwo::levelTwo()
 {
-	_ship = new Ship(Point(0,0,2000000));
+	          _ship = new Ship(Point(0,0,2000000));
 
 	           _ship->dockStation = new Quad(Point(90000,49000,-10500),1400,1400,1400);
                
@@ -75,7 +80,7 @@ levelTwo::levelTwo()
 
 
 #pragma region init-collision-Quads
-			   planet_quad = new Quad(Point(-660000,-10000,-100000),557000,557000,557000);
+			   planet_quad = new Quad(Point(-660000,-10000,-100000),607000,607000,607000);
 			   //for the main-dock-rib
 			   unity_collider_a = new Quad(Point(90000,3000,200),6000,6000,30000);
 			   //for the dock extendision
@@ -122,7 +127,7 @@ levelTwo::levelTwo()
                collisionManager->deleteFromList(unity_collider_c);*/
 
 
-			  /* for(int i =-50000;i<500000;i+=20000)
+			   /*for(int i =-50000;i<500000;i+=20000)
 			   {
 				
 				   for(int j=-15000;j<100000;j+= 10000)
@@ -133,14 +138,14 @@ levelTwo::levelTwo()
 				   }
 			   }*/
 			  
-			   for(int i=0;i<1000;i++)
+			   /*for(int i=0;i<1000;i++)
 			   {
 				   exterMin->createExterminatore( Point(
 					   rand()%(100000)+(-100000),
 					   rand()%(100000)+(-500000),
 					   rand()%(1000000)+(-600000)
 					   ) );
-			   }
+			   }*/
 
 			   // initScene();
 			   ifInit = false;
@@ -152,6 +157,7 @@ levelTwo::~levelTwo()
 }
 
 
+
 void levelTwo::display_fn_game()
 {
 
@@ -160,18 +166,22 @@ void levelTwo::display_fn_game()
         initScene();
     }
     
-	if(_ship->getCockpitState()==_ship->_normal){
-
-#pragma region _normal
+	if(_ship->getCockpitState()==_ship->_normal)
+	{
+     #pragma region _normal
 	//SKY BOX
      glPushMatrix();
 	 glDisable(GL_LIGHTING);
-	 glDisable(GL_LIGHT0);
+	 glDisable(GL_CULL_FACE);
+	 glDisable(GLU_CULLING);
+	 //glDisable(GL_LIGHT0);
      glTranslatef( _ship->getPositon().x+5000 , _ship->getPositon().y-5000 , _ship->getPositon().z -50000 );
 	 glRotated(GameStateManager::timeSinceStart/2000.0,0.2,0.5,1);
 	 IEntityManager::getInstance()->create_Sat_A();
      glEnable(GL_LIGHTING);
-	 glEnable(GL_LIGHT0);
+	 glEnable(GL_CULL_FACE);
+	 glEnable(GLU_CULLING);
+	 //glEnable(GL_LIGHT0);
      glPopMatrix();
 	 //end of SKY-BOX
 
@@ -209,10 +219,10 @@ void levelTwo::display_fn_game()
 	
     
 	//Nalanda
-	//glPushMatrix();
-	  //glTranslatef(0,0,2000000-1000);
-	  //IEntityManager::getInstance()->draw_nalanda();
-	//glPopMatrix();
+	/*glPushMatrix();
+	  glTranslatef(0,0,2000000-1000);
+	  IEntityManager::getInstance()->draw_nalanda();
+	glPopMatrix();*/
 	///////////////////////
 
 	//test Code
@@ -270,16 +280,70 @@ void levelTwo::display_fn_game()
 	//Exter end
 
 #pragma endregion
-	}else
+	drawOnScreen();
+	_ship->shipDraw();
+	
+	}
+
+else
 	{
 		atmosphereEntryProtocol();
 	}
 
 
-	_ship->shipDraw();
+	
 
-	SoundManager::getInstance()->pauseFromPlayList(SPLASH_THEME_1_C);
+	//SoundManager::getInstance()->pauseFromPlayList(SPLASH_THEME_1_C);
 	//		   SoundManager::getInstance()->addCurrentPlayList(CHASE_UNITY,true,CHASE_UNITY_C);
+}
+
+
+
+void levelTwo::drawOnScreen()
+{
+	double w[] = {1.0,1.0,1.0};
+	glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+      glDisable(GL_LIGHTING);
+      glDisable(GL_LIGHT0);
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+
+
+	/*Render::getRenderInstance()->drawHudText12(Point(0.0,0.0,0.0),"REACH UNITY AND FIND DOCKING MODULE.",w);*/
+
+	switch (level2_currentState)
+	{
+	case levelTwo::_reachUnity:
+		{
+			if(XInputHandler::getInstance()->isDigitalButtonPressed('U'))
+			{
+				IEntityManager::getInstance()->draw_plane(1,1,11);
+
+				Render::getRenderInstance()->drawHudText12(Point(-0.5,0.35,0),"REACH UNITY AND FIND DOCKING MODULE.",w);
+				Render::getRenderInstance()->drawHudText12(Point(-0.5,0.25,0),"DOWNLOAD THE GENESIS FROM Qserver in UNITY.",w);
+
+			}
+		}
+		break;
+	case levelTwo::_docking:
+		break;
+	case levelTwo::_seqUpload:
+		break;
+	case levelTwo::_wormholeDocking:
+		break;
+	default:
+		break;
+	}
+
+	glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glPopMatrix();
+	
 }
 
 void levelTwo::idle_fn_game()
@@ -306,7 +370,6 @@ void levelTwo::keyboard_fn_game(unsigned char& key,int& x, int& y)
 		  case 'u': exterMin->createExterminatore(_ship->getPositon());
          default:                                                   break;
 
-
     }
 
      glutPostRedisplay();
@@ -317,7 +380,9 @@ void levelTwo::special_fn_game(int& key , int& x, int& y)
 { 
     float fraction = 0.01f;
     double angle   = 0.01;
-     switch(key){
+     
+	switch(key)
+	{
 
     case GLUT_KEY_LEFT :
     {
@@ -350,35 +415,46 @@ void levelTwo::special_fn_game(int& key , int& x, int& y)
 
 void levelTwo::atmosphereEntryProtocol()
 {
-	//create fog
-	//create create fake buildings
-	//create crash destablisation
-/*
-	_ship->teleport(Point(0,0,0));
-	_ship->setForward(Vector(0,0,-10000));*/
-	//_ship->roll(GameStateManager::timeSinceStart*0.000009f);
+
+	//glEnable(GL_FOG);
+	//glEnable(GL_FOG_DENSITY);
+	glDisable(GL_LIGHTING);
 
 
-	
-	_ship->setSpeed(1000);
-	_ship->roll(0.01);
+	if(_ship->getPositon().z < 640000.0f)
+	{
+		GameStateManager::getInstance()->setGameState(_retry);
+	}
+
+	else
+	{
+    _ship->roll(0.01);
 	_ship->shipActionDiabled=true;
 	glPushMatrix();
-    glScaled(1000,1000,1000);
-	glTranslated(0,0,1000+GameStateManager::timeSinceStart*0.00001);
-	   IEntityManager::getInstance()->draw_plane(5000,5000,8);
+    glScaled(500,500,500);
+	glTranslated(0,0,-1000);
+	   IEntityManager::getInstance()->draw_plane(8000,8000,8);
 	glPopMatrix();
+
+	//draw the final ship
+	_ship->shipDraw();
+	}
 
 }
 
 
 void levelTwo::timer_fn_game(int t)
 {
+	
+
     if(unity_collider_a->getIsColliding()){unity_debrispara += 1.0f; }
 	if(_ship->collisionBox_ship->Intersects(*planet_quad))
 	{
-		_ship->setCockpitState(_ship->_normal); 
-		_ship->shipActionDiabled = true;
+		_ship->setSpeed(1000);
+		_ship->setCockpitState(_ship->_crash); 
+		_ship->teleport(Point(0,0,2000000));
+		_ship->setForward(Vector(0,0,-1));
+	    _ship->shipActionDiabled = true;
 	}
 
 	  

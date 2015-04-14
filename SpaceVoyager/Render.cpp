@@ -5,6 +5,9 @@
     const double k_inc = 2.0f * 3.1425 / k_seg;
     double theta = 0.0f;
 
+	/*double WHITE_COLOR[] = {12,12,12};*/
+
+
 	Render* Render::renderInstance = NULL;
 
 	Render* Render::getRenderInstance()

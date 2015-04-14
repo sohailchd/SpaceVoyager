@@ -12,10 +12,12 @@ double blue_rect[] = {0.2,0.4,0.8};
 bool logo_done = false;
 double c_sc[] = {1.0,1.0,1.0};
 
+SplashScreen::SplashScreen(){ }
+
 void  SplashScreen::display_screen()
 {
 	Point missile_pos(0,0,0);
-double d = 0;
+    double d = 0;
 	//glClearColor(1.0,1.0,1.0,1.0);
  //   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
          
@@ -38,7 +40,7 @@ double d = 0;
 		////////////////////////////
 			glPushMatrix();
 			glEnable(GL_BLEND);
-			glColor4f(0.1,0.1,0.1,0.5);  //
+			glColor4f(0.2,0.2,0.2,0.5);  //
 			glScalef(4,0.5,1);
 			glTranslatef(0,0.1,-1);
 			glutSolidCube(1);
@@ -112,8 +114,7 @@ void SplashScreen::timer_screen(int t)
 
      if(GameStateManager::timeSinceStart/1000 > 5)
      {
-            GameStateManager::_activeState = GameStateManager::_menu;
-			GameStateManager::setState(GameStateManager::_menu);
+		 GameStateManager::getInstance()->setGameState(_menu);
      }
 	 if(GameStateManager::timeSinceStart/1000 > 2)
 	 {

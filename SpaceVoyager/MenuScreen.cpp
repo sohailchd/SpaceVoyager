@@ -6,27 +6,32 @@
 #include "GameStateManager.h"
 #include "XInputHandler.h"
 
-double r_menu_cursor_x = 0.0;
-double r_menu_cursor_y = 0.0;
-double pos_menu_cursor_y = 0.119;
-double cursor_shift = 0.000;
-unsigned int cursor_on = 0;
 
 
-void handleGpad()
+
+
+	
+MenuScreen::~MenuScreen()
 {
+        	
 
 }
-
 MenuScreen::MenuScreen()
-	{
-      		_menu_current_state = _start;
-			isLoading = false;
-			loadTimer = 0.0f;
-      	}
+{
+	        _menu_current_state = _start;
+			isLoading           = false;
+			loadTimer           = 0.0f;
 
- MenuScreen::~MenuScreen(){}
 
+            r_menu_cursor_x     = 0.0;
+            r_menu_cursor_y     = 0.0;
+            pos_menu_cursor_y   = 0.119;
+            cursor_shift        = 0.000;
+            cursor_on           = 0;
+
+			sceneInit = false;
+		
+}
 
 void init()
 {
@@ -53,7 +58,14 @@ void MenuScreen::draw_light_shade()
 	glClearColor(0.0,0.0,0.0,1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    //int();
+   
+	if(!sceneInit)
+	{
+		int w = glutGet(GLUT_WINDOW_WIDTH);
+	    int h = glutGet(GLUT_WINDOW_HEIGHT);
+		reshape(w,h);
+		sceneInit = true;
+	}
 
 	
 
@@ -67,7 +79,7 @@ void MenuScreen::draw_light_shade()
     
 		//Under voyager
 	glPushMatrix();//
-    glTranslatef(-0.05f, 0.55f+0.5f,0.0f);
+    glTranslated(-0.05, 0.55f+0.5,0.0);
     glColor3f(0.2,0.4,0.8);
     glRotatef(r_menu_cursor_x,1,0,0);
     glRotatef(45,0,1,0);
@@ -93,13 +105,13 @@ void MenuScreen::draw_light_shade()
     //glLoadIdentity();
 	
 	glPushMatrix();//
-    glTranslatef(-0.2, pos_menu_cursor_y - cursor_shift,0);
-    glColor3f(0.8,0.8,0.8);
+    glTranslated(-0.2, pos_menu_cursor_y - cursor_shift,0);
+    glColor3f(0.8f,0.8f,0.8f);
    // glRotatef(r_menu_cursor_x,1,0,0);
    // glRotatef(r_menu_cursor_y,0,1,0);
     glutSolidCube(0.05);
-    glColor3f(1.0,1.0,1.0);
-    glutWireCube(0.04);
+    //glColor3f(1.0,1.0,1.0);
+    //glutWireCube(0.04);
 	glTranslatef(0.2, -(pos_menu_cursor_y - cursor_shift),0);
 	glPopMatrix();//
 	
@@ -130,22 +142,23 @@ void MenuScreen::draw_light_shade()
 
 	glPushMatrix();
 			glEnable(GL_BLEND);
-			glColor4f(0.1,0.1,0.1,0.5);  //
-			glScalef(4,0.5,1);
-			glTranslatef(0,1,-1);
-			glutSolidCube(1);
+			glColor4f(0.2f,0.8f,0.5f,0.5f);  //
+			glScalef(4.0f,0.5f,1.0f);
+			glTranslatef(0.0f,1.0f,-1.0f);
+			glutSolidCube(1.0);
 			glDisable(GL_BLEND);
 	glPopMatrix(); 
 
 	}//if
 
+	// after enter the loading seq-
 	else
 	{
 			glClearColor(0.0,0.0,0.0,1.0);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glLoadIdentity();
 
-    glScaled(1,1,1);
+    glScaled(1.0,1.0,1.0);
 	Render::getRenderInstance()->drawHudText(Point(-0.42,0.62,0.0),"  V O Y A G E R ",c_white);
 	Render::getRenderInstance()->drawSegment3d(Point(-0.55,0.55,0),Point(-0.1,0.55,0));
 	Render::getRenderInstance()->drawSegment3d(Point(0.45,0.55,0),Point( 0.0,0.55,0));
@@ -153,8 +166,8 @@ void MenuScreen::draw_light_shade()
    
 	//under voyager
 	glPushMatrix();//
-    glTranslatef(-0.05f, 0.55f+0.5f,0.0f);
-    glColor3f(0.2,0.4,0.8);
+    glTranslatef(-0.05f, 0.55f,0.0f);
+    glColor3f(1.0f,1.0f,1.0f);
     glRotatef(r_menu_cursor_x,1,0,0);
     glRotatef(45,0,1,0);
     glutSolidCube(0.03);
@@ -171,7 +184,7 @@ void MenuScreen::draw_light_shade()
 
 			glPushMatrix();
 			glEnable(GL_BLEND);
-			glColor4f(0.1,0.1,0.1,0.5);  //
+			glColor4f(0.3f,0.3f,0.3f,0.5f);  //
 			glScalef(4,0.5,1);
 			glTranslatef(0.0f,1.1f,-1.0f);
 			glutSolidCube(1);
@@ -337,7 +350,7 @@ void MenuScreen::timer_screen(int t)
 	 
 	 if((GameStateManager::timeSinceStart -  loadTimer > 2000.00f) && isLoading )
 	{
-		GameStateManager::setState(GameStateManager::_inGame);
+		GameStateManager::getInstance()->setGameState(_inGame);
 	}
 
 

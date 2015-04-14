@@ -92,3 +92,8 @@ SoundManager* SoundManager::getInstance()
 		 }
 		engine2D->drop();
 	}
+
+	void SoundManager::playDirectFromEngine(char* fname,bool isLoop)
+	{
+		engine2D->play2D(fname,isLoop,false,true);
+	}

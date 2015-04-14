@@ -1,11 +1,17 @@
 
-
-
-
 #include "Screens.h"
 
+Screens::Screens()
+{
+	 
+}
 
-Screens::Screens(){}
+
+
+Screens::~Screens()
+{
+}
+
 
 
  void Screens::display_screen()
@@ -13,9 +19,6 @@ Screens::Screens(){}
 
 }
 
-Screens::~Screens(){
-
-}
 
 void Screens::idle_screen()
 {
@@ -47,3 +50,18 @@ void Screens::timer_screen(int t)
 {
 
 }
+
+void Screens::setScreenState(ScreensState st)
+{
+	_lastState    = _currentState;
+	_currentState = st;
+
+}
+
+ScreensState Screens::getScreenState ()
+{return _currentState;}
+
+ScreensState Screens::getLastScreenState()
+{ return _lastState; }
+
+

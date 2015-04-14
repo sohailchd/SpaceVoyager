@@ -9,9 +9,23 @@
 #include "Render.h"
 
 
+enum ScreensState
+{
+	  _inactive,
+	  _active,
+	  _saved,
+	  _exited
+};
+
+
 class Screens
 {
-      
+ 
+protected:
+	
+		  ScreensState _currentState;
+		  ScreensState  _lastState;
+
       public:
 		  Screens();
 		  virtual ~Screens();
@@ -24,6 +38,15 @@ class Screens
           virtual void reshape(int& n , int& n2);
           virtual void loadObjects();	
 		 // virtual void soundPlayer();
+
+		  void setScreenState(ScreensState st);
+		  ScreensState getScreenState();
+		  ScreensState getLastScreenState();
+		   
+		  int _namedId;
+
+
+		 
 };
 
 

@@ -127,13 +127,19 @@ class fightScav : public ISceneNode
          virtual void special_fn_game(int& key , int& x, int& y);
 	     virtual void timer_fn_game(int t);
 		 
-		 //CollisionManager* collisionManager;
+		 CollisionManager* collisionManager;
 
 
 	private:
           Ship*      _ship;
 		  bool ifInit;
 		  vector<TunnelObject*> TunnelObject_list;
+		  Quad* boundaryWallTop;
+		  Quad* boundaryWallRight;
+          Quad* boundaryWallLeft;
+          Quad* boundaryWallDown;
+
+		  
 };
 
 #endif

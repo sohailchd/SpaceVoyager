@@ -37,3 +37,5 @@ void PauseScreen::reshape(int& w , int& h)
 {
 }
 
+void PauseScreen::loadObjects()
+{}

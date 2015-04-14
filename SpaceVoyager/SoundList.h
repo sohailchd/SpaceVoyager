@@ -4,7 +4,7 @@
 
 #define  SPLASH_THEME_1  "../audio/themes/theme.mp3"
 #define CHASE_UNITY      "../audio/themes/unity_dock.mp3"
-#define ALARM           "../audio/craft/alarm.mp3"
+#define ALARM           "../audio/craft/alarm.wav"
 #define DECOMPRESS      "../audio/craft/decompress.wav"
 
 enum soundConstant

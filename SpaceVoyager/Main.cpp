@@ -71,7 +71,7 @@ void timer_cb(int t)
         GameStateManager::deltaTime = GameStateManager::timeSinceStart - GameStateManager::timeSinceLast;
         GameStateManager::timeSinceLast = GameStateManager::timeSinceStart;
        
-		SoundManager::getInstance()->startPlayList();
+		//SoundManager::getInstance()->startPlayList();
 
 		//printf("----FPS : %f \n",1000/GameStateManager::deltaTime);
 		//printf("GPAD : %d\n",XInputHandler::isConnected);
@@ -119,9 +119,7 @@ void parallelTextureLoader()
 {
 	std::cout<<"Magic_initiated.\n";
 	
-	GameStateManager::addToTheTextureList_parallelMode(space_bg,parallelLoader_texture->getTextureId(space_bg));
-	GameStateManager::addToTheTextureList_parallelMode(cyrus,parallelLoader_texture->getTextureId(cyrus));
-
+	
 }
 
 int main(int argv , char* args[]){
@@ -138,7 +136,8 @@ int main(int argv , char* args[]){
       glutCreateWindow("TheVoyager");
       glEnable(GL_DEPTH_TEST);
 	  glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-
+	  glEnable(GL_CULL_FACE);
+	  glEnable(GLU_CULLING);
   
 	 
 	  //glutFullScreen();

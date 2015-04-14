@@ -68,10 +68,23 @@ fightScav::fightScav()
 {
 	           _ship = new Ship(Point(-16000,10000,30000));
 	           _ship->dockStation = new Quad(Point(90000,49000,-10500),1400,1400,1400);
-			  
+			   collisionManager = new CollisionManager(); 
+
 			   TunnelObject_list.push_back(new TunnelObject(Point(0,-12000,0)));
 			   TunnelObject_list.push_back(new TunnelObject(Point(0,12000,0)));
                
+			   boundaryWallTop = new Quad(Point(-40000,38500,30000),38000,10000,3000000);
+			   boundaryWallDown = new Quad(Point(-40000,-16000,30000),38000,10000,3000000);
+			   boundaryWallLeft = new Quad(Point(-50000,38500,30000),10000,38000,3000000);
+			   boundaryWallRight = new Quad(Point(8000,36500,30000),10000,38000,3000000);
+
+			   collisionManager->addToList(boundaryWallTop);
+			   collisionManager->addToList(boundaryWallLeft);
+			   collisionManager->addToList(boundaryWallRight);
+			   collisionManager->addToList(boundaryWallDown);
+			   
+			   collisionManager->addAsTarget(_ship->collisionBox_ship);
+
 
 			   ifInit = false;
 }
@@ -105,10 +118,19 @@ void fightScav::display_fn_game()
 	 
 	 glPushMatrix();
 	 glTranslated(9000,3000,200);
+	 glRotatef(0.2f,0,0,1.0);
 	 IEntityManager::getInstance()->draw_tunnelBoundary();
 	 glPopMatrix();
 
      
+#pragma region test_collison
+    /* glPushMatrix();
+	 glTranslatef(-40000,36500,100000);
+	 glutSolidCube(900000.0);
+	 glPopMatrix();*/
+#pragma endregion
+
+
 	_ship->shipDraw();
 
 }
@@ -183,20 +205,14 @@ void fightScav::timer_fn_game(int t)
       
 
 	   _ship->shipUpdate();
+	   collisionManager->runCollisionEngine();
 
-	/*   glTranslatef(9000,3000,200);
-	    for(int i=0;i<TunnelObject_list.size();i++)
-	{
-		TunnelObject_list[i]->update();
-	}*/
 
        Point eye(_ship->getPositon());
        Point at(_ship->getPositon() + _ship->getDirection());
        Vector up(_ship->getVertical());
-
-	
-	
-      glLoadIdentity();
+     
+	  glLoadIdentity();
       gluLookAt(eye.x,eye.y,eye.z,
                 at.x,at.y,at.z,
                 up.i,up.j,up.k);

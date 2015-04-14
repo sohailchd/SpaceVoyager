@@ -1,107 +1,156 @@
-
 #include "GameStateManager.h"
 
-
-GameStateManager::GameStates GameStateManager::_activeState = _splash;;
-GameStateManager::GameStates GameStateManager::_lastState = GameStateManager::_activeState;
-GameStateManager::SequenceStates GameStateManager::_currentSequence = GameStateManager::_inPrologue_SQ;
-GameStateManager::SequenceStates GameStateManager::_lastSequence = GameStateManager::_lastSequence;
-std::vector<ISceneNode*> GameStateManager::_sequenceList ;
-std::map<char*,GLuint> GameStateManager::_tTextureLoader;
-GLUquadric* GameStateManager::quadMaster ;// = 	gluNewQuadric();;
-
-void GameStateManager::addToTheTextureList_parallelMode(char* fileNameConstant , GLuint id)
-{
-	if(_tTextureLoader[fileNameConstant]==NULL)
-	 {
-		 _tTextureLoader[fileNameConstant]=id;
-	 }
-	else
-	{
-
-	}
-}
 
 float GameStateManager::timeSinceStart  = 0;
 float GameStateManager::timeSinceLast   = 0;
 float GameStateManager::deltaTime       = 0;
 
+GameStateManager* GameStateManager::gsInstance = NULL;
 
+
+GameStateManager* GameStateManager::getInstance()
+{
+	if(gsInstance==NULL){ gsInstance = new GameStateManager(); } 
+	return gsInstance;
+}
 
 GameStateManager::GameStateManager()
 {
 
+     _splashScreen = new SplashScreen();
+	 _menuScreen   = new MenuScreen();
+	 _inGameScreen = new GameScreen();
+	 _pauseScreen  = new PauseScreen();
+	 _retryScreen  = new RetryScreen();
+
+	 _currentScreen = _splashScreen;
+	 _activeGameState = _splash;
+
 }
 
 GameStateManager::~GameStateManager()
+{}
+
+
+void GameStateManager::setGameState(GameStates gs)
 {
 
-}
-
-void graphicsDuringGamePlay()
-{
-  glViewport(0, 0, 800, 600);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  gluPerspective(60.0, (GLfloat)800*0.8 / (GLfloat)600, 1.0, 100000.0);
-  glMatrixMode(GL_MODELVIEW);
-  
-
-   //LIGHTING
-  GLfloat black[] = { 0.0, 0.0, 0.0, 1.0};
-  GLfloat dark[] = { 0.2, 0.15, 0.2, 1.0};
-  GLfloat white[] = { 1.0, 1.0, 1.0, 1.0};
-  GLfloat direction[] = { 0.2, 0.0, 10.5,0.0};
-
-  glMaterialfv(GL_FRONT, GL_SPECULAR, white);
-  glMaterialf(GL_FRONT, GL_SHININESS, 30);
-  glLightfv(GL_LIGHT0, GL_AMBIENT , white);
-  glLightfv(GL_LIGHT0, GL_DIFFUSE , white);
- // glLightfv(GL_LIGHT0, GL_SPECULAR , white);
-  glLightfv(GL_LIGHT0, GL_POSITION , direction);
-
-  glEnable(GL_LIGHTING);
-  glEnable(GL_LIGHT0);
-}
-
-
-
-void GameStateManager::setState(GameStateManager::GameStates gs)
-{
-     GameStateManager::_lastState = _activeState;
-     GameStateManager::_activeState = gs;
+	delete _currentScreen;
+	_currentScreen = NULL;
+    recreateScreen(_activeGameState);
 	
+	_lastGameState   = _activeGameState;
+	_activeGameState = gs;
+
+	setCurrentScreen(_activeGameState);
+
 }
 
-void GameStateManager::managerEngine()
+
+void GameStateManager::jumpGameState(GameStates gs)
+{
+	delete _currentScreen;
+	_currentScreen = NULL;
+    
+	_lastGameState   = _activeGameState;
+	_activeGameState = gs;
+
+	setCurrentScreen(_activeGameState);
+}
+
+GameStates GameStateManager::getActiveGameState()
+{
+	return _activeGameState;
+}
+
+
+GameStates GameStateManager::getLastGameState(){ return _lastGameState; }
+
+void GameStateManager::managerEngine() 
 {
 
-	switch (GameStateManager::_activeState)
-	{
-	case GameStates::_splash:
-		break;
-	case GameStates::_menu:  
-		break;
-	case GameStates::_inGame:
-		graphicsDuringGamePlay();
-		break;
+}
 
+void GameStateManager::setCurrentScreen(GameStates sc)
+{
+	switch(sc)
+	{
+	case _splash:
+		{ _currentScreen = _splashScreen; }
+		break;
+	case _menu:
+		{ _currentScreen = _menuScreen; }
+		break;
+	case _inGame:
+		{ _currentScreen =  _inGameScreen ; }
+		break;
+	case _pause:
+		{ _currentScreen =  _pauseScreen; }
+		break;
+	case _retry:
+		{ _currentScreen =  _retryScreen; }
+		break;
 	default:
 		break;
 	}
-
 }
 
-
-void GameStateManager::addToSequenceList(ISceneNode* node)
+Screens* GameStateManager::getCurrentScreen()
 {
-	GameStateManager::_sequenceList.push_back(node);
+	return _currentScreen;
 }
 
-void GameStateManager::setSequence(GameStateManager::SequenceStates st)
+void GameStateManager::recreateScreen(GameStates gs)
 {
-	GameStateManager::_lastSequence = GameStateManager::_currentSequence;
-	GameStateManager::_currentSequence = st;
+	switch(gs)
+	{
+	case _splash:
+		{
+		//delete _splashScreen;
+		_splashScreen = NULL;
+		_splashScreen = new SplashScreen();
+		}
+		break;
+	case _menu:
+		{
+		//delete _menuScreen;
+		_menuScreen = NULL;
+		_menuScreen = new MenuScreen();
+		}
+		break;
+	case _inGame:
+		{
+			//delete _inGameScreen ;
+			_inGameScreen = NULL;
+			_inGameScreen = new GameScreen();
+		}
+		break;
+	case _pause:
+		{
+			//delete _pauseScreen;
+			_pauseScreen = NULL;
+			_pauseScreen = new PauseScreen();
+		}
+		break;
+	case _retry:
+		{
+			//delete _retryScreen;
+			_retryScreen = NULL;
+			_retryScreen = new RetryScreen();
+		}
+		break;
+	default:
+		break;
+	}
 }
 
-
+void GameStateManager::refreshScreenList()
+{
+	
+	_listOfAllScreens.clear();
+	_listOfAllScreens.push_back(_splashScreen);
+	_listOfAllScreens.push_back(_menuScreen);
+	_listOfAllScreens.push_back(_inGameScreen);
+	_listOfAllScreens.push_back(_pauseScreen);
+	_listOfAllScreens.push_back(_retryScreen);
+}

@@ -7,14 +7,18 @@
 
 
 
-ISceneNode* lone = new levelTwo();
-//ISceneNode* ltwo = new fightScav();
-//ISceneNode* fightScav_level = new fightScav();
+
 
 
 GameScreen::GameScreen()
 {
 
+	lone = new levelTwo();
+	ltwo = new levelOne();
+	fightScav_level = new fightScav();
+
+	_currentSceneNode = lone;
+	_activeInGameSequence = _inPrologue_SQ;
 
 }
 
@@ -24,134 +28,29 @@ GameScreen::~GameScreen()
 
 void  GameScreen::display_screen()
 {
-	lone->display_fn_game();
-
-	switch (GameStateManager::_currentSequence)
-	{
-	case GameStateManager::_inPrologue_SQ:
-		{}
-		break;
-	case GameStateManager::_inSequenceLoad_SQ:
-		{}
-		break;
-	case GameStateManager::_inAttack_SQ:
-		{}
-		break;
-	case GameStateManager::_inWormHole_SQ:
-		{}
-		break;
-	case GameStateManager::_inFightScav_SQ:
-		{}
-		break;
-	case GameStateManager::_inDropGenesis_SQ:
-		{}
-		break;
-    case GameStateManager::_missionEnd:
-		break;
-	default:
-		break;
-	}
+	_currentSceneNode->display_fn_game();
 }
 
 
 void GameScreen::idle_screen()
 {
-   lone->idle_fn_game();
- 
-   	switch (GameStateManager::_currentSequence)
-	{
-	case GameStateManager::_inPrologue_SQ:
-		{}
-		break;
-	case GameStateManager::_inSequenceLoad_SQ:
-		{}
-		break;
-	case GameStateManager::_inAttack_SQ:
-		{}
-		break;
-	case GameStateManager::_inWormHole_SQ:
-		{}
-		break;
-	case GameStateManager::_inFightScav_SQ:
-		{}
-		break;
-	case GameStateManager::_inDropGenesis_SQ:
-		{}
-		break;
-	case GameStateManager::_missionEnd:
-		break;
-	default:
-		break;
-	}
+	_currentSceneNode->idle_fn_game();
 }
 
 void GameScreen::keyboard_screen(unsigned char& key , int& x , int& y)
 {
- lone->keyboard_fn_game(key,x,y);
- 
- 	switch (GameStateManager::_currentSequence)
-	{
-	case GameStateManager::_inPrologue_SQ:
-		{}
-		break;
-	case GameStateManager::_inSequenceLoad_SQ:
-		{}
-		break;
-	case GameStateManager::_inAttack_SQ:
-		{}
-		break;
-	case GameStateManager::_inWormHole_SQ:
-		{}
-		break;
-	case GameStateManager::_inFightScav_SQ:
-		{}
-		break;
-	case GameStateManager::_inDropGenesis_SQ:
-		{}
-		break;
-    case GameStateManager::_missionEnd:
-		break;
-	default:
-		break;
-	}
+	_currentSceneNode->keyboard_fn_game(key,x,y);
 }
 
 
 void GameScreen::loadObjects()
 {
-       
+	
 }
 
 void GameScreen::keyboard_screen_sp(int& key , int& x, int& y)
 {
-  lone->special_fn_game(key,x,y);
-  
-  	switch (GameStateManager::_currentSequence)
-	{
-	case GameStateManager::_inPrologue_SQ:
-		{}
-		break;
-	case GameStateManager::_inSequenceLoad_SQ:
-		{}
-		break;
-	case GameStateManager::_inAttack_SQ:
-		{}
-		break;
-	case GameStateManager::_inWormHole_SQ:
-		{}
-		break;
-	case GameStateManager::_inFightScav_SQ:
-		{}
-		break;
-	case GameStateManager::_inDropGenesis_SQ:
-		{}
-		break;
-    case GameStateManager::_missionEnd:
-		break;
-	default:
-		break;
-	}
-
+	_currentSceneNode->special_fn_game(key,x,y);
 }
 
 
@@ -170,34 +69,33 @@ void GameScreen::reshape(int& w , int& h)
 
 void GameScreen::timer_screen(int t)
 {
-       lone->timer_fn_game(t);
+	_currentSceneNode->timer_fn_game(t);
+}
 
-	switch (GameStateManager::_currentSequence)
+void GameScreen::setSequenceState(SequenceStates st)
+{
+	
+
+	switch (st)
 	{
-	case GameStateManager::_inPrologue_SQ:
-		{}
+	case _inPrologue_SQ:
 		break;
-	case GameStateManager::_inSequenceLoad_SQ:
-		{}
+	case _inAttack_SQ:
 		break;
-	case GameStateManager::_inAttack_SQ:
-		{}
+	case _inSequenceLoad_SQ:
 		break;
-	case GameStateManager::_inWormHole_SQ:
-		{}
+	case _inWormHole_SQ:
 		break;
-	case GameStateManager::_inFightScav_SQ:
-		{}
+	case _inFightScav_SQ:
 		break;
-	case GameStateManager::_inDropGenesis_SQ:
-		{}
+	case _inDropGenesis_SQ:
 		break;
-	case GameStateManager::_missionEnd:
+	case _inEpilogue_SQ:
+		break;
+	case _missionEnd:
 		break;
 	default:
 		break;
 	}
 }
-
-
 

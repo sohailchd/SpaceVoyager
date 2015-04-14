@@ -25,15 +25,17 @@ class levelTwo : public ISceneNode
 {
        public: 
 		   levelTwo();
-		 /*  {
-			   _ship = new Ship(Point(0,0,2000000));
-			   exterMin = new ExterminatoreNet(); 
-			   planet_quad = new Quad(Point(-660000,-10000,-100000),445000,445000,445000);
-			   collisionManager = new CollisionManager();
-			   soundManager_ltwo = new SManager();
-
-		   };*/
+		
         ~levelTwo();
+
+		 enum levelTwoStates
+		 {
+			 _reachUnity,
+			 _docking,
+			 _seqUpload,
+			 _wormholeDocking
+		 };
+
 
          virtual void initScene();
          virtual void display_fn_game();
@@ -60,9 +62,14 @@ private:
 
 
 		  bool ifInit ;
+		  levelTwoStates level2_currentState;
 		  vector<Quad*> _unityCollision_list; 
 		/*  Quad* docking_pad_a ,docking_pad_b  , docking_pad_c ;*/
-	
+	      
+		  void drawOnScreen();
+
+
+
 };
 
 #endif

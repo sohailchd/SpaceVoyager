@@ -31,6 +31,13 @@ class MenuScreen : public Screens
 		void draw_light_shade();
 		//bool setState;
 		float loadTimer;
+
+		double r_menu_cursor_x ;
+        double r_menu_cursor_y ;
+        double pos_menu_cursor_y ;
+        double cursor_shift ;
+        unsigned int cursor_on ;
+		bool sceneInit;
 };
 
 

@@ -31,7 +31,7 @@ public:
 	{
 		forward = fwd;
 		dir = speed/speed;
-		missileSpeed = speed>=0?(speed+400.0):(speed+400);
+		missileSpeed = 1000.00+abs(speed);
 
 		cb_cube = new Quad(pos,0.5,0.5,0.5);
 		pos = origin;
