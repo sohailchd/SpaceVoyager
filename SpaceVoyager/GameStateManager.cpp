@@ -35,8 +35,7 @@ GameStateManager::~GameStateManager()
 void GameStateManager::setGameState(GameStates gs)
 {
 
-	delete _currentScreen;
-	_currentScreen = NULL;
+	SAFE_DELETE(_currentScreen);
     recreateScreen(_activeGameState);
 	
 	_lastGameState   = _activeGameState;
@@ -89,6 +88,16 @@ void GameStateManager::setCurrentScreen(GameStates sc)
 		break;
 	case _retry:
 		{ _currentScreen =  _retryScreen; }
+		break;
+	case _isExiting:
+		{
+			SAFE_DELETE(_currentScreen);
+			SAFE_DELETE(_splashScreen);
+			SAFE_DELETE(_menuScreen);
+			SAFE_DELETE(_inGameScreen);
+			SAFE_DELETE(_retryScreen);
+			exit(0);
+         }
 		break;
 	default:
 		break;
@@ -154,3 +163,18 @@ void GameStateManager::refreshScreenList()
 	_listOfAllScreens.push_back(_pauseScreen);
 	_listOfAllScreens.push_back(_retryScreen);
 }
+
+
+bool GameStateManager::getTriggerAfterSince(GLfloat since , GLfloat interval)
+{/*
+	while(interval)
+	{
+        if()
+		{
+		  --interval;
+		}
+	}*/
+	return false;
+}
+
+

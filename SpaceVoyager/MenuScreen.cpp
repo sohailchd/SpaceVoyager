@@ -35,6 +35,7 @@ MenuScreen::MenuScreen()
 
 void init()
 {
+	glDisable(GL_LIGHTING);
     glLoadIdentity();
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();

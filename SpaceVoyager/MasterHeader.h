@@ -4,6 +4,7 @@
 
 #pragma once
 
+
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
@@ -38,7 +39,18 @@
 
 #define MAX_NO_TEXTURE 20
 
+#define SAFE_DELETE(x) { delete x; x=NULL; }
 
 
+#ifndef __DEBUG_SWITCH_ON_
+#define __DEBUG_SWITCH_ON_
+#endif
+
+#ifdef  __DEBUG_SWICTH_ON_
+#define DEBUG_LOG(err){ cout<<err<<endl; }
+#endif //  __DEBUG_SWICTH_ON
+
+
+//#undef __DEBUG_SWITCH_ON_
 
 #endif

@@ -1,19 +1,19 @@
 //
-//#define _CRTDEBUG_MAP_ALLOC
-//
-//#include "Shader.h"
-//
-//
-//
-//#include <thread>
-//
-//
-////#ifdef _DEBUG   
-////#ifndef DBG_NEW      
-////#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )     
-////#define new DBG_NEW   
-////#endif
-////#endif
+////#define _CRTDEBUG_MAP_ALLOC
+////
+////#include "Shader.h"
+////
+////
+////
+////#include <thread>
+////
+////
+//////#ifdef _DEBUG   
+//////#ifndef DBG_NEW      
+//////#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )     
+//////#define new DBG_NEW   
+//////#endif
+//////#endif
 //
 //
 //

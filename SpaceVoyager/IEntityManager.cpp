@@ -50,9 +50,7 @@ void  IEntityManager::init_IEntityManager()
 		if (texture_ids[i] < 0)
 			printf("Error in loading %s\n", sname);
 	}
-	rotor_val = 0.0f;
-	//glEndList();
-
+	
 	printf("IEntityManager init func called\n");
 }
 //**********************************************

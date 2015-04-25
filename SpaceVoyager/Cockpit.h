@@ -16,7 +16,7 @@ class Cockpit
 private:
 	bool alert;
 	Vector sForward , sUp , sRight;
-	
+	GLfloat upload_reading;
 public:
 
     Cockpit();
@@ -28,15 +28,15 @@ public:
     void getMechanicsOnScreen();
 	void shipDataUpdate(GLfloat f , GLfloat u , GLfloat r , GLfloat  h , GLfloat spd);
 	void drawObjective();
-	
+	void drawSynchServer();	
 	
 	bool isDocked;
-	int dock_reading;
+	GLint dock_reading;
 	Point position;
 	GLfloat health;
 	GLfloat speed;
 	bool isLocked;
- 
+	void setUploadReading(GLfloat n);
 	 
 };
 

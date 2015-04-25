@@ -21,6 +21,12 @@
 
 using namespace std;
 
+
+class Scavs
+{
+};
+
+
 class levelTwo : public ISceneNode
 {
        public: 
@@ -45,10 +51,11 @@ class levelTwo : public ISceneNode
 	     virtual void timer_fn_game(int t);
 
 		 CollisionManager* collisionManager;
+		
 	     void atmosphereEntryProtocol();
 private:
           Ship  *_ship;
-		  ExterminatoreNet  *exterMin;
+		 
 		  Quad *planet_quad ; 
 		  Quad *unity_collider_a ; 
 	      Quad *unity_collider_b ; 
@@ -58,17 +65,29 @@ private:
 		  Quad *unity_dock2_collider;
 		  Quad *unity_dock3_collider;
 		  Quad *unity_collider_e;
-      
-
+		  Quad *wormHole_collider;
+          Quad *wormHole_collider_b;
+		  Quad *wormhole_collider_sensor;
+		  // Part two - 
+		  Quad  *scavs_vicinity_trigger;
+		  Quad  *atmosphere_vicinity_alert;
 
 		  bool ifInit ;
-		  levelTwoStates level2_currentState;
+		  levelTwoStates mission_currentState;
 		  vector<Quad*> _unityCollision_list; 
 		/*  Quad* docking_pad_a ,docking_pad_b  , docking_pad_c ;*/
 	      
 		  void drawOnScreen();
+		  void handleVicinityTriggers();
+		  GLfloat levelStartTime;
+		  bool startAttack;
 
+		  vector<Quad*> _missileTargets;
+		  void refereshMissileTargets();
 
+		  // rotating scavs
+		  ExterminatoreNet  *exterMin;        /* Drifters */
+		  //end
 
 };
 

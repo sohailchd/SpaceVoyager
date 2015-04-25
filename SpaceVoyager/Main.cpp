@@ -62,6 +62,8 @@ void joystick_fn(unsigned int buttons , int xaxis , int yaxis , int zaxis)
 void timer_cb(int t)
 {
 
+
+	   
 	    XInputHandler::getInstance()->updateX();
 
         Game::getInstance()->timer_fn_game(t);
@@ -143,11 +145,11 @@ int main(int argv , char* args[]){
 	  //glutFullScreen();
       glutDisplayFunc(display_cb);
       glutSpecialFunc(special_cb);
-      //glutIdleFunc(idle_cb);
+     /* glutIdleFunc(idle_cb);*/
       glutKeyboardFunc(keyboard_cb);
       //glutJoystickFunc(joystick_fn,200);
       glutReshapeFunc(reshape);
-      glutTimerFunc(1000/FPS,timer_cb,0);
+      glutTimerFunc(1000.0f/FPS,timer_cb,0);
 
 	  
 

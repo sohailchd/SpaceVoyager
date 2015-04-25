@@ -57,7 +57,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\external\freeglut\lib;..\external\soil\lib;..\external\irrklang\lib\Win32-visualStudio;..\external\assertImp\lib32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\external\soil\lib;..\external\irrklang\lib\Win32-visualStudio;..\external\assertImp\lib32;..\external\glew-1.12.0-win32\glew-1.12.0\lib\Release\Win32;..\external\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>freeglut.lib;opengl32.lib;SOIL.lib;libSOIL.lib;XINPUT9_1_0.lib;irrKlang.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -118,6 +118,7 @@
     <ClCompile Include="AboutPage.cpp" />
     <ClCompile Include="Cockpit.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="Exterminatore.cpp" />
     <ClCompile Include="FightScav.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScreen.cpp" />
@@ -130,6 +131,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainDebuger.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
+    <ClCompile Include="MissileSystem.cpp" />
     <ClCompile Include="PauseScreen.cpp" />
     <ClCompile Include="Prologue.cpp" />
     <ClCompile Include="Render.cpp" />

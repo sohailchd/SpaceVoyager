@@ -6,6 +6,76 @@
 
 
 
+#pragma region _WORMHOLE_SCAVS
+    
+   GLint pos_rand[9][2] = {  
+	                      {-30000,20000}, 
+                          {-18000,20000},
+                          {-10000,20000},
+                          {-30000,15000},
+                          {-18000,15000},
+                          {-10000,15000},
+                          {-30000,05000},
+                          {-16000,05000},
+                          {-10000,05000}
+                       };
+
+    WormHole_SCAVS::WormHole_SCAVS()
+	{
+		/*position.x = -15000;
+		position.y = 15000;
+		position.z = -50000;*/
+		GLint r    = rand()%8;
+		position.x = pos_rand[r][0];
+		position.y = pos_rand[r][1];
+		position.z = -(rand()%1000000)*100.0;
+		collisionCube = new Quad(position,5000,5000,5000);
+
+#ifdef __DEBUG_SWITCH_ON_
+		cout<<"worm_hole+scavs_pos:"<<position<<endl;
+#endif
+    }
+	WormHole_SCAVS::~WormHole_SCAVS(){}
+
+
+   void WormHole_SCAVS::draw_scavs(Point& missile_pos)
+   {
+	   glPushMatrix();
+	   glDisable(GL_LIGHTING);
+	   glColor3f(0.0f,0.0f,0.0f);
+	   glTranslated(position.x,position.y,position.z);
+	   glutSolidCube(5000.0);
+	   glEnable(GL_LIGHTING);
+	   glPopMatrix();
+   }
+
+	void WormHole_SCAVS::draw()
+	{
+		{draw_scavs(position);}
+	}
+
+	void WormHole_SCAVS::update()
+	{
+		
+
+		if(collisionCube!=NULL){
+	     position.x += sin(GameStateManager::timeSinceStart*0.01*10)*1000;
+		 position.y += sin(GameStateManager::timeSinceStart*0.01*10)*100;
+		 position.z += 1000.0;
+		 collisionCube->setPosition(position);
+		}
+		
+
+	}
+
+#pragma endregion
+
+
+
+//  ------------------------------------------------------------------------------------------------------
+
+
+
 
 
 GLfloat fogColor_fs[] = {0.8,0.8,0.8,0.1};
@@ -59,7 +129,6 @@ void fightScav::initScene()
   _ship->init_ship();
 
 #pragma endregion
-
   ifInit = true;
   
  }
@@ -69,28 +138,52 @@ fightScav::fightScav()
 	           _ship = new Ship(Point(-16000,10000,30000));
 	           _ship->dockStation = new Quad(Point(90000,49000,-10500),1400,1400,1400);
 			   collisionManager = new CollisionManager(); 
+			   collisionManager_scavs = new CollisionManager();
 
-			   TunnelObject_list.push_back(new TunnelObject(Point(0,-12000,0)));
-			   TunnelObject_list.push_back(new TunnelObject(Point(0,12000,0)));
-               
+			   collisionManager_scavs->addAsTarget(_ship->collisionBox_ship);
+#pragma region _wallsWormHole
 			   boundaryWallTop = new Quad(Point(-40000,38500,30000),38000,10000,3000000);
 			   boundaryWallDown = new Quad(Point(-40000,-16000,30000),38000,10000,3000000);
 			   boundaryWallLeft = new Quad(Point(-50000,38500,30000),10000,38000,3000000);
 			   boundaryWallRight = new Quad(Point(8000,36500,30000),10000,38000,3000000);
-
+               
 			   collisionManager->addToList(boundaryWallTop);
 			   collisionManager->addToList(boundaryWallLeft);
 			   collisionManager->addToList(boundaryWallRight);
 			   collisionManager->addToList(boundaryWallDown);
-			   
 			   collisionManager->addAsTarget(_ship->collisionBox_ship);
-
+#pragma endregion _wallsWormHole
+			  
+			   
 
 			   ifInit = false;
 }
 
 fightScav::~fightScav()
 {
+	
+}
+
+void fightScav::scav_spawner()
+{
+	WormHole_SCAVS* wscav;
+	if(wormHoleScav_list.size()<50)
+	{
+		wscav = new WormHole_SCAVS();
+		wormHoleScav_list.push_back(wscav);
+		collisionManager_scavs->addToList(wscav->collisionCube);
+	}
+
+	for(short i=0;i<wormHoleScav_list.size();i++)
+	{
+
+		if(wormHoleScav_list[i]->position.z > 100000 || wormHoleScav_list[i]->collisionCube->getIsColliding())
+		{
+			SAFE_DELETE(wormHoleScav_list[i]->collisionCube);
+			SAFE_DELETE(wormHoleScav_list[i]);
+			wormHoleScav_list.erase(wormHoleScav_list.begin()+i);
+		}
+	}
 	
 }
 
@@ -122,15 +215,18 @@ void fightScav::display_fn_game()
 	 IEntityManager::getInstance()->draw_tunnelBoundary();
 	 glPopMatrix();
 
-     
+     scav_spawner();
 #pragma region test_collison
-    /* glPushMatrix();
-	 glTranslatef(-40000,36500,100000);
-	 glutSolidCube(900000.0);
-	 glPopMatrix();*/
+     glPushMatrix();
+	 glTranslatef(-15000,15500,-30000);
+	 glutSolidCube(10000.0);
+	 glPopMatrix();
 #pragma endregion
 
-
+	for(vector<WormHole_SCAVS*>::iterator it = wormHoleScav_list.begin();it !=wormHoleScav_list.end();it++)
+	{
+		(*it)->draw();
+	}
 	_ship->shipDraw();
 
 }
@@ -155,7 +251,7 @@ void fightScav::keyboard_fn_game(unsigned char& key,int& x, int& y)
           case 'n': _ship->slide(-1);                                break;
           case 'r': _ship->teleport(Point(0,0,50000));               break;
 		  case 27:  exit(0);  delete[] IEntityManager::getInstance();                                     break;      
-		  case 'f': _ship->msys->createMissileAt(_ship->getPositon(),_ship->getForward() ,_ship->getSpeed());break;
+		  case 'f': _ship->shipCreateMissileAt();break;
 		  case 'u':  break;
          default:                                                   break;
 
@@ -206,8 +302,17 @@ void fightScav::timer_fn_game(int t)
 
 	   _ship->shipUpdate();
 	   collisionManager->runCollisionEngine();
+	   collisionManager_scavs->runCollisionEngine();
+	   for(vector<WormHole_SCAVS*>::iterator it = wormHoleScav_list.begin();it !=wormHoleScav_list.end();it++)
+	   {
+		(*it)->update();
+	   }
 
 
+
+
+
+	   // ***** MAIN CAMERA SETUP *****************
        Point eye(_ship->getPositon());
        Point at(_ship->getPositon() + _ship->getDirection());
        Vector up(_ship->getVertical());
@@ -218,6 +323,7 @@ void fightScav::timer_fn_game(int t)
                 up.i,up.j,up.k);
     
       glutPostRedisplay();
+	  // *******************************************
 }
 
 

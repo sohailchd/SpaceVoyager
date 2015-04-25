@@ -9,17 +9,30 @@ CollisionManager::~CollisionManager()
 {
 	delete[] &_collisionList; 
 	delete[] &_targetList;
+	delete[] &_triggerList;
+	delete[] &_triggerTargetList;
 }
 
 void CollisionManager::addToList(Quad* quad)
 {
 	_collisionList.push_back(quad);
 }
+void CollisionManager::addToTriggerList(Quad* quad)
+{
+	_triggerList.push_back(quad);
+}
+
 
 void CollisionManager::addAsTarget(Quad* quad)
 {
 	_targetList.push_back(quad);
 }
+void CollisionManager::addAsTriggerTarget(Quad* quad)
+{
+	_triggerTargetList.push_back(quad);
+}
+
+
 
 void CollisionManager::deleteFromList(Quad* quad)
 {
@@ -37,7 +50,7 @@ void CollisionManager::deleteFromList(Quad* quad)
 		if(_collisionList[i]->getPosition() == quad->getPosition())
 			{
 			 _collisionList.erase(_collisionList.begin()+i); 
-			 cout<<"collisionManager.cpp: deleted QUAD at "<< quad->getPosition();
+			 //cout<<"collisionManager.cpp: deleted QUAD at "<< quad->getPosition();
 			}
 		
 	}
@@ -45,7 +58,6 @@ void CollisionManager::deleteFromList(Quad* quad)
 
 
 }
-
 
 void CollisionManager::deleteAsTarget(Quad* quad)
 {
@@ -58,6 +70,16 @@ void CollisionManager::deleteAsTarget(Quad* quad)
 	}
 }
 
+void CollisionManager::deleteAsTriggerTarget(Quad* quad)
+{
+	for(int i = 1;i<_triggerList.size();i++)
+	{
+		if(!_triggerList[i]->getVisibility())
+		{
+			_targetList.erase(_targetList.begin()+i);  
+		}
+	}
+}
 
 
 /*
@@ -67,9 +89,9 @@ void CollisionManager::deleteAsTarget(Quad* quad)
 void CollisionManager::runCollisionEngine()
 {
 
-	for(int i = 0;i<_targetList.size();i++)
+	for(unsigned short i = 0;i<_targetList.size();i++)
 	{
-	   for(int j = 0;j< _collisionList.size();j++)
+	   for( unsigned short j = 0;j< _collisionList.size();j++)
 	   {
 		   if(_targetList[i]->Intersects(*_collisionList[j]))
 		   {
@@ -79,6 +101,28 @@ void CollisionManager::runCollisionEngine()
 			   //_collisionList[j]->setVisibility(false);
 			   //cout<<"CollisionManager.cpp: [Intersection Object] w h l "<<_collisionList[j]<<endl;
 
+		   }
+	   }
+	}  // end for
+
+
+}
+
+
+/*
+      Just triggering behaviour
+*/
+void CollisionManager::runTriggerEngine()
+{
+
+	for(unsigned short i = 0;i<_triggerTargetList.size();i++)
+	{
+	   for( unsigned short j = 0;j< _triggerList.size();j++)
+	   {
+		   if(_triggerTargetList[i]->Intersects(*_triggerList[j]))
+		   {
+			   _triggerTargetList[i]->setTrigger(true);
+			   _triggerList[j]->setTrigger(true);
 		   }
 	   }
 	}  // end for

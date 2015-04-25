@@ -3,9 +3,9 @@
 #include "SplashScreen.h"
 #include "GameStateManager.h"
 
-double rotate_x = 0.0;
-double rotate_y = 0.0;
-double rotate_z = 0.0;
+float rotate_x = 0.0;
+float rotate_y = 0.0;
+float rotate_z = 0.0;
 
 
 double blue_rect[] = {0.2,0.4,0.8};
@@ -25,9 +25,9 @@ void  SplashScreen::display_screen()
 	{
 		
 			glPushMatrix();
-			glColor3f(0.2,0.4,0.6);     //
-			glRotatef(rotate_x,1,0,1);
-			glRotatef(rotate_y,0,1,0);
+			glColor3f(0.2f,0.4f,0.6f);     //
+			glRotatef(rotate_x,1.0f,0.0f,1.0f);
+			glRotatef(rotate_y,0,1.0f,0.0f);
 			glRotatef(rotate_z,0,1,0);
 			//IEntityManager::getInstance()->draw_scavs(Point(0,0,0),0);
 		    glutSolidCube(0.1);

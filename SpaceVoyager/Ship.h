@@ -27,8 +27,8 @@ protected:
 		GLfloat health;
 		bool isDocking;
 		int dock_reading;
-		
-  
+	    GLfloat SPEED_INC;
+        bool alert;
 
 	
 	void normalDraw();
@@ -51,14 +51,14 @@ public:
 		Vector getForward(){ return forward; }
 		void setForward(Vector v){ forward = v; }
       	void fly();
-		void teleport(Point new_pos){ position = new_pos ; collisionBox_ship->setPosition(position);collisionBox_ship->setCollision(false);}
+		void teleport(Point new_pos);
       	Vector getDirection(){ return forward; }
       	Vector getVertical(){ return up; }
       	void pitch(double angle);
       	void roll(double angle);
       	void yaw(double angle);
        	double getSpeed(){ return speed; }
-		void setSpeed(double New_speed){ /*if(speed >=-990.00 && speed <=990.0)*/ { speed = New_speed;} { if(speed<-1000.0){speed =-1000.0;}if(speed>1000){ speed=1000.0; } }   }
+		void setSpeed(GLfloat New_speed);
         void slide(int dir);
 		void ship_handleXInput();
 		void ship_setTarget(Point target);
@@ -70,20 +70,27 @@ public:
 		void shipDraw();
 		void onCollision();
 		void vibrateShip(bool t);
-		
+		void setPosition(Point p);
 		void setDockingReading(int i); 
 		void setHealth(GLfloat f);
 		int getDockingReading() { return dock_reading;  }
-	
-	    missileSystem* msys;
+	    void setAlert(bool l);
+		bool getAlert();
 
 
+		vector<Quad*> _shipTargetList;
+        missileSystem* msys;
+		void shipUpdateTargetList(vector<Quad*> _list);
+		void shipCreateMissileAt();
 		//states
 		void setCockpitState(ship_state cs){ c_state = cs;}
 		ship_state getCockpitState(){return c_state;}
 
 		Quad* collisionBox_ship;
 		Point next_targetLocation;
+		Quad* trigger_box;
+
+
 		Quad* dockStation;
 		bool shipActionDiabled;
 };

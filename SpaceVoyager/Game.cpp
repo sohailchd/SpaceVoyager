@@ -60,7 +60,8 @@ void Game::timer_fn_game(int t)
         
 void Game::idle_fn_game()
 {
-	GameStateManager::getInstance()->getCurrentScreen()->idle_screen();
+	GameStateManager::getInstance()->getCurrentScreen()->timer_screen(0);
+	GameStateManager::getInstance()->getCurrentScreen()->display_screen();
      glutPostRedisplay();
 }
     

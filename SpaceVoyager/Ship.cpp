@@ -11,6 +11,7 @@ Ship::Ship(Point initialPosition):
 {
 	msys = new missileSystem();
 	collisionBox_ship = new Quad(position,100,100,100);
+	trigger_box       = new Quad(position,100,100,100);
 	_cockpit = new Cockpit();
 	next_targetLocation = Point(0,0,0);
 	health = 10;
@@ -18,6 +19,7 @@ Ship::Ship(Point initialPosition):
 	dock_reading = 0;
 	shipActionDiabled = false;
 	c_state = _normal;
+	SPEED_INC = 10.0f;
 }
 
 
@@ -49,6 +51,25 @@ void Ship::vibrateShip(bool t)
 		}
 }
 
+void Ship::teleport(Point new_pos)
+{
+	{ position = new_pos ; collisionBox_ship->setPosition(position);collisionBox_ship->setCollision(false);}
+	trigger_box->setPosition(position);
+	trigger_box->setTrigger(false);
+}
+
+void Ship::setSpeed(GLfloat New_speed)
+{
+	{ /*if(speed >=-990.00 && speed <=990.0)*/ { speed = New_speed;} { if(speed<-1000.0){speed =-1000.0;}if(speed>1000){ speed=1000.0; } }   }
+}
+
+void Ship::setPosition(Point p)
+{
+	position = p;
+	collisionBox_ship->setPosition(p);
+	trigger_box->setPosition(p);
+}
+
 void Ship::fly()
 {
 	//cout<<" ship.cpp: Collision State: "<<collisionBox_ship->getIsColliding()<<endl;
@@ -57,22 +78,35 @@ void Ship::fly()
 	{
 	   position += speed * forward ; 
 	   collisionBox_ship->setPosition(position);
-	  
+	   trigger_box->setPosition(position);
 	}
 	else
 	{
 		onCollision();
 	}
 		
-    //cout<<"Ship.h : position"<<position<<endl;
-		
+    
+}
 
+void Ship::shipCreateMissileAt()
+{
+	msys->createMissileAt(position,forward,speed,_shipTargetList);
+}
+
+void Ship::shipUpdateTargetList(vector<Quad*> _list)
+{
+	if(_list.size()!=0)
+	{
+	_shipTargetList.clear();
+	_shipTargetList=_list;
+	}
 }
 
 void Ship::init_ship()
 {
 	_cockpit->create();
 }
+
 
  void Ship::slide(int dir)
 {
@@ -101,7 +135,13 @@ void Ship::init_ship()
 
 
  
+ void Ship::setAlert(bool b)
+ {
+	 alert=b;
 
+ }
+ bool Ship::getAlert()
+ { return alert; }
 
  void Ship::ship_setTarget(Point target)
  {
@@ -172,7 +212,7 @@ void Ship::init_ship()
 	if(XInputHandler::getInstance()->getTrigerVal('R')> 30)
 	{
 	 // printf("Triger_R %d \n",_xinputHandler->getTrigerVal('R'));
-       setSpeed(getSpeed()+10);
+		setSpeed(getSpeed()+SPEED_INC);
 	  XInputHandler::getInstance()->controller[0]._controllerVibration.wRightMotorSpeed = (XInputHandler::getInstance()->getTrigerVal('R')*200);
 	   XInputSetState(0, &XInputHandler::getInstance()->controller[0]._controllerVibration);
 
@@ -190,7 +230,7 @@ void Ship::init_ship()
 	if(XInputHandler::getInstance()->getTrigerVal('L')> 30)
 	{
 	  //printf("Triger_L %d \n",xinp->getTrigerVal('L'));
-		setSpeed(getSpeed()-10);
+		setSpeed(getSpeed()-SPEED_INC);
 	   XInputHandler::getInstance()->controller[0]._controllerVibration.wLeftMotorSpeed = (XInputHandler::getInstance()->getTrigerVal('L')*100);
 	   XInputSetState(0, &XInputHandler::getInstance()->controller[0]._controllerVibration);
 	}
@@ -243,7 +283,7 @@ void Ship::init_ship()
 	//Shoot with a
 	if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('A'))
 	{
-		msys->createMissileAt(position,forward ,speed);
+		msys->createMissileAt(position,forward ,speed,_shipTargetList);
 	}
 
     }//// End if
@@ -297,19 +337,28 @@ void Ship::init_ship()
 #pragma region dock_region_part_two
 	if(isDocking)
 	{
+		    
+		    
 			if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('Y'))
 			{
+				speed = 0.0f;
 				setDockingReading(1);
 			}
 			if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('X'))
 			{
 				setDockingReading(-1);
 			}
+
 	
 		if(dock_reading==10)
 		{
-			if(!shipActionDiabled){ SoundManager::getInstance()->playDirectFromEngine(DECOMPRESS,false); }
+			if(!shipActionDiabled)
+			{
+				SoundManager::getInstance()->playDirectFromEngine(DECOMPRESS,false); 
+				speed = 0.0f;
+			}
 			shipActionDiabled = true;
+			
 		}
 		if(dock_reading==0)
 		{

@@ -94,8 +94,10 @@ private:
          double height , width , depth;
 		 bool isVisible;
 		 bool isColliding;
+		 bool collisionTrigger;
 public:
 	   
+	     Quad(){};
          Quad(Point& v,double w,double h,double d)
          {
               position = v;
@@ -105,6 +107,7 @@ public:
 
 			  isVisible = true;
 			  isColliding = false;
+			  collisionTrigger = false;
          }
 		
          bool Intersects(Quad& qd);
@@ -115,9 +118,10 @@ public:
 		 void setCollision(bool param){ isColliding = param; }
 		 bool getVisibility(){ return isVisible; }
 		 bool getIsColliding() { return isColliding;}
-		 Quad operator<<(const Quad* q){cout<<"w:"<<width<<" h"<<height<<" d: "<<depth<<endl;}
+		 //Quad operator<<(const Quad* q){cout<<"w:"<<width<<" h"<<height<<" d: "<<depth<<endl;}
 		 Quad(const Quad& obj){ width = obj.width; height=obj.height;depth=obj.depth;isVisible=true;isColliding=false; }
-		 
+		 void setTrigger(bool t){collisionTrigger = t;}
+		 bool getTrigger(){return collisionTrigger;}
 		 
 };
 
@@ -160,7 +164,6 @@ inline bool Quad::Intersects(Quad& qd)
 		 }*/
 
 
-		
                if(abs(position.x - qd.position.x) < (width + qd.width))
                {
                    if(abs(position.y - qd.position.y) < (height + qd.height))
@@ -191,8 +194,6 @@ inline bool Quad::IntersectsSphere(Point point , double rad)
 	 {
 		 ret = true;
 	 }
-
-	 //printf("geometry.h  %d \n",distance);
 	 
 	 return ret;
  }

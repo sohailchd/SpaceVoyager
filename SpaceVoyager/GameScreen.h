@@ -14,13 +14,10 @@
 enum SequenceStates
 	{
 		 _inPrologue_SQ,       /* Audio intro */
-		 _inAttack_SQ,         /* About the attack - audio */
-		 _inSequenceLoad_SQ,   /* Docking with the UNITY */
 		 _inWormHole_SQ,       /* start the wormhole */
 		 _inFightScav_SQ,      /* inWormHole  */
 		 _inDropGenesis_SQ,    /* dropThe genesis */
 		 _inEpilogue_SQ,       
-		 _missionEnd
 	};
 
 class GameScreen : public Screens

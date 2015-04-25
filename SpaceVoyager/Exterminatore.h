@@ -5,65 +5,30 @@
 #include "Ship.h"
 
 
-class Exterminatore : public Ship
+class Exterminatore 
 {
 
 protected:
 	Point initPos;
+	Point position;
+	bool isAlive;
 
 
 public:
 	
-	Exterminatore(Point at) 
-	{
-		initPos = at;
-		position = at;
-		speed = 5000.0f;
-	}
+   Exterminatore();
+   ~Exterminatore();
+
+	Exterminatore(Point at);
 	
-	void setDir()
-	{
-
-	}
-
-	void AI_engine()
-	{
-		position += speed*Vector(0,0,1);
-
-		if(position.z > 1000000.0)
-		{
-			position = initPos;
-		}
-		if(position.z > -30000 && position.z < 10000)
-		{
-			//msys->createMissileAt(position,Vector(0,0,-1),100);
-		}
-
-		//cout<<"position: "<< position<<endl;
-	}
-
-
-
-	void drawExterminatore()
-	{
-		glPushMatrix();
-		    glTranslatef(position.x,position.y,position.z);
-			glutSolidCube(500.0);
-    	glPopMatrix();
-
-		msys->drawList_missile();
-	}
-
-
-
-
-	void updateExterminatore()
-	{
-		AI_engine();
-	}
-
-
-
+	void drawExterminatore();
+	void setPosition(Point p);
+	Point getPosition();
+    void updateExterminatore();
+	void setIsAlive(bool b);
+	bool getIsAlive();
+    bool isHit;
+	Quad  *collisionBox;
 };
 
 
@@ -71,31 +36,18 @@ class ExterminatoreNet
 {
 
 private:
-	vector<Exterminatore*>	_listExterMinator;
+	
 
 public:
+	ExterminatoreNet();
+	~ExterminatoreNet();
+
+	vector<Exterminatore*>	_listExterMinator;
+
+	void createExterminatore(Point at);
+	void drawExterminatore();
+	void updateExterminatore();
 	
-	void createExterminatore(Point at)
-	{
-		_listExterMinator.push_back(new Exterminatore(at));
-	}
-
-	void drawExterminatore()
-	{
-		for(unsigned int i=0;i < _listExterMinator.size();i++ )
-		{
-			_listExterMinator[i]->drawExterminatore();
-		}
-	}
-
-	void updateExterminatore()
-	{
-		for(unsigned int i=0;i < _listExterMinator.size();i++ )
-		{
-			_listExterMinator[i]->updateExterminatore();
-
-		}
-	}
 
 };
 

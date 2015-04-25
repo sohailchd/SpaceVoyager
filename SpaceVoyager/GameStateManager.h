@@ -16,11 +16,11 @@
 
 
 
-#define SPLASH_SCREEN 0
-#define MENU_SCREEN   1
-#define INGAME_SCREEN 2
-#define PAUSE_SCREEN  3
-#define RETRY_SCREEN  4
+//#define SPLASH_SCREEN 0
+//#define MENU_SCREEN   1
+//#define INGAME_SCREEN 2
+//#define PAUSE_SCREEN  3
+//#define RETRY_SCREEN  4
 
 
 enum GameStates
@@ -106,8 +106,9 @@ public:
 		  */
 	      void managerEngine();
 		  void refreshScreenList();
-		  
-		  
+		  bool getTriggerAfterSince(GLfloat since , GLfloat interval);
+
+
 };
 
 

@@ -20,6 +20,7 @@ public:
 	TextureLoader();
 	~TextureLoader();
 
+
     GLuint getTextureId(const char* fileNameConstant);
 	//static void addToTheList(char* fileNameConstant);
     map<const char*,GLuint>     _textureList;

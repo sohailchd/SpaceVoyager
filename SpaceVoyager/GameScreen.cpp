@@ -17,9 +17,9 @@ GameScreen::GameScreen()
 	ltwo = new levelOne();
 	fightScav_level = new fightScav();
 
+
 	_currentSceneNode = lone;
 	_activeInGameSequence = _inPrologue_SQ;
-
 }
 
 GameScreen::~GameScreen()
@@ -74,25 +74,32 @@ void GameScreen::timer_screen(int t)
 
 void GameScreen::setSequenceState(SequenceStates st)
 {
-	
 
 	switch (st)
 	{
 	case _inPrologue_SQ:
-		break;
-	case _inAttack_SQ:
-		break;
-	case _inSequenceLoad_SQ:
-		break;
+		{
+			SAFE_DELETE(lone);
+			lone = new levelTwo();
+			_currentSceneNode = lone;
+			_activeInGameSequence = _inPrologue_SQ;
+		}
+	  break;
 	case _inWormHole_SQ:
+		{
+			SAFE_DELETE(fightScav_level);
+			fightScav_level = new fightScav();
+			_currentSceneNode = fightScav_level;
+			_activeInGameSequence = _inWormHole_SQ;
+		}
 		break;
 	case _inFightScav_SQ:
+		{
+		}
 		break;
 	case _inDropGenesis_SQ:
 		break;
 	case _inEpilogue_SQ:
-		break;
-	case _missionEnd:
 		break;
 	default:
 		break;

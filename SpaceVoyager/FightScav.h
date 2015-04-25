@@ -1,42 +1,6 @@
 
 
 
-
-#ifndef _fightScav
-#define _fightScav
-
-
-#pragma once
-
-
-#include "ISceneNode.h"
-#include "Cockpit.h"
-#include "IEntityManager.h"
-#include "CollisionManager.h"
-#include "SoundManager.h"
-#include "Ship.h"
-#include "Exterminatore.h"
-
-
-class TunnelObject
-{
-public:
-
-	TunnelObject(Point& p){ position = p; }
-	~TunnelObject()
-	{
-        
-	}
-
-
-	Point position;
-	//Quad* collisionCube;
-	GLfloat speed;
-
-	void draw_scavs(Point& missile_pos , GLfloat d)
-	{
-	   glPushMatrix();
-       glScaled(1000,1000,1000);
 //	
 //#pragma region FRONT-FACE
 //	glPushMatrix();
@@ -92,32 +56,48 @@ public:
 //
 //       glPopMatrix();
 
-	   glPopMatrix();
-	}
 
-	void draw()
-	{
+// ===============================================================================================================
 
+#ifndef _fightScav
+#define _fightScav
+
+
+#pragma once
+
+
+#include "ISceneNode.h"
+#include "Cockpit.h"
+#include "IEntityManager.h"
+#include "CollisionManager.h"
+#include "SoundManager.h"
+#include "Ship.h"
+#include "Exterminatore.h"
+
+
+class WormHole_SCAVS
+{
+public:
+
+	WormHole_SCAVS();
+	~WormHole_SCAVS();
 	
 
-	
 
-	}
+	Point position;
+	Quad* collisionCube;
+	GLfloat speed;
+	void draw_scavs(Point& missile_pos);
 
-
-	void update()
-	{
-	
-		
-	}
-
+	void draw();
+	void update();
 	
 };
 
 class fightScav : public ISceneNode
 {
        public: 
-		   fightScav();
+		 fightScav();
         ~fightScav();
 
          virtual void initScene();
@@ -128,17 +108,19 @@ class fightScav : public ISceneNode
 	     virtual void timer_fn_game(int t);
 		 
 		 CollisionManager* collisionManager;
-
+		 CollisionManager* collisionManager_scavs;
 
 	private:
           Ship*      _ship;
 		  bool ifInit;
-		  vector<TunnelObject*> TunnelObject_list;
+		  vector<WormHole_SCAVS*> wormHoleScav_list;
 		  Quad* boundaryWallTop;
 		  Quad* boundaryWallRight;
           Quad* boundaryWallLeft;
           Quad* boundaryWallDown;
-
+		  
+		  void scav_spawner();
+		  
 		  
 };
 

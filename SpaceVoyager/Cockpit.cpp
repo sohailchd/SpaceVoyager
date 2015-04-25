@@ -10,13 +10,13 @@ char timeElapsedStart[50];
 char speedTxt[50];
 char fps[50];
 GLuint cockpitId;
-
+char upload_pc[50];
 
 
 Cockpit::Cockpit()
 {
 	dock_reading = 0;
-
+	upload_reading=0.0f;
 }
 
 void Cockpit::shipDataUpdate(GLfloat f , GLfloat u , GLfloat r , GLfloat  h , GLfloat spd)
@@ -206,7 +206,11 @@ void Cockpit::drawObjective()
    #pragma region LOC_OBJ  
 	Render::getRenderInstance()->drawHudText12(Point(0.3,-0.28,0.2),"OBJECTIVE",col_h);
 	Render::getRenderInstance()->drawHudText12(Point(0.3,-0.32,0.2),"VOYAGER",col_h);
-	Render::getRenderInstance()->drawHudText10(Point(0.7,-0.2,0.2),"DATE: 25-OCT-2154",col_h);
+	Render::getRenderInstance()->drawHudText12(Point(0.3,-0.36,0.2),"ENGINEERING OFFICER",col_h);
+	Render::getRenderInstance()->drawHudText12(Point(0.3,-0.40,0.2),"NAME: ISHFAHANA",col_h);
+	Render::getRenderInstance()->drawHudText12(Point(0.3,-0.44,0.2),"CLASS: PATROLLING - A1",col_h);
+
+	Render::getRenderInstance()->drawHudText10(Point(0.68,-0.2,0.2),"[] DATE: 25-OCT-2154",col_h);
 
 
  #pragma endregion LOC_OBJ
@@ -238,7 +242,7 @@ void Cockpit::drawObjective()
 #pragma region locked_state
 	if(isLocked)
 	   {
-		   Render::getRenderInstance()->drawHudText12(Point(-0.95, 0.4, 0.0),  "VOYAGER LOCKED",col_h);;
+		   Render::getRenderInstance()->drawHudText18(Point(0.5, 0.4, 0.0),  "VOYAGER LOCKED",col_h);;
        }
 #pragma endregion
 
@@ -260,6 +264,60 @@ void Cockpit::drawObjective()
 
 }
 
+void Cockpit::setUploadReading(GLfloat n)
+{
+	if(upload_reading>=0.0f && upload_reading<11.0f)
+	{
+		upload_reading+=n;
+	}
+	if(upload_reading>10){ upload_reading=10.0f;}
+
+	cout<<upload_reading<<endl;
+
+}
+
+void Cockpit::drawSynchServer()
+{
+	if(dock_reading==10)
+	   {
+    
+		   setUploadReading(0.01f);
+		   sprintf(upload_pc,"Retrieve - %2.3f %%",upload_reading*10.0f);
+   
+    Render::getRenderInstance()->drawHudText12(Point(-1.15,0.575,0.2),"Qserver-Unity-Dock",col_h);
+	Render::getRenderInstance()->drawHudText12(Point(-1.15,0.51,0.2),"-----------------",col_h);
+	Render::getRenderInstance()->drawHudText12(Point(-1.15,0.43,0.2),"[-]Download started",col_h);
+	Render::getRenderInstance()->drawHudText12(Point(-1.15,0.35,0.2),"[-]Sequence connected.",col_h);
+
+	//------------------
+	glPushMatrix();
+    Render::getRenderInstance()->drawHudText10(Point(-0.94,0.25,0.2),  "Download:[ | | | | | | | | | | | | | ]",col_h);;
+	Render::getRenderInstance()->drawHudText18(Point(-0.80,-0.35, 0.2),upload_pc,col_h);
+	glTranslatef(-0.70,0.255,0.2);
+	glScalef(upload_reading,1.0f,1.0f);
+	glutSolidCube(0.025);
+	glScalef(1.0f,1.0f,1.0f);
+	glPopMatrix();
+	///
+	Render::getRenderInstance()->drawHudText12(Point(-1.05, -0.48, 0.2),"->CONNECTED TO UNITY QSERVER",col_h);
+	
+		   // ---    Draw bg cube--------------
+    glPushMatrix();
+	glScalef(1.0f,1.0f,1.0f);
+	glEnable(GL_BLEND);
+	   glTranslatef(-0.73,0.4,0.2);
+	     glColor4f(0.5f,0.5f,0.5f,0.4f);
+	     glutSolidCube(0.5);
+	   glTranslatef(-0.73,-0.4,-0.2);
+	   glDisable(GL_BLEND);
+	glPopMatrix();
+		   //------------------
+	   }else
+	{
+		upload_reading = 0.0f;
+	}
+}
+
 
 void Cockpit::draw()
 {
@@ -275,7 +333,7 @@ void Cockpit::draw()
     glLoadIdentity();
 	
 	getMechanicsOnScreen();
-
+	drawSynchServer();
 	//glTranslated(sin(2.0*3.14526*GameStateManager::timeSinceLast),cos(2.0*314526*GameStateManager::timeSinceStart),0); /* Vibrator */
     glCallList(cockpitId);
     
