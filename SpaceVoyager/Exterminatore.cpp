@@ -21,13 +21,25 @@ void Exterminatore::drawExterminatore()
 		glPushMatrix();
 		glDisable(GLU_CULLING);
 		glDisable(GL_CULL_FACE);
-		glRotatef(GameStateManager::timeSinceStart*0.001,0,1,0.5);
-		IEntityManager::getInstance()->draw_scavs(position,0);
+		glDisable(GL_LIGHTING);
+		glRotatef(GameStateManager::timeSinceStart*0.005,0.2,1,0);
+		glColor3f(sin(GameStateManager::timeSinceLast*0.01),sin(GameStateManager::timeSinceLast*0.01),sin(GameStateManager::timeSinceLast*0.01));
 		glTranslated(position.x,position.y,position.z);
+
+
 		glutSolidCube(3000.0);
+		
 		IEntityManager::getInstance()->draw_plane(9000,2000,1);
+		/**
+		glTranslatef(-4000.0f,0.0f,0.0f);
+		glRotatef(90.0f,0.0f,0.0f,1.0f);
+		IEntityManager::getInstance()->draw_plane(4000,2000,20);
+		glTranslatef(8000.0f,0.0f,0.0f);
+		IEntityManager::getInstance()->draw_plane(4000,2000,20);
+		**/
 		glEnable(GLU_CULLING);
 		glEnable(GL_CULL_FACE);
+		glEnable(GL_LIGHTING);
 		glPopMatrix();
 		
 	}
@@ -43,7 +55,7 @@ void Exterminatore::drawExterminatore()
 void Exterminatore::updateExterminatore()
 {
 	
-	        Point cent = initPos + Vector(cosf(thetaEx),sinf(thetaEx),center.z) * 50000.0f;   // radia 
+	        Point cent = initPos + Vector(cosf(thetaEx),sinf(thetaEx),center.z) * 140000.0f;   // radia 
 			setPosition(cent);
 		    thetaEx += inc*0.1;
 			setPosition(cent);

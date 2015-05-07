@@ -1,7 +1,8 @@
 
 
-#ifndef _Ship_
-#define _Ship_
+#ifndef __Ship_
+#define __Ship_
+#pragma once
 
 #include "SpaceShip.h"
 #include "XInputHandler.h"
@@ -10,7 +11,7 @@
 #include <math.h>
 
 
-#define min_max_speed 500.00f
+#define MIN_MAX_SPEED 1500.00f
 
 
 
@@ -20,7 +21,6 @@ class Ship : SpaceShip
 protected:
 	  	Point position;
 	  	Vector forward , up , right;
-		//XInputHandler* xinp;
 		char* speedText;
 		Cockpit *_cockpit;
         float speed;
@@ -41,30 +41,31 @@ public:
 	  enum ship_state
 	{
 		_normal,
-		_crash,
+		_alert,
 		_stuttering
 	};
 	ship_state c_state;
-		//Ship();
+		
+	   
       	Ship(Point initialPosition = Point(0,0,0));
-      	Point getPositon(){ return position;}
-		Vector getForward(){ return forward; }
-		void setForward(Vector v){ forward = v; }
+      	Point getPositon(); 
+		Vector getForward(); 
+		void setForward(Vector v); 
       	void fly();
 		void teleport(Point new_pos);
-      	Vector getDirection(){ return forward; }
-      	Vector getVertical(){ return up; }
+      	Vector getDirection(); 
+      	Vector getVertical(); 
       	void pitch(double angle);
       	void roll(double angle);
       	void yaw(double angle);
-       	double getSpeed(){ return speed; }
+       	double getSpeed();
 		void setSpeed(GLfloat New_speed);
         void slide(int dir);
 		void ship_handleXInput();
 		void ship_setTarget(Point target);
 		void draw_target_hud();
-		void setDocking(bool b){  isDocking = b; };
-		bool getDocking(){ return isDocking; }
+		void setDocking(bool b);
+		bool getDocking();
 		void init_ship();
  		void shipUpdate();
 		void shipDraw();
@@ -73,7 +74,7 @@ public:
 		void setPosition(Point p);
 		void setDockingReading(int i); 
 		void setHealth(GLfloat f);
-		int getDockingReading() { return dock_reading;  }
+		int  getDockingReading();
 	    void setAlert(bool l);
 		bool getAlert();
 
@@ -82,9 +83,9 @@ public:
         missileSystem* msys;
 		void shipUpdateTargetList(vector<Quad*> _list);
 		void shipCreateMissileAt();
-		//states
-		void setCockpitState(ship_state cs){ c_state = cs;}
-		ship_state getCockpitState(){return c_state;}
+		
+		void setCockpitState(ship_state cs);
+		ship_state getCockpitState(){ return _normal; }
 
 		Quad* collisionBox_ship;
 		Point next_targetLocation;

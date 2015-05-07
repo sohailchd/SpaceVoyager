@@ -34,7 +34,7 @@ protected:
 	XInputHandler();
 
 public:
-	~XInputHandler();
+	//~XInputHandler();
 	 static BOOL isConnected;
      struct CONTROLLER_INFO controller[MAX_CONTROLLER];
      void updateX();

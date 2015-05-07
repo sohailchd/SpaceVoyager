@@ -3,40 +3,18 @@
 #ifndef _GameScreen_
 #define _GameScreen_
 
-
 #include "Screens.h"
-#include "ISceneNode.h"
-#include "GameStateManager.h"
+
+#include "GameSequenceStateManager.h"
 
 #pragma once
 
 
-enum SequenceStates
-	{
-		 _inPrologue_SQ,       /* Audio intro */
-		 _inWormHole_SQ,       /* start the wormhole */
-		 _inFightScav_SQ,      /* inWormHole  */
-		 _inDropGenesis_SQ,    /* dropThe genesis */
-		 _inEpilogue_SQ,       
-	};
+
 
 class GameScreen : public Screens
 {
 
-
-private:
-		  SequenceStates _activeInGameSequence;
-		  SequenceStates _lastInGameSequence;
-          
-		  void setCurrentSceneNodeInstance(ISceneNode* node);
-
-		  //---------------------------
-		  ISceneNode* lone ;
-          ISceneNode* ltwo ;  
-          ISceneNode* fightScav_level ;
-		  //---------------------------
-
-		  ISceneNode* _currentSceneNode;
 
  public:
  
@@ -52,12 +30,6 @@ private:
         virtual void loadObjects();  // later versions
         virtual void reshape(int& w , int& h); 
 
-		void setSequenceState(SequenceStates sq);
-		SequenceStates getSequenceState();
-
-		
-		ISceneNode* getCurrentSceneNodeInstance();
-		
 
 };
 

@@ -5,14 +5,14 @@
 
 XInputHandler::XInputHandler(){}
 
-XInputHandler::~XInputHandler(){}
+//XInputHandler::~XInputHandler(){}
 
 XInputHandler* XInputHandler::instanceXinput = 0;
 BOOL XInputHandler::isConnected = false;
 
 XInputHandler* XInputHandler::getInstance()
 {
-	if( XInputHandler::instanceXinput==0)
+	if( XInputHandler::instanceXinput==NULL)
 	{
 		instanceXinput = new XInputHandler();
 	}

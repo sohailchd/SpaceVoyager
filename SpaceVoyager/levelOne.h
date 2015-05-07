@@ -7,8 +7,11 @@
 #pragma once
 
 
-#include "ISceneNode.h"
 #include "Ship.h"
+#include "MasterHeader.h"
+#include "Render.h"
+#include "IEntityManager.h"
+
 
 class levelOne : public ISceneNode
 {

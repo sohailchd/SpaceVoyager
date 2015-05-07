@@ -37,7 +37,7 @@
 
 
 
-#define MAX_NO_TEXTURE 20
+#define MAX_NO_TEXTURE 30
 
 #define SAFE_DELETE(x) { delete x; x=NULL; }
 
@@ -52,5 +52,6 @@
 
 
 //#undef __DEBUG_SWITCH_ON_
+
 
 #endif

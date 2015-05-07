@@ -1,63 +1,6 @@
 
 
 
-//	
-//#pragma region FRONT-FACE
-//	glPushMatrix();
-//		glPushMatrix();
-//	    glTranslatef(missile_pos.x-d,missile_pos.y+d,missile_pos.z);
-//    	glutSolidCube(20);
-//		glPopMatrix();
-//
-//
-//		glPushMatrix();
-//		glTranslatef(missile_pos.x+22-d,missile_pos.y-d,missile_pos.z);
-//		glutSolidCube(20);
-//		glPopMatrix();
-//
-//
-//		glPushMatrix();
-//		glTranslatef(missile_pos.x+d,missile_pos.y+22-d,missile_pos.z);
-//		glutSolidCube(20);
-//		glPopMatrix();
-//
-//		glPushMatrix();
-//		glTranslatef(missile_pos.x+22+d,missile_pos.y+22-d,missile_pos.z);
-//		glutSolidCube(20);
-//		glPopMatrix();
-//	glPopMatrix();
-//#pragma endregion
-//
-//#pragma region BackFace
-//	glPushMatrix();
-//		glPushMatrix();
-//	    glTranslatef(missile_pos.x-d,missile_pos.y+d,missile_pos.z+22-d);
-//    	glutSolidCube(20);
-//		glPopMatrix();
-//
-//
-//		glPushMatrix();
-//		glTranslatef(missile_pos.x+22-d,missile_pos.y-d,missile_pos.z+22-d);
-//		glutSolidCube(20);
-//		glPopMatrix();
-//
-//
-//		glPushMatrix();
-//		glTranslatef(missile_pos.x+d,missile_pos.y+22-d,missile_pos.z+22-d);
-//		glutSolidCube(20);
-//		glPopMatrix();
-//
-//		glPushMatrix();
-//		glTranslatef(missile_pos.x+22+d,missile_pos.y+22+d,missile_pos.z+22-d);
-//		glutSolidCube(20);
-//		glPopMatrix();
-//	glPopMatrix();
-//#pragma endregion
-//
-//       glPopMatrix();
-
-
-// ===============================================================================================================
 
 #ifndef _fightScav
 #define _fightScav
@@ -66,8 +9,6 @@
 #pragma once
 
 
-#include "ISceneNode.h"
-#include "Cockpit.h"
 #include "IEntityManager.h"
 #include "CollisionManager.h"
 #include "SoundManager.h"

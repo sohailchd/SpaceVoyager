@@ -4,7 +4,7 @@
 
 
 #include "SoundData.h"
-
+#include <map>
 
 class SoundManager
 {
@@ -12,11 +12,12 @@ class SoundManager
 
 private:
 	std::vector<SoundData*> _trackList;
+	std::map<soundConstant,SoundData*> _mappedTrackList;
 	ISoundEngine* engine2D;
 	static SoundManager* smInstance;
 	SoundManager();
 	~SoundManager();
-
+	bool musicOff;
 public:
 
 
@@ -40,7 +41,7 @@ public:
 
 	//-----------------
 	void playDirectFromEngine(char* fileName, bool isLoop);
-	
+	void setMusicState(bool m);
 	
 
 };

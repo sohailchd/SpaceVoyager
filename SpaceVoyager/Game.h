@@ -14,15 +14,6 @@ private:
 
 public:
     
-    	enum GameStates { 
-    	_splash , 
-    	_menu ,
-    	_inGame ,
-    	_pause ,
-    	_isExiting,
-		_retry
-    	};
-    	
     	~Game();
     	
 
@@ -42,14 +33,7 @@ public:
         Screens* _inGameScreen;
 		Screens* _retryScreen;
 
-        std::vector<Screens*> screenList;
-		template<class fwdIter , class T> void replace(fwdIter fs , fwdIter lst , const T& old , const T& newV)		{
-			while(fs!=lst)
-			{
-				if(*fs==old){ *old = newV ;}
-				++fs;
-			}
-		}
+        
 
 protected:
 	Game();

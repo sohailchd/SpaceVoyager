@@ -10,6 +10,11 @@ enum ISceneNodeStates
 	inactive
 };
 
+class Ship;
+class missileSystem;
+class Exterminatore;
+class ExterminatoreNet;
+
 class ISceneNode
 {
 	    public:

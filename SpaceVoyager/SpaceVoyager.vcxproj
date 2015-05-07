@@ -87,6 +87,7 @@
     <ClInclude Include="FightScav.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScreen.h" />
+    <ClInclude Include="GameSequenceStateManager.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="GenesisSequence.h" />
     <ClInclude Include="Geometry.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="WarmHole.h" />
     <ClInclude Include="XInputHandler.h" />
+    <ClInclude Include="XSoundManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AboutPage.cpp" />
@@ -122,6 +124,7 @@
     <ClCompile Include="FightScav.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScreen.cpp" />
+    <ClCompile Include="GameSequenceStateManager.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GenesisSequence.cpp" />
     <ClCompile Include="IEntityManager.cpp" />
@@ -145,6 +148,7 @@
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="WarmHole.cpp" />
     <ClCompile Include="XInputHandler.cpp" />
+    <ClCompile Include="XSoundManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

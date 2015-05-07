@@ -16,11 +16,6 @@
 
 
 
-//#define SPLASH_SCREEN 0
-//#define MENU_SCREEN   1
-//#define INGAME_SCREEN 2
-//#define PAUSE_SCREEN  3
-//#define RETRY_SCREEN  4
 
 
 enum GameStates
@@ -35,8 +30,6 @@ enum GameStates
           
 
 
-
-
 class GameStateManager
 {
 private:
@@ -44,9 +37,7 @@ private:
 		  GameStates _lastGameState;
 		  Screens   *_currentScreen;
 
-
-
-		  vector<Screens*>  _listOfAllScreens;  // Later versions
+           vector<Screens*>  _listOfAllScreens;  // Later versions
 		 
 		  // Ad-hoc solutions------
 		  Screens* _splashScreen;
@@ -55,6 +46,9 @@ private:
 		  Screens* _pauseScreen;
 		  Screens* _retryScreen;
 		  //---------------------
+
+
+		  
 
 		  static GameStateManager* gsInstance;
 		  GameStateManager();
@@ -108,7 +102,9 @@ public:
 		  void refreshScreenList();
 		  bool getTriggerAfterSince(GLfloat since , GLfloat interval);
 
+//=====================================================================================================================
 
+		
 };
 
 

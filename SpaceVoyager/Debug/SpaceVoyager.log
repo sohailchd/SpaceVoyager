@@ -1,37 +1,214 @@
-﻿Build started 4/24/2015 8:30:26 PM.
-     1>Project "C:\Users\BasarSohail\Desktop\latest9\SpaceVoyager\SpaceVoyager\SpaceVoyager.vcxproj" on node 2 (Build target(s)).
+﻿Build started 5/6/2015 12:30:12 PM.
+     1>Project "F:\WorkSpace\tempSaves\latest10\SpaceVoyager\SpaceVoyager\SpaceVoyager.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\external\freeglut\GL /I..\external\soil\include /I..\external\irrklang\include /I..\external\assertImp\assimp /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt levelTwo.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\external\freeglut\GL /I..\external\soil\include /I..\external\irrklang\include /I..\external\assertImp\assimp /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt AboutPage.cpp Cockpit.cpp CollisionManager.cpp Exterminatore.cpp FightScav.cpp Game.cpp GameScreen.cpp GameSequenceStateManager.cpp GameStateManager.cpp GenesisSequence.cpp IEntityManager.cpp ISceneNode.cpp levelOne.cpp levelTwo.cpp Main.cpp MainDebuger.cpp MenuScreen.cpp MissileSystem.cpp PauseScreen.cpp Prologue.cpp Render.cpp RetryScreen.cpp Screens.cpp Shader.cpp Ship.cpp SoundData.cpp SoundManager.cpp SplashScreen.cpp TextureLoader.cpp WarmHole.cpp XInputHandler.cpp XSoundManager.cpp
+         XSoundManager.cpp
+         XInputHandler.cpp
+         WarmHole.cpp
+         TextureLoader.cpp
+         SplashScreen.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\splashscreen.cpp(54): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\splashscreen.cpp(56): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+         SoundManager.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\soundmanager.cpp(27): warning C4018: '<' : signed/unsigned mismatch
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\soundmanager.cpp(98): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\soundmanager.cpp(103): warning C4018: '<' : signed/unsigned mismatch
+         SoundData.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\sounddata.cpp(61): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+         Ship.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ship.cpp(166): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ship.cpp(207): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ship.cpp(225): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+         Shader.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\shader.cpp(9): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
+         Screens.cpp
+         RetryScreen.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\retryscreen.cpp(45): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+         Render.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(27): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(31): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(40): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(44): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(53): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(57): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(66): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(70): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(87): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(88): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(101): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(112): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(113): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(114): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(115): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(128): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\render.cpp(129): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+         Prologue.cpp
+         PauseScreen.cpp
+         MissileSystem.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\missilesystem.cpp(24): warning C4018: '<' : signed/unsigned mismatch
+         MenuScreen.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(84): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(85): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(116): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(116): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(122): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(123): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(134): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(135): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(135): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\menuscreen.cpp(172): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+         MainDebuger.cpp
+         Main.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\main.cpp(155): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
          levelTwo.cpp
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(47): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(91): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(92): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(108): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(116): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(125): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(133): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(148): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(157): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(166): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwoscavengers.h(174): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(13): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(39): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(40): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(41): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(66): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(162): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(196): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(434): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(435): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\basarsohail\desktop\latest9\spacevoyager\spacevoyager\leveltwo.cpp(431): warning C4101: 'speed_str' : unreferenced local variable
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(47): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(91): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(92): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(108): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(116): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(125): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(133): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(148): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(157): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(166): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwoscavengers.h(174): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(38): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(39): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(40): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(57): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(66): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(145): warning C4018: '<' : signed/unsigned mismatch
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(241): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(341): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(436): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(437): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\leveltwo.cpp(433): warning C4101: 'speed_str' : unreferenced local variable
+         levelOne.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\levelone.cpp(34): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\levelone.cpp(36): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\levelone.cpp(78): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\levelone.cpp(125): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\levelone.cpp(126): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+         Generating Code...
+         Compiling...
+         ISceneNode.cpp
+         IEntityManager.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(35): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(81): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(83): warning C4305: '+=' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(104): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(105): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(315): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(321): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(343): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(349): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(355): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(360): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(369): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(375): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(381): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(386): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(400): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(423): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(464): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(478): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(528): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(584): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(633): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(648): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(667): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(730): warning C4068: unknown pragma
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(734): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(746): warning C4068: unknown pragma
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(750): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(789): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(798): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(805): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(812): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(819): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(826): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(848): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(857): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(864): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(871): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(878): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(885): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(910): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(919): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(920): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(992): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(993): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\ientitymanager.cpp(994): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+         GenesisSequence.cpp
+         GameStateManager.cpp
+         GameSequenceStateManager.cpp
+         GameScreen.cpp
+         Game.cpp
+         FightScav.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\fightscav.cpp(81): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\fightscav.cpp(105): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\fightscav.cpp(106): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\fightscav.cpp(107): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\fightscav.cpp(177): warning C4018: '<' : signed/unsigned mismatch
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\fightscav.cpp(246): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\fightscav.cpp(247): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\fightscav.cpp(243): warning C4101: 'speed_str' : unreferenced local variable
+         Exterminatore.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\exterminatore.cpp(25): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\exterminatore.cpp(25): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\exterminatore.cpp(26): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\exterminatore.cpp(48): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\exterminatore.cpp(52): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\exterminatore.cpp(58): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         CollisionManager.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\collisionmanager.cpp(48): warning C4018: '<' : signed/unsigned mismatch
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\collisionmanager.cpp(64): warning C4018: '<' : signed/unsigned mismatch
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\collisionmanager.cpp(75): warning C4018: '<' : signed/unsigned mismatch
+         Cockpit.cpp
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(28): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(72): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(82): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(89): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(100): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(101): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(107): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(108): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(145): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(145): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(148): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(168): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(196): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(198): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(200): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(202): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(223): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(224): warning C4244: 'argument' : conversion from 'GLint' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(233): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(234): warning C4244: 'argument' : conversion from 'GLint' to 'GLfloat', possible loss of data
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(254): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(257): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(285): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(296): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(308): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>f:\workspace\tempsaves\latest10\spacevoyager\spacevoyager\cockpit.cpp(311): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+         AboutPage.cpp
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\BasarSohail\Desktop\latest9\SpaceVoyager\Debug\SpaceVoyager.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\external\soil\lib /LIBPATH:"..\external\irrklang\lib\Win32-visualStudio" /LIBPATH:..\external\assertImp\lib32 /LIBPATH:"..\external\glew-1.12.0-win32\glew-1.12.0\lib\Release\Win32" /LIBPATH:..\external\freeglut\lib freeglut.lib opengl32.lib SOIL.lib libSOIL.lib XINPUT9_1_0.lib irrKlang.lib assimp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\BasarSohail\Desktop\latest9\SpaceVoyager\Debug\SpaceVoyager.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\BasarSohail\Desktop\latest9\SpaceVoyager\Debug\SpaceVoyager.lib" /MACHINE:X86 Debug\AboutPage.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\WorkSpace\tempSaves\latest10\SpaceVoyager\Debug\SpaceVoyager.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\external\soil\lib /LIBPATH:"..\external\irrklang\lib\Win32-visualStudio" /LIBPATH:..\external\assertImp\lib32 /LIBPATH:"..\external\glew-1.12.0-win32\glew-1.12.0\lib\Release\Win32" /LIBPATH:..\external\freeglut\lib freeglut.lib opengl32.lib SOIL.lib libSOIL.lib XINPUT9_1_0.lib irrKlang.lib assimp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\WorkSpace\tempSaves\latest10\SpaceVoyager\Debug\SpaceVoyager.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\WorkSpace\tempSaves\latest10\SpaceVoyager\Debug\SpaceVoyager.lib" /MACHINE:X86 Debug\AboutPage.obj
          Debug\Cockpit.obj
          Debug\CollisionManager.obj
          Debug\Exterminatore.obj
          Debug\FightScav.obj
          Debug\Game.obj
          Debug\GameScreen.obj
+         Debug\GameSequenceStateManager.obj
          Debug\GameStateManager.obj
          Debug\GenesisSequence.obj
          Debug\IEntityManager.obj
@@ -55,9 +232,14 @@
          Debug\TextureLoader.obj
          Debug\WarmHole.obj
          Debug\XInputHandler.obj
-         SpaceVoyager.vcxproj -> C:\Users\BasarSohail\Desktop\latest9\SpaceVoyager\Debug\SpaceVoyager.exe
-     1>Done Building Project "C:\Users\BasarSohail\Desktop\latest9\SpaceVoyager\SpaceVoyager\SpaceVoyager.vcxproj" (Build target(s)).
+         Debug\XSoundManager.obj
+     1>SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'F:\WorkSpace\tempSaves\latest10\SpaceVoyager\Debug\vc110.pdb'; linking object as if no debug info
+     1>SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'F:\WorkSpace\tempSaves\latest10\SpaceVoyager\Debug\vc110.pdb'; linking object as if no debug info
+     1>SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'F:\WorkSpace\tempSaves\latest10\SpaceVoyager\Debug\vc110.pdb'; linking object as if no debug info
+     1>SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'F:\WorkSpace\tempSaves\latest10\SpaceVoyager\Debug\vc110.pdb'; linking object as if no debug info
+         SpaceVoyager.vcxproj -> F:\WorkSpace\tempSaves\latest10\SpaceVoyager\Debug\SpaceVoyager.exe
+     1>Done Building Project "F:\WorkSpace\tempSaves\latest10\SpaceVoyager\SpaceVoyager\SpaceVoyager.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:07.12
+Time Elapsed 00:02:14.36

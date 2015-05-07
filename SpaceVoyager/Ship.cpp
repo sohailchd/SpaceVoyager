@@ -60,7 +60,7 @@ void Ship::teleport(Point new_pos)
 
 void Ship::setSpeed(GLfloat New_speed)
 {
-	{ /*if(speed >=-990.00 && speed <=990.0)*/ { speed = New_speed;} { if(speed<-1000.0){speed =-1000.0;}if(speed>1000){ speed=1000.0; } }   }
+	{ /*if(speed >=-990.00 && speed <=990.0)*/ { speed = New_speed;} { if(speed<-MIN_MAX_SPEED){speed =-MIN_MAX_SPEED;}if(speed>MIN_MAX_SPEED){ speed=MIN_MAX_SPEED; } }   }
 }
 
 void Ship::setPosition(Point p)
@@ -150,11 +150,11 @@ void Ship::init_ship()
 
  void Ship::draw_target_hud()
  {
-	 glPushMatrix();
+	/* glPushMatrix();
 	 glLineWidth(10.0);
 	   Render::getRenderInstance()->drawSegment3d(Point(0 , 0 , 2000000),next_targetLocation);
 	   glLineWidth(1.0);
-	 glPopMatrix();
+	 glPopMatrix();*/
 
  }
 
@@ -181,19 +181,11 @@ void Ship::init_ship()
  {
 
  }
- double rad = 0.0f;
+
  void Ship::shipDraw()
  {
-
-	 rad += 100.0f;
-
-	 //position += Vector(sin(rad)*40.0,cos(rad)*10,2.0);
 	 _cockpit->draw();
-
-
 	 msys->drawList_missile();
-
-	
  }
 
  void Ship::ship_handleXInput()
@@ -372,4 +364,15 @@ void Ship::init_ship()
 
 }
 
+
+Point Ship::getPositon(){ return position;}
+Vector Ship::getForward(){ return forward; }
+void Ship::setForward(Vector v){ forward = v; }
+Vector Ship::getDirection(){ return forward; }
+Vector Ship::getVertical(){ return up; }
+double Ship::getSpeed(){ return speed; }
+void Ship::setDocking(bool b){  isDocking = b; };
+bool Ship::getDocking(){ return isDocking; }
+int Ship::getDockingReading() { return dock_reading;  }
+void Ship::setCockpitState(ship_state cs){ c_state = cs;}
 

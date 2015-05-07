@@ -50,7 +50,7 @@ void  IEntityManager::init_IEntityManager()
 		if (texture_ids[i] < 0)
 			printf("Error in loading %s\n", sname);
 	}
-	
+	rotor_val = 0.0f;
 	printf("IEntityManager init func called\n");
 }
 //**********************************************
@@ -179,6 +179,17 @@ void IEntityManager::create_planet()
 	}*/
 	glScaled(1,1,1);
 }
+void IEntityManager::create_planet_moon()
+{
+    glScalef(15,15,15);
+	draw_sphere(10000, 22);
+	/*if(GameStateManager::_tTextureLoader[cyrus]!=NULL){
+	draw_sphere_parallel(10000,cyrus);
+	}*/
+	glScaled(1,1,1);
+}
+
+
 void IEntityManager::draw_plane(GLdouble w, GLdouble h, int tex)
 {
 	glPushMatrix();

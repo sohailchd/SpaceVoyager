@@ -5,7 +5,7 @@
 
 
 #include "Screens.h"
-#include "SoundManager.h"
+#include "XSoundManager.h"
 #include "IEntityManager.h"
 
 #pragma once
@@ -17,7 +17,7 @@ class SplashScreen : public Screens
 		  SplashScreen();
 
 		
-      	~SplashScreen(){};
+      	~SplashScreen();
 
 
 
@@ -28,8 +28,7 @@ class SplashScreen : public Screens
         virtual void reshape(int& w , int& h);
         virtual void loadObjects(); 
 
-private:
-	SoundManager* smngr;
+
 		 
 };
 

@@ -48,6 +48,7 @@ public:
 	
 	void draw_plane(GLdouble w , GLdouble h , int tex);
 	void create_planet();
+	void create_planet_moon();
 	void draw_sphere(int r , int tex);
 
 	void create_genesis(Point* at);

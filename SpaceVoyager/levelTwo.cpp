@@ -8,21 +8,20 @@
 #include "Game.h"
 
 
-		  GLfloat fogDensity2       = 0.0001f;
-		  GLfloat fogDensity        = 0.0000000001f;
-          GLfloat fogColor[4]       = {0.8,0.8,0.8,0.0};
-          GLfloat unity_debrispara  = 0.0f;
-          double white_l2[]         = { 0.1,0.1,0.1 };
-		  bool isWormhole           = false;
-		  GLfloat counterWormhole   = 0.0f;
-		  //Shader shader;
 
 void levelTwo::initScene()
 {
 	
 	int w = glutGet(GLUT_WINDOW_WIDTH);
 	int h = glutGet(GLUT_WINDOW_HEIGHT);
-    
+      /*******  variables *************/
+   fogDensity2       = 0.0001f;
+   fogDensity        = 0.0000000001f;
+   unity_debrispara  = 0.0f;
+   GLdouble fogDensity3=0.0001f;
+   isWormhole           = false;
+   counterWormhole   = 0.0f;
+  /*******************************/
 
 
   glViewport(0, 0, w, h);
@@ -39,7 +38,7 @@ void levelTwo::initScene()
   GLfloat dark[] = { 0.2, 0.15, 0.2, 1.0};
   GLfloat white[] = { 0.7 , 0.7, 0.7, 1.0};
   GLfloat direction[] = { 0.2, 0.0, 10.5,0.0};
-
+  
   //glMaterialfv(GL_FRONT, GL_SPECULAR, white);
   //glMaterialf(GL_FRONT, GL_SHININESS, 8);
   glLightfv(GL_LIGHT0, GL_AMBIENT , white);
@@ -50,28 +49,32 @@ void levelTwo::initScene()
   // Keep the lightingt ON as default setting for this sequence
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
-  //glEnable(GL_LIGHT1);
+  
 
-
-  //fog
-  //glEnable(GL_FOG);
+ 
   glFogi(GL_FOG_MODE,GL_EXP2);
   glFogfv(GL_FOG_COLOR,fogColor);
-  glFogf(GL_FOG_DENSITY,fogDensity2);
+  glFogf(GL_FOG_DENSITY,fogDensity3);
   glFogf(GL_FOG_START,1000000.0f);
   glHint(GL_FOG_HINT,GL_NICEST);
 
-  mission_currentState = _reachUnity;
+
+
+
+  mission_currentState = _intro;
   _ship->init_ship();
   srand(GameStateManager::timeSinceStart/1000);
+ 
   ifInit = true;
   
  }
 
 levelTwo::levelTwo()
 {
-	           levelStartTime = GameStateManager::timeSinceStart;
-	          _ship = new Ship(Point(0,0,2000000));
+	             
+
+
+	           _ship = new Ship(Point(0,0,2000000));
                _ship->dockStation = new Quad(Point(90000,49000,-10500),1400,1400,1400);
 			   collisionManager = new CollisionManager();
 			   exterMin = new ExterminatoreNet(); 
@@ -103,7 +106,6 @@ levelTwo::levelTwo()
 
 
 			   collisionManager->addAsTarget(_ship->collisionBox_ship);
-			   //collisionManager->addToList(planet_quad);
 			   collisionManager->addToList(unity_collider_a);
 			   collisionManager->addToList(unity_collider_b);
                collisionManager->addToList(unity_collider_c);
@@ -112,7 +114,6 @@ levelTwo::levelTwo()
 			   collisionManager->addToList(unity_collider_e);
 			   collisionManager->addToList(unity_dock2_collider);
 			   collisionManager->addToList(unity_dock3_collider);
-			   //collisionManager->addAsTarget(_ship->msys->_listMissile[0]->cb_cube);
 			   collisionManager->addToList(wormHole_collider);
 			   collisionManager->addToList(wormHole_collider_b);
 
@@ -123,9 +124,9 @@ levelTwo::levelTwo()
 #pragma endregion 	   
 
 #pragma region trigger_manager
-		/*	   collisionManager->addToTriggerList(atmosphere_vicinity_alert);
+		 	   collisionManager->addToTriggerList(atmosphere_vicinity_alert);
 			   collisionManager->addToTriggerList(scavs_vicinity_trigger);
-			   collisionManager->addAsTriggerTarget(_ship->trigger_box);*/
+			   collisionManager->addAsTriggerTarget(_ship->trigger_box);
 #pragma endregion
 
 
@@ -133,32 +134,14 @@ levelTwo::levelTwo()
 			   
 #pragma endregion sound_manager
 
-
-
-			  /* collisionManager->deleteFromList(unity_collider_d);
-			   collisionManager->deleteFromList(unity_collider_a);
-               collisionManager->deleteFromList(unity_collider_c);*/
-
-
-			  /* for(int i =-50000;i<300000;i+=20000)
-			   {
-				   for(int j=-15000;j<100000;j+= 10000)
-				   {
-					   exterMin->createExterminatore(Point(i,j,-(rand()%150000+2000000)));
-				   }
-			   }*/
-
 			   exterMin->createExterminatore(Point(9000,-49000,-8000));
-		       exterMin->createExterminatore(Point(9000,-49000,-12000));
+		       exterMin->createExterminatore(Point(-9000,49000,-8000));
 			   exterMin->createExterminatore(Point(9000,200,-20000));
+			   exterMin->createExterminatore(Point(-9000,200,20000));
+               exterMin->createExterminatore(Point(5000,-9000,-20000));
 
 
 #pragma region missileTargetsInits
-			  /* _missileTargets.push_back(unity_dock3_collider);
-			   _missileTargets.push_back(unity_dock2_collider);
-			   _missileTargets.push_back(wormHole_collider);
-			   _missileTargets.push_back(wormHole_collider_b);*/
-
 			   for(GLint i=0;i<exterMin->_listExterMinator.size();i++)
 			   {
 				   _missileTargets.push_back(exterMin->_listExterMinator[i]->collisionBox);
@@ -167,6 +150,7 @@ levelTwo::levelTwo()
 
 			   ifInit = false;
 			   startAttack = false;
+			   enterAtmosphere = false;
 }
 
 levelTwo::~levelTwo()
@@ -182,11 +166,172 @@ void levelTwo::display_fn_game()
     if(!ifInit)
     {
         initScene();
+
     }
     
-	if(_ship->getCockpitState()==_ship->_normal)
+	if(!enterAtmosphere)
 	{
-     #pragma region _normal
+    
+		drawNormal();
+    }
+	else
+	{
+		atmosphereEntryProtocol();
+	}
+	 SoundManager::getInstance()->removeFromPlayList(SPLASH_THEME_1_C);
+	 SoundManager::getInstance()->addCurrentPlayList(LEVEL_TWO_THEME_1,true,LEVEL_TWO_THEME_1_C);
+}
+
+void levelTwo::drawUnityExtensions()
+{
+	glPushMatrix();
+	glDisable(GL_LIGHTING);
+
+	//wormhole
+	
+	glPushMatrix();
+	glTranslated(90000,-49000,-16000);
+	//glutSolidCube(6000);
+	IEntityManager::getInstance()->draw_cube(3000.0,3000.0,3000.0,18);
+	glPopMatrix();
+	//end wormhole
+
+	///////
+	//Quad(Point(90000,3000,40000),6000,40000,6000)
+	glPushMatrix();
+	glColor3f(0.5,0.5,0.5);
+	glTranslatef(90000,49000,-16000);
+	glutSolidCube(6000);
+	//IEntityManager::getInstance()->draw_cube(6000,6000,6000,13);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(96000,49000,-15500);
+	glutSolidCube(3000);
+	//IEntityManager::getInstance()->draw_cube(2000.0,2000.0,2000.0,14);
+	//IEntityManager::getInstance()->draw_cube(6000,6000,6000,13);
+	glPopMatrix();
+	
+	glPushMatrix();
+	glTranslatef(94000,49000,-14000);
+	//glutSolidCube(3000.0);
+	IEntityManager::getInstance()->draw_cube(2000.0,2000.0,2000.0,13);
+	glPopMatrix();
+	
+	glPushMatrix();
+	glTranslatef(90000,49000,-10000);
+	glutWireCube(700.0);
+	IEntityManager::getInstance()->draw_cube(400.0,400.0,400.0,12);
+	glTranslatef(0.0,0.0f,-2900.0f);
+	glutSolidCube(400.0);
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//wormhole docker
+	glPushMatrix();
+	glTranslatef(90000.0f,-49000.0f,-10000.0f);
+	glutWireCube(700.0);
+	IEntityManager::getInstance()->draw_cube(400.0,400.0,400.0,15);
+	glTranslatef(0.0f,0.0f,-2900.0f);
+	glutSolidCube(400.0);
+	glPopMatrix();
+	// end dockewr 
+	glPushMatrix();
+	glColor3f(sin(GameStateManager::timeSinceLast*0.01),sin(GameStateManager::timeSinceLast*0.01),sin(GameStateManager::timeSinceLast*0.01));
+	glTranslatef(90000.0f,-40000.0f,-10000.0f);
+	glutSolidCube(2000.0f);
+	//glTranslatef(-90000.0f,40000.0f,10000.0f);
+	glPopMatrix();
+
+	Render::getRenderInstance()->drawSegment3d(Point(90000,-49000,-16000),Point(90000,-49000,-10000));
+	Render::getRenderInstance()->drawSegment3d(Point(90000,49000,-16000),Point(90000,49000,-10000));
+	Render::getRenderInstance()->drawSegment3d(Point(90000,3000,-16000),Point(90000,-49000,-16000));
+	glEnable(GL_LIGHTING);
+	glPopMatrix(); //end extensions
+}
+
+void levelTwo::drawOnScreen()
+{
+	double w[] = {1.0,1.0,1.0};
+	glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+      glDisable(GL_LIGHTING);
+      glDisable(GL_LIGHT0);
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+
+
+	/*Render::getRenderInstance()->drawHudText12(Point(0.0,0.0,0.0),"REACH UNITY AND FIND DOCKING MODULE.",w);*/
+#pragma region mission_objective_info
+	switch (mission_currentState)
+	{
+	case levelTwo::_intro:
+		{
+			if(XInputHandler::getInstance()->isDigitalButtonPressed('U'))
+			{
+				//IEntityManager::getInstance()->draw_plane(1,1,11);
+             	Render::getRenderInstance()->drawHudText12(Point(-0.5,0.45,0),"MISSIONS INTRO",w);
+           	}
+		}
+		break;
+	case levelTwo::_fightCuborgs:
+		{
+			if(XInputHandler::getInstance()->isDigitalButtonPressed('U'))
+			{
+			Render::getRenderInstance()->drawHudText12(Point(-0.5,0.45,0),"Kill all the Cuborgs hacking UNITY",w);
+			}
+		}
+		break;
+	case levelTwo::_docking_genesis:
+		{
+			if(XInputHandler::getInstance()->isDigitalButtonPressed('U'))
+			{
+				Render::getRenderInstance()->drawHudText12(Point(-0.5,0.45,0),"Dock to UNITY and download GENESIS code",w);
+			}
+		}
+		break;
+	case levelTwo::_wormholeDocking:
+		{
+			if(XInputHandler::getInstance()->isDigitalButtonPressed('U'))
+			{
+				Render::getRenderInstance()->drawHudText12(Point(-0.5,0.45,0),"Connect to wormhole docker",w);
+			}
+		}
+		break;
+	default:
+		break;
+	}
+#pragma endregion
+
+	//Vicinit sensors
+	if(wormhole_collider_sensor->getTrigger())
+	  {
+		  Render::getRenderInstance()->drawHudText18(Point(-0.5,0.45,0),"PRESS 'Y' TO WORMHOLE TRAVEL. ",w);
+		    SoundManager::getInstance()->pauseFromPlayList(LEVEL_TWO_THEME_1_C);
+		  if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('Y'))
+		  {
+			  isWormhole = true;
+			  SoundManager::getInstance()->resumeFromPlayList(LEVEL_TWO_THEME_1_C);
+		  }
+	  }
+	//end vicinity
+
+
+	glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glPopMatrix();
+	
+}
+
+void levelTwo::drawNormal()
+{
+	
+    
 	//SKY BOX
      glPushMatrix();
 	 glDisable(GL_LIGHTING);
@@ -216,16 +361,25 @@ void levelTwo::display_fn_game()
 	 glPopMatrix();
 	//Planet - end
 
+	 //Planet moon - CIRYUS
+	 glPushMatrix();
+	  glTranslatef(-300000,1400000,-300000);
+	   glRotated(GameStateManager::timeSinceStart/1800.0,0.2,0.5,1);
+      IEntityManager::getInstance()->create_planet_moon();
+	   glTranslatef(60000,1000,10000);
+	   //shader.unBind();
+	 glPopMatrix();
+	//Planet moon- end
 
 	//
-	glPushMatrix();
-	glTranslatef(0,0,0);
+	//glPushMatrix();
+	//glTranslatef(0,0,0);
 	//IEntityManager::getInstance()->draw_dockStation();
 	//glScalef(10,10,10);
-	IEntityManager::getInstance()->draw_scavs(Point(0,0,0),0.0f);
-	glTranslatef(0,0,0);
-	glScalef(1,1,1);
-	glPopMatrix();
+	//IEntityManager::getInstance()->draw_scavs(Point(0,0,0),0.0f);
+	//glTranslatef(0,0,0);
+	//glScalef(1,1,1);
+	//glPopMatrix();
     //
 	
 	//Space Station - UNITY
@@ -238,191 +392,39 @@ void levelTwo::display_fn_game()
 
 	
     
-	//Nalanda
+	//////nalanda
 	/*glPushMatrix();
 	  glTranslatef(0,0,2000000-1000);
 	  IEntityManager::getInstance()->draw_nalanda();
 	glPopMatrix();*/
-	///////////////////////
+	/////////////////////
 
-	//test Code
-
-
-	/**
-	glPushMatrix();
-	glTranslatef(-660000,-10000,-100000);
-	glutSolidCube(757000);
-	glPopMatrix();
-	**/
-
-
-	//glPushMatrix();
-	//glTranslatef(90000,3000,200);
-	//glutSolidCube(1000);
-	//glPopMatrix();
-	
 
 #pragma region unity_extension
-	glPushMatrix();
-	glDisable(GL_LIGHTING);
-
-	//wormhole
-	
-	glPushMatrix();
-	glTranslated(90000,-49000,-16000);
-	//glutSolidCube(6000);
-	IEntityManager::getInstance()->draw_cube(3000.0,3000.0,3000.0,18);
-	glPopMatrix();
-	//end wormhole
-
-	///////
-	//Quad(Point(90000,3000,40000),6000,40000,6000)
-	glPushMatrix();
-	glColor3f(0.5,0.5,0.5);
-	glTranslatef(90000,49000,-16000);
-	glutSolidCube(6000);
-	//IEntityManager::getInstance()->draw_cube(6000,6000,6000,13);
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(96000,49000,-15500);
-	glutSolidCube(3000);
-	//IEntityManager::getInstance()->draw_cube(2000.0,2000.0,2000.0,14);
-	//IEntityManager::getInstance()->draw_cube(6000,6000,6000,13);
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(94000,49000,-14000);
-	//glutSolidCube(3000.0);
-	IEntityManager::getInstance()->draw_cube(2000.0,2000.0,2000.0,13);
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(90000,49000,-10000);
-	glutWireCube(700.0);
-	IEntityManager::getInstance()->draw_cube(400.0,400.0,400.0,12);
-	glTranslatef(0.0,0.0f,-2900.0f);
-	glutSolidCube(400.0);
-	glPopMatrix();
-
-	//wormhole docker
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(90000.0f,-49000.0f,-10000.0f);
-	glutWireCube(700.0);
-	IEntityManager::getInstance()->draw_cube(400.0,400.0,400.0,15);
-	glTranslatef(0.0f,0.0f,-2900.0f);
-	glutSolidCube(400.0);
-	glPopMatrix();
-	// end dockewr 
-
-
-	Render::getRenderInstance()->drawSegment3d(Point(90000,-49000,-16000),Point(90000,-49000,-10000));
-	Render::getRenderInstance()->drawSegment3d(Point(90000,49000,-16000),Point(90000,49000,-10000));
-	Render::getRenderInstance()->drawSegment3d(Point(90000,3000,-16000),Point(90000,-49000,-16000));
-	glEnable(GL_LIGHTING);
-	glPopMatrix(); //end extensions
+	drawUnityExtensions();
 #pragma endregion unity_extension
 
 	///////////////////
 	//Exter
-	if(startAttack)
+	if(true)
 	{
 	   exterMin->drawExterminatore();
 	}
 	//Exter end
 
-#pragma endregion
 	drawOnScreen();
 	_ship->shipDraw();
 	
-	}
-
-else
-	{
-		atmosphereEntryProtocol();
-	}
-
 }
 
-
-
-void levelTwo::drawOnScreen()
-{
-	double w[] = {1.0,1.0,1.0};
-	glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glLoadIdentity();
-      glDisable(GL_LIGHTING);
-      glDisable(GL_LIGHT0);
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-    glLoadIdentity();
-
-
-	/*Render::getRenderInstance()->drawHudText12(Point(0.0,0.0,0.0),"REACH UNITY AND FIND DOCKING MODULE.",w);*/
-#pragma region info
-	switch (mission_currentState)
-	{
-	case levelTwo::_reachUnity:
-		{
-			if(XInputHandler::getInstance()->isDigitalButtonPressed('U'))
-			{
-				//IEntityManager::getInstance()->draw_plane(1,1,11);
-             	Render::getRenderInstance()->drawHudText12(Point(-0.5,0.45,0),"REACH UNITY AND FIND DOCKING MODULE.",w);
-           	}
-		}
-		break;
-	case levelTwo::_docking:
-		{
-			if(XInputHandler::getInstance()->isDigitalButtonPressed('U'))
-			{
-			Render::getRenderInstance()->drawHudText12(Point(-0.5,0.45,0),"CONNECT TO UNITY-QSERVER.",w);
-			}
-		}
-		break;
-	case levelTwo::_seqUpload:
-		{
-			if(XInputHandler::getInstance()->isDigitalButtonPressed('U'))
-			{
-				Render::getRenderInstance()->drawHudText12(Point(-0.5,0.45,0),"DOWNLOAD GENESIS CODE.",w);
-			}
-		}
-		break;
-	case levelTwo::_wormholeDocking:
-		{
-			if(XInputHandler::getInstance()->isDigitalButtonPressed('U'))
-			{
-				Render::getRenderInstance()->drawHudText12(Point(-0.5,0.45,0),"CONNECT TO WORMHOLE DOCKER.",w);
-			}
-		}
-		break;
-	default:
-		break;
-	}
-#pragma endregion
-
-	//Vicinit sensors
-	if(wormhole_collider_sensor->getTrigger())
-	  {
-		  Render::getRenderInstance()->drawHudText12(Point(-0.5,-0.45,0),"PRESS 'Y' TO WORMHOLE TRAVEL. ",w);
-		  if(XInputHandler::getInstance()->isDigitalButtonPressedOnce('Y'))
-		  {
-			  isWormhole = true;
-		  }
-	  }
-	//end vicinity
-
-
-	glPopMatrix();
-    glMatrixMode(GL_MODELVIEW);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glPopMatrix();
-	
-}
 
 void levelTwo::idle_fn_game()
 {
 	timer_fn_game(0);
 }
+
+
+
 
 void levelTwo::keyboard_fn_game(unsigned char& key,int& x, int& y)
 {
@@ -501,9 +503,14 @@ void levelTwo::atmosphereEntryProtocol()
 
 	else
 	{
-   if(_ship->getPositon().z>1500000.0)
-		{glEnable(GL_FOG);}
-		else{ glDisable(GL_FOG);}
+       if(_ship->getPositon().z>1500000.0)
+	   {
+		   glEnable(GL_FOG);
+	   }
+	   else
+      {
+		  glDisable(GL_FOG);
+	  }
 
     _ship->roll(0.01);
 	_ship->shipActionDiabled=true;
@@ -511,7 +518,7 @@ void levelTwo::atmosphereEntryProtocol()
 	glPushMatrix();
     glScaled(500,500,500);
 	glTranslated(0,0,-1000);
-	   IEntityManager::getInstance()->draw_plane(8000,8000,8);
+	IEntityManager::getInstance()->draw_plane(8000,8000,8);
 	glPopMatrix();
 
 	//draw the final ship
@@ -549,7 +556,7 @@ void levelTwo::handleVicinityTriggers()
 			 counterWormhole += 0.05f;
 			 if(counterWormhole>10.0f)
 			 {
-				 GameStateManager::getInstance()->setGameState(_menu);
+				 GameSequenceStateManager::getInstance()->setSequenceState(inWormhole);
 			 }
 		}
 	}else
@@ -562,20 +569,15 @@ void levelTwo::handleVicinityTriggers()
 
 void levelTwo::timer_fn_game(int t)
 {
-	if( (GameStateManager::timeSinceStart -  levelStartTime) > 30000.0f )
-	{
-		startAttack = true;
-		mission_currentState = _docking;
-	}
-
-    if(unity_collider_a->getIsColliding()){unity_debrispara += 1.0f; }
-	if(_ship->collisionBox_ship->Intersects(*planet_quad))
+	
+    if(_ship->collisionBox_ship->Intersects(*planet_quad))
 	{
 		_ship->setSpeed(1000);
-		_ship->setCockpitState(_ship->_crash); 
+		_ship->setCockpitState(_ship->_alert); 
 		_ship->teleport(Point(0,0,2000000));
 		_ship->setForward(Vector(0,0,-1));
 	    _ship->shipActionDiabled = true;
+		enterAtmosphere = true;
 	}
 	handleVicinityTriggers();
 
@@ -588,9 +590,7 @@ void levelTwo::timer_fn_game(int t)
 	   
 	   	//Exterminator
 	   exterMin->updateExterminatore();	
-	  
-     	//Ent exter
-
+	   //Ent exter
 
 #pragma region camera_setUp
        Point eye(_ship->getPositon());

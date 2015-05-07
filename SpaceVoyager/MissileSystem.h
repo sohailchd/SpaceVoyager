@@ -2,9 +2,9 @@
 #ifndef _missileSystem_
 #define _missileSystem_
 
-#ifndef _IEntityManager_
+
 #include "IEntityManager.h"
-#endif
+
 
 #include "MasterHeader.h"
 #include "CollisionManager.h"

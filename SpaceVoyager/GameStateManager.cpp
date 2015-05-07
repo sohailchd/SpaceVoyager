@@ -25,7 +25,7 @@ GameStateManager::GameStateManager()
 
 	 _currentScreen = _splashScreen;
 	 _activeGameState = _splash;
-
+	 _lastGameState   = _activeGameState;
 }
 
 GameStateManager::~GameStateManager()
@@ -34,14 +34,19 @@ GameStateManager::~GameStateManager()
 
 void GameStateManager::setGameState(GameStates gs)
 {
+	setCurrentScreen(gs);
+	_lastGameState   = _activeGameState;
+	_activeGameState = gs;
+	recreateScreen(_lastGameState);
 
-	SAFE_DELETE(_currentScreen);
+	
+	/*SAFE_DELETE(_currentScreen);
     recreateScreen(_activeGameState);
 	
 	_lastGameState   = _activeGameState;
 	_activeGameState = gs;
 
-	setCurrentScreen(_activeGameState);
+	setCurrentScreen(_activeGameState);*/
 
 }
 
@@ -115,36 +120,34 @@ void GameStateManager::recreateScreen(GameStates gs)
 	{
 	case _splash:
 		{
-		//delete _splashScreen;
-		_splashScreen = NULL;
-		_splashScreen = new SplashScreen();
+		
+			SAFE_DELETE(_splashScreen);
+		   _splashScreen = new SplashScreen();
 		}
 		break;
 	case _menu:
 		{
-		//delete _menuScreen;
-		_menuScreen = NULL;
-		_menuScreen = new MenuScreen();
+		
+			SAFE_DELETE(_menuScreen);
+		    _menuScreen = new MenuScreen();
 		}
 		break;
 	case _inGame:
 		{
-			//delete _inGameScreen ;
-			_inGameScreen = NULL;
+			SAFE_DELETE(_inGameScreen);
 			_inGameScreen = new GameScreen();
+			GameSequenceStateManager::getInstance()->setSequenceState(levelOneProlougue);
 		}
 		break;
 	case _pause:
 		{
-			//delete _pauseScreen;
-			_pauseScreen = NULL;
+			SAFE_DELETE(_pauseScreen);
 			_pauseScreen = new PauseScreen();
 		}
 		break;
 	case _retry:
 		{
-			//delete _retryScreen;
-			_retryScreen = NULL;
+			SAFE_DELETE(_retryScreen);
 			_retryScreen = new RetryScreen();
 		}
 		break;

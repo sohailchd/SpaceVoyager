@@ -31,10 +31,9 @@ void SoundData::play()
 {
 
 	
-	if(instance)
+	if(instance && !isPaused)
 	   {
 		   instance->setIsPaused(false);
-		   isPaused = false;
 	   }
 	else
 	{
@@ -44,10 +43,11 @@ void SoundData::play()
 		}
 		
 	}
+
 }
 
 
-void SoundData::stop(){ if(instance!=NULL) instance->stop();  instance->drop(); instance=NULL; }
+void SoundData::stop(){ if(instance!=NULL) instance->stop(); }
 void SoundData::pause(){  if(instance){instance->setIsPaused(true);} isPaused=true;}
 void SoundData::resume(){ if(instance){ instance->setIsPaused(false);} isPaused = false;  }  
 void SoundData::setVol(float v)

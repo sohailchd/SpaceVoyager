@@ -16,7 +16,8 @@
 
 const unsigned int FPS = 70;
 TextureLoader* parallelLoader_texture = new TextureLoader();
-
+int w_main;
+int h_main;
 
 
 void display_cb()
@@ -59,28 +60,36 @@ void joystick_fn(unsigned int buttons , int xaxis , int yaxis , int zaxis)
         }*/
         
 }
+
+
+void reshape(int w, int h)
+{
+	w_main=w;
+	h_main=h;
+
+	Game::getInstance()->reshape(w,h);
+
+}
+
+
 void timer_cb(int t)
 {
 
 
 	   
 	    XInputHandler::getInstance()->updateX();
-
+		SoundManager::getInstance()->startPlayList();
         Game::getInstance()->timer_fn_game(t);
         glutPostRedisplay();
-       
+	
 		GameStateManager::timeSinceStart = (float) glutGet(GLUT_ELAPSED_TIME);
         GameStateManager::deltaTime = GameStateManager::timeSinceStart - GameStateManager::timeSinceLast;
         GameStateManager::timeSinceLast = GameStateManager::timeSinceStart;
        
-		//SoundManager::getInstance()->startPlayList();
-
-		//printf("----FPS : %f \n",1000/GameStateManager::deltaTime);
-		//printf("GPAD : %d\n",XInputHandler::isConnected);
-        
-		if(1.0f*1000/GameStateManager::deltaTime > 30)
+		
+		if(1.0f*1000/GameStateManager::deltaTime < 10.0f)
 		{
-			//exit(1);
+			reshape(w_main,h_main);
 		}
 
         glutTimerFunc(1000/FPS,timer_cb,0);
@@ -90,13 +99,6 @@ void timer_cb(int t)
 
 
 
-void reshape(int w, int h)
-{
-
-
-	Game::getInstance()->reshape(w,h);
-
-}
 
 
 void jsInfo()
@@ -141,6 +143,7 @@ int main(int argv , char* args[]){
 	  glEnable(GL_CULL_FACE);
 	  glEnable(GLU_CULLING);
   
+	  SoundManager::getInstance()->setMusicState(true);
 	 
 	  //glutFullScreen();
       glutDisplayFunc(display_cb);

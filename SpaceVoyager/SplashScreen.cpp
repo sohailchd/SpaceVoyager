@@ -12,7 +12,18 @@ double blue_rect[] = {0.2,0.4,0.8};
 bool logo_done = false;
 double c_sc[] = {1.0,1.0,1.0};
 
-SplashScreen::SplashScreen(){ }
+SplashScreen::SplashScreen()
+{
+	SoundManager::getInstance()->addCurrentPlayList(SPLASH_THEME_1,true,SPLASH_THEME_1_C);
+	cout<<"SplashScreen: initialised"<<endl;
+}
+
+SplashScreen::~SplashScreen()
+{
+	cout<<"SplashScreen: deleted"<<endl;
+	
+}
+
 
 void  SplashScreen::display_screen()
 {
@@ -47,15 +58,6 @@ void  SplashScreen::display_screen()
 			glDisable(GL_BLEND);
 			glPopMatrix(); 
 
-
-			/*glPushMatrix();
-			glEnable(GL_BLEND);
-			glColor4f(0.2,0.2,0.2,0.5);
-			glTranslatef(0.93,-0.35,-1);
-		    glScalef(2,0.5,1);
-			glutSolidCube(0.5);
-			glDisable(GL_BLEND);
-			glPopMatrix();*/
 
 			glPushMatrix(); 
 			glLoadIdentity();
@@ -111,12 +113,13 @@ void SplashScreen::loadObjects()
 
 void SplashScreen::timer_screen(int t)
 {
+	
 
-     if(GameStateManager::timeSinceStart/1000 > 5)
+     if(GameStateManager::timeSinceStart/1000 > 10)
      {
 		 GameStateManager::getInstance()->setGameState(_menu);
      }
-	 if(GameStateManager::timeSinceStart/1000 > 2)
+	 if(GameStateManager::timeSinceStart/1000 > 5)
 	 {
 		 logo_done = true;
 	 }
